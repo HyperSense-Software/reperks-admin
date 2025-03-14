@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  build:
+    commands:
+      - echo Installing dependency...
+      - npm install -g next@14.2.3
+      - npm install -g typescript@5
+      - npm install
+      - npm run build
+artifacts:
+  files:
+    - .next/**/*
+    - locales/**/*
+    - static/**/*
+    - package.json
+    - next.config.js
+    - tsconfig.json
+    - tsconfig.server.json

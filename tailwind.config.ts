@@ -1,3 +1,5 @@
+import tailwindcss_animate from 'tailwindcss-animate';
+
 const config = {
   darkMode: ['class'],
   content: [
@@ -25,6 +27,7 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          dark: 'hsl(var(--primary-dark))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -72,7 +75,7 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindcss_animate],
 };
 
 export default config;

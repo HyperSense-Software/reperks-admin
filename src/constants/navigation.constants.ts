@@ -7,10 +7,4 @@ export const navItems: NavItem[] = [
     icon: 'dashboard',
     label: 'Dashboard',
   },
-  {
-    title: 'Projects',
-    href: '/dashboard/projects',
-    icon: 'briefcaseBusiness',
-    label: 'Projects',
-  },
 ];

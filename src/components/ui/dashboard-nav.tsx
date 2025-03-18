@@ -8,7 +8,13 @@ import { cn } from '@/lib/utils';
 import { NavItem } from '@/interfaces';
 import { Dispatch, SetStateAction } from 'react';
 import { useSidebar } from '@/hooks/useSidebar';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './tooltip';
+import { useLocale } from 'next-intl';
 
 type IconKeys = keyof typeof Icons;
 
@@ -18,7 +24,13 @@ interface DashboardNavProps {
   isMobileNav?: boolean;
 }
 
-export function DashboardNav({ items, setOpen, isMobileNav = false }: DashboardNavProps) {
+export function DashboardNav({
+  items,
+  setOpen,
+  isMobileNav = false,
+}: DashboardNavProps) {
+  const locale = useLocale();
+
   const path = usePathname();
   const { isMinimized } = useSidebar();
 
@@ -37,9 +49,11 @@ export function DashboardNav({ items, setOpen, isMobileNav = false }: DashboardN
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
                   <Link
-                    href={item.disabled ? '/' : item.href}
+                    href={
+                      item.disabled ? `/${locale}` : `/${locale}${item.href}`
+                    }
                     className={cn(
-                      'flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
+                      'hover:bg-accent hover:text-accent-foreground flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium',
                       path === item.href ? 'bg-accent' : 'transparent',
                       item.disabled && 'cursor-not-allowed opacity-80',
                     )}

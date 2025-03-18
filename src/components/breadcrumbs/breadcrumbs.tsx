@@ -6,6 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { useLocale } from 'next-intl';
 import React, { Fragment } from 'react';
 
 type BreadcrumbItemProps = {
@@ -14,6 +15,7 @@ type BreadcrumbItemProps = {
 };
 
 export function Breadcrumbs({ items }: { items: BreadcrumbItemProps[] }) {
+  const locale = useLocale();
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -21,11 +23,15 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItemProps[] }) {
           <Fragment key={item.title}>
             {index !== items.length - 1 && (
               <BreadcrumbItem>
-                <BreadcrumbLink href={item.link}>{item.title}</BreadcrumbLink>
+                <BreadcrumbLink href={`/${locale}${item.link}`}>
+                  {item.title}
+                </BreadcrumbLink>
               </BreadcrumbItem>
             )}
             {index < items.length - 1 && <BreadcrumbSeparator />}
-            {index === items.length - 1 && <BreadcrumbPage>{item.title}</BreadcrumbPage>}
+            {index === items.length - 1 && (
+              <BreadcrumbPage>{item.title}</BreadcrumbPage>
+            )}
           </Fragment>
         ))}
       </BreadcrumbList>

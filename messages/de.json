@@ -1,0 +1,128 @@
+{
+  "dashboard": {
+    "title": "Willkommen auf unserer Website"
+  },
+  "LanguageSwitcher": {
+      "switchLanguage": "Sprachwechsler"
+  },
+  "auth": {
+    "login": {
+      "SEO": {
+          "title": "Einloggen",
+          "description": "Melden Sie sich bei Ihrem Konto an"
+      },
+      "title": "Einloggen",
+      "email": {
+          "label": "Email",
+          "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+      },
+      "password": {
+          "label": "Passwort",
+          "placeholder": "Geben Sie Ihr Passwort ein"
+      },
+      "submit": "Einloggen",
+      "forgotPassword": "Passwort vergessen?",
+      "validation": {
+          "email": {
+              "required": "E-Mail ist erforderlich",
+              "invalid": "Ungültige E-Mail-Adresse"
+          },
+          "password": {
+              "requirements": "Passwortanforderungen:",
+              "minLength": "Mindestlänge mindestens 8 Zeichen",
+              "number": "Enthält mindestens 1 Nummer",
+              "specialChar": "Enthält mindestens 1 Sonderzeichen",
+              "uppercase": "Enthält mindestens 1 Großbuchstaben",
+              "lowercase": "Enthält mindestens 1 Kleinbuchstaben"
+          }
+      }
+    },
+    "change-password": {
+      "SEO": {
+        "title": "Passwort ändern",
+        "description": "Ändern Sie Ihr Kontopasswort"
+      }
+    },
+    "reset-password": {
+      "SEO": {
+        "title": "Passwort zurücksetzen",
+        "description": "Passwort vergessen? Keine Sorge, wir helfen Ihnen, es zurückzusetzen."
+      },
+      "invalidLink": {
+        "title": "Ungültiger Link",
+        "description": "Der Link, den Sie verwenden möchten, ist ungültig.",
+        "cta": "Zurück zur Startseite"
+      },
+      "formSchema": {
+        "password": "Passwortanforderungen: Mindestlänge mindestens 8 Zeichen, Enthält mindestens 1 Nummer, Enthält mindestens 1 Sonderzeichen, Enthält mindestens 1 Großbuchstaben, Enthält mindestens 1 Kleinbuchstaben",
+        "passwordMatch": "Passwörter müssen übereinstimmen"
+      },
+      "submit": {
+        "error": "Ein Fehler ist aufgetreten",
+        "success": "Erfolg"
+      },
+      "form": {
+        "title": "Passwort ändern",
+        "description": "Setzen Sie Ihr neues Passwort.",
+        "password": {
+          "label": "Neues Passwort",
+          "placeholder": "Geben Sie Ihr neues Passwort ein"
+        },
+        "passwordRepeat": {
+          "label": "Neues Passwort wiederholen",
+          "placeholder": "Wiederholen Sie Ihr neues Passwort"
+        },
+        "login": {
+          "label": "Haben Sie bereits ein Konto?",
+          "cta": "Einloggen"
+        }
+      }
+    },
+    "forget-password": {
+      "SEO": {
+        "title": "Passwort vergessen",
+        "description": "Passwort vergessen? Keine Sorge, wir helfen Ihnen, es zurückzusetzen."
+      },
+      "form-schema": {
+        "email": "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen."
+      },
+      "title": "Passwort vergessen",
+      "email": {
+        "label": "Email",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"
+      },
+      "submit": "Absenden",
+      "login": {
+        "label": "Haben Sie bereits ein Konto?",
+        "cta": "Einloggen"
+      }
+    },
+    "confirm-code": {
+      "SEO": {
+        "title": "Code bestätigen",
+        "description": "Bestätigen Sie den Code, der an Ihre E-Mail oder Authenticator gesendet wurde"
+      },
+      "submit": {
+        "next": "NÄCHSTER SCHRITT: ",
+        "success": "Erfolgreich angemeldet!"
+      },
+      "sms": {
+        "title": "Codenummer verifizieren",
+        "description": "Geben Sie den Code ein, der an Ihre Telefonnummer gesendet wurde"
+      },
+      "totp": {
+        "title": "Code verifizieren",
+        "description": "Geben Sie den Code aus Ihrer Authenticator-App ein"
+      },
+      "form": {
+        "cancel": "Abbrechen",
+        "submit": "Absenden"
+      }
+    }
+  },
+  "sidebar-top": {
+    "title": "Mein Konto",
+    "settings": "Benutzereinstellungen",
+    "logout": "Abmelden"
+  }
+}

@@ -1,14 +1,23 @@
-import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import {
+  Action,
+  combineReducers,
+  configureStore,
+  ThunkAction,
+} from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
-import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
 
-import portfolioReducer from '@/store/portfolio/portfolio.reducer';
-import portfoliosReducer from '@/store/portfolios/portfolios.reducer';
-import portfoliosCounterReducer from '@/store/portfolios-counter/portfoliosCounter.reducer';
 import authReducer from '@/store/auth/auth.reducer';
 import appReducer from '@/store/app/app.reducer';
-import filtersReduce from '@/store/portfolios-filters/portfolios-filters.reduce';
 import s3UploadReducer from './s3Upload/s3Upload.reducer';
 
 const persistConfig = {
@@ -21,10 +30,6 @@ const persistConfig = {
 const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
-  portfolio: portfolioReducer,
-  portfolios: portfoliosReducer,
-  portfoliosCounter: portfoliosCounterReducer,
-  filters: filtersReduce,
   s3Upload: s3UploadReducer,
 });
 

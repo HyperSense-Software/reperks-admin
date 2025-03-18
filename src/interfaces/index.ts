@@ -9,3 +9,24 @@ export interface NavItem {
   label?: string;
   description?: string;
 }
+
+export interface authRecoverCognitoState {
+  username: string;
+}
+
+export interface authCognitoState {
+  email: string;
+  password: string;
+}
+
+export interface AuthState {
+  isAuth: boolean;
+  name: string;
+  email: string;
+  role: string;
+  token: string;
+}
+
+export interface AppState {
+  isLoading: boolean;
+}

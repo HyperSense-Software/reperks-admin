@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { s3UploadInitialState, s3UploadState } from './s3Upload.state';
 import { uploadS3 } from './s3Upload.thunk';
-import { PreAsignedUrlResponse } from '@/interfaces/Portfolio';
+import { PresignedUrlResponse } from '@/services/s3';
 
 export const s3UploadSlice = createSlice({
   name: 's3Upload',
@@ -15,8 +15,11 @@ export const s3UploadSlice = createSlice({
     builder
       .addCase(
         uploadS3.fulfilled,
-        (state: s3UploadState, action: PayloadAction<PreAsignedUrlResponse | unknown>) => {
-          const payload = action.payload as PreAsignedUrlResponse;
+        (
+          state: s3UploadState,
+          action: PayloadAction<PresignedUrlResponse | unknown>,
+        ) => {
+          const payload = action.payload as PresignedUrlResponse;
 
           state.url = payload.url + payload.fields.key;
           state.path = payload.fields.key;
@@ -26,10 +29,13 @@ export const s3UploadSlice = createSlice({
       .addCase(uploadS3.pending, (state: s3UploadState) => {
         state.loading = true;
       })
-      .addCase(uploadS3.rejected, (state: s3UploadState, action: PayloadAction<unknown>) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+      .addCase(
+        uploadS3.rejected,
+        (state: s3UploadState, action: PayloadAction<unknown>) => {
+          state.loading = false;
+          state.error = action.payload;
+        },
+      );
   }, // Add extra reducers here for Async Await .replace('tmp/', '')
 });
 

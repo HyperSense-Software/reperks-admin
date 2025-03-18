@@ -17,8 +17,13 @@ import { signOut } from '@aws-amplify/auth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
+import { useLocale } from 'next-intl';
+import { useTranslations } from 'use-intl';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher.view';
 
 export default function Header() {
+  const locale = useLocale();
+  const t = useTranslations('sidebar-top');
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -27,7 +32,7 @@ export default function Header() {
     try {
       await signOut();
       toast.success('Logged out');
-      router.push('/login');
+      router.push(`/${locale}/login`);
       dispatch(TOGGLE_LOADER(false));
     } catch (err: unknown) {
       toast.error(JSON.stringify(err));
@@ -42,23 +47,32 @@ export default function Header() {
           <MobileSidebar />
         </div>
         <div className="flex items-center gap-2">
+          <LanguageSwitcher className="" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-                <User width={24} height={24} className="overflow-hidden rounded-full" />
+              <Button
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <User
+                  width={24}
+                  height={24}
+                  className="overflow-hidden rounded-full"
+                />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('title')}</DropdownMenuLabel>
               <DropdownMenuItem asChild>
-                <Link href={'/dashboard/settings/security'}>
+                <Link href={`/${locale}/dashboard/settings/security`}>
                   <Settings className="mr-2 h-4 w-4" />
-                  User Settings
+                  {t('settings')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
-                Logout
+                {t('logout')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

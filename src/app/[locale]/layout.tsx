@@ -1,0 +1,36 @@
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import React, { ReactNode } from 'react';
+import NextTopLoader from 'nextjs-toploader';
+import { getLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+
+import './globals.css';
+import { StoreProvider } from '@/components/StoreProvider/StoreProvider';
+import ConfigureAmplifyClientSide from '@/components/common/ConfigureAmplifyClientSide';
+import { Toaster } from '@/components/ui/sonner';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'Dashboard App',
+  description: 'Dashboard App',
+};
+
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale}>
+      <body className={inter.className}>
+        <StoreProvider>
+          <NextTopLoader showSpinner={false} />
+          <ConfigureAmplifyClientSide>
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            <Toaster richColors />
+          </ConfigureAmplifyClientSide>
+        </StoreProvider>
+      </body>
+    </html>
+  );
+}

@@ -111,40 +111,27 @@ const ProfileSecurityComponent = () => {
 
   return (
     <div className="flex w-full flex-col gap-6">
-      <div className={`flex w-full flex-col gap-4`}>
-        <h1 className={'font-semibold text-black'}>
-          Two-factor authentication
-        </h1>
-        <p className={`font-normal text-gray-500`}>
-          Two-factor authentication is an enhanced security measure. Once
-          enabled. you’ll be required to give two types of identification when
-          you log into HSS Admin.
-        </p>
-      </div>
       <div className={`flex w-full flex-col gap-6`}>
         <Card>
           <CardHeader className="gap-2">
             <CardTitle>SMS 2FA</CardTitle>
             <CardDescription>
               By enabling this feature you will have to register your phone and
-              verify it with the code received via{' '}
-              <span className="font-bold">SMS</span>.
-              <br />
-              Later on, every time you login into the app you will have to
-              additionally verify yourself by submitting a code that you will
-              receive via <span className="font-bold">SMS</span>.
+              verify it with the code received vis SMS. Later on, every time you
+              login into the app you will have to additionally very yourself by
+              submitting a code that you will receive via SMS.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex w-full flex-row items-center">
-            {mfaPreferred === 'SMS' ? (
+          {mfaPreferred === 'SMS' ? (
+            <CardContent className="flex w-full flex-row items-center">
               <div className={`rounded-full bg-emerald-700 px-2.5 py-0.5`}>
                 <p className={`font-semibold text-white`}>Enabled</p>
               </div>
-            ) : null}
-          </CardContent>
+            </CardContent>
+          ) : null}
           <Separator />
           {mfaEnabledType && mfaEnabledType.includes('SMS') ? (
-            <CardFooter className="flex flex-row justify-end gap-6 py-6">
+            <CardFooter className="flex flex-row justify-end gap-6">
               {mfaPreferred !== 'SMS' ? (
                 <Button
                   type="button"
@@ -166,7 +153,7 @@ const ProfileSecurityComponent = () => {
               </Button>
             </CardFooter>
           ) : (
-            <CardFooter className="flex flex-row justify-end py-6">
+            <CardFooter className="flex flex-row justify-end">
               <Button asChild type="button">
                 <Link href={`/${locale}/dashboard/2FA/sms/addPhone`}>
                   Set up 2FA with SMS
@@ -180,20 +167,22 @@ const ProfileSecurityComponent = () => {
             <CardTitle>TOTP 2FA</CardTitle>
             <CardDescription>
               By enabling this feature you will have to scan a QR code with your
-              phone in order to add the TOTP to an authenticator app like{' '}
-              <span className="font-bold"> Google Authenticator </span>.
+              phone in order to add the TOTP to an authenticator app like Google
+              Authenticator.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex w-full flex-row items-center">
-            {mfaPreferred === 'TOTP' ? (
+
+          {mfaPreferred === 'TOTP' ? (
+            <CardContent className="flex w-full flex-row items-center">
               <div className={`rounded-full bg-emerald-700 px-2.5 py-0.5`}>
                 <p className={`font-semibold text-white`}>Enabled</p>
               </div>
-            ) : null}
-          </CardContent>
+            </CardContent>
+          ) : null}
+
           <Separator />
           {mfaEnabledType && mfaEnabledType.includes('TOTP') ? (
-            <CardFooter className="flex flex-row justify-end gap-6 py-6">
+            <CardFooter className="flex flex-row justify-end gap-6">
               {mfaPreferred !== 'TOTP' ? (
                 <Button
                   type="button"
@@ -216,7 +205,7 @@ const ProfileSecurityComponent = () => {
               </Button>
             </CardFooter>
           ) : (
-            <CardFooter className="flex flex-row justify-end py-6">
+            <CardFooter className="flex flex-row justify-end">
               <Button asChild type="button">
                 <Link href={`/${locale}/dashboard/2FA/totp/qrCode`}>
                   Set up 2FA with TOTP

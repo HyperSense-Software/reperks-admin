@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import PageContainer from '@/components/ui/page-container';
 import { SidebarNav } from '@/components/sidebar-nav/sidebar-nav';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
@@ -30,7 +30,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
           <aside className="lg:w-1/5">
             <SidebarNav items={sidebarNavItems} />
           </aside>
-          <div className="flex-1">{children}</div>
+          <div className="max-w-2xl flex-1">{children}</div>
         </div>
       </div>
     </PageContainer>

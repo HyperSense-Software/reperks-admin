@@ -1,6 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { toast } from 'sonner';
+import {
+  fetchMFAPreference,
+  FetchMFAPreferenceOutput,
+  updateMFAPreference,
+} from 'aws-amplify/auth';
+import { useLocale } from 'next-intl';
+
 import {
   Card,
   CardContent,
@@ -11,18 +19,10 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import {
-  fetchMFAPreference,
-  FetchMFAPreferenceOutput,
-  updateMFAPreference,
-} from 'aws-amplify/auth';
 import { useAppDispatch } from '@/store';
 import { TOGGLE_LOADER } from '@/store/app/app.actions';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import { AuthMFAType } from '@aws-amplify/auth/src/types/models';
-import { useLocale } from 'next-intl';
+
+export type AuthMFAType = 'SMS' | 'TOTP' | 'EMAIL' | null;
 
 const ProfileSecurityComponent = () => {
   const locale = useLocale();
@@ -89,7 +89,6 @@ const ProfileSecurityComponent = () => {
       dispatch(TOGGLE_LOADER(false));
     }
   };
-
   useEffect(() => {
     dispatch(TOGGLE_LOADER(true));
 
@@ -98,7 +97,7 @@ const ProfileSecurityComponent = () => {
         if (enabled) {
           setMfaEnabledType(enabled);
           if (preferred) {
-            setMfaPreferred([preferred]);
+            setMfaPreferred(preferred);
           }
         }
       })

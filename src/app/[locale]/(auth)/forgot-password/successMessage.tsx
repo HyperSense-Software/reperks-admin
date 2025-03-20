@@ -7,11 +7,11 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 
 export function SuccessMessage() {
   const locale = useLocale();
-  const t = useTranslations('auth.forgot-password');
+  // const t = useTranslations('auth.forgot-password');
   return (
     <Card>
       <CardHeader>

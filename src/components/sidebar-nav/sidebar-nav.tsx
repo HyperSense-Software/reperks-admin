@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
@@ -15,7 +14,6 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
-  const pathname = usePathname();
   const locale = useLocale();
 
   return (
@@ -32,9 +30,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
           href={`/${locale}${item.href}`}
           className={cn(
             buttonVariants({ variant: 'ghost' }),
-            pathname === item.href
-              ? 'bg-muted hover:bg-muted'
-              : 'hover:bg-transparent hover:underline',
+            'bg-white hover:bg-[#F1F5F9]',
             'justify-start',
           )}
         >

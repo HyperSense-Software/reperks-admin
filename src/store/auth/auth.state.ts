@@ -1,4 +1,4 @@
-import { AuthState } from '@/models';
+import { AuthState } from '@/interfaces';
 
 export const authInitialState: { value: AuthState } = {
   value: {

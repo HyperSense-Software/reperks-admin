@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authInitialState } from '@/store/auth/auth.state';
-import { WritableDraft } from 'immer/src/types/types-external';
-import { AuthState } from '@/models';
+import { AuthState } from '@/interfaces';
+import { WritableDraft } from 'immer';
 
 export const authSlice = createSlice({
   name: 'auth',

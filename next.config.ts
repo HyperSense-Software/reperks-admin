@@ -30,8 +30,5 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
-console.log('nextConfig');
-console.log(nextConfig);
-
 const withNextIntl = createNextIntlPlugin();
 export default withNextIntl(nextConfig);

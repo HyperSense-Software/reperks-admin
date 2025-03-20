@@ -3,12 +3,12 @@
 import { useTranslations } from 'next-intl';
 
 export const dynamic = 'force-dynamic';
-import React, { useEffect } from 'react';
+import React from 'react';
 import PageContainer from '@/components/ui/page-container';
-import { useAppDispatch } from '@/store';
+// import { useAppDispatch } from '@/store';
 
 export default function DashboardView() {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const t = useTranslations('dashboard');
 
   // useEffect(() => {

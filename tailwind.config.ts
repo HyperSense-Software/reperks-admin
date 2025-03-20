@@ -76,6 +76,11 @@ const config = {
     },
   },
   plugins: [tailwindcss_animate],
+  classNameObfuscation: {
+    enable: true,
+    // Optional: customize the prefix for obfuscated class names
+    prefix: 'test',
+  },
 };
 
 export default config;

@@ -13,8 +13,8 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from './tooltip';
-import { useLocale } from 'next-intl';
+} from './ui/tooltip';
+import { useLocale, useTranslations } from 'next-intl';
 
 type IconKeys = keyof typeof Icons;
 
@@ -30,6 +30,7 @@ export function DashboardNav({
   isMobileNav = false,
 }: DashboardNavProps) {
   const locale = useLocale();
+  const t = useTranslations('nav-items');
 
   const path = usePathname();
   const { isMinimized } = useSidebar();
@@ -45,26 +46,28 @@ export function DashboardNav({
           const iconKey = (item.icon || 'arrowRight') as IconKeys;
           const Icon = Icons[iconKey];
           return (
-            item.href && (
+            item.url && (
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
                   <Link
                     href={
-                      item.disabled ? `/${locale}` : `/${locale}${item.href}`
+                      item.disabled ? `/${locale}` : `/${locale}${item.url}`
                     }
                     className={cn(
-                      'hover:bg-accent hover:text-accent-foreground flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium',
-                      path === item.href ? 'bg-accent' : 'transparent',
+                      'hover:bg-accent hover:text-accent-foreground flex items-center gap-2 overflow-hidden rounded-md px-3 py-4 text-sm font-medium',
+                      path === item.url ? 'bg-accent' : 'transparent',
                       item.disabled && 'cursor-not-allowed opacity-80',
                     )}
                     onClick={() => {
                       if (setOpen) setOpen(false);
                     }}
                   >
-                    <Icon className={`ml-3 size-5 flex-none`} />
+                    <Icon className={`size-6 flex-none stroke-slate-500`} />
 
                     {isMobileNav || (!isMinimized && !isMobileNav) ? (
-                      <span className="mr-2 truncate">{item.title}</span>
+                      <span className="mr-2 truncate text-slate-500">
+                        {t(item.label.toLocaleLowerCase() + '.title')}
+                      </span>
                     ) : (
                       ''
                     )}

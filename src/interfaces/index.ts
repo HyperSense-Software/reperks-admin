@@ -2,12 +2,17 @@ import { Icons } from '@/components/icons';
 
 export interface NavItem {
   title: string;
-  href?: string;
+  url?: string;
   disabled?: boolean;
   external?: boolean;
+  isActive?: boolean;
   icon?: keyof typeof Icons | string;
-  label?: string;
+  label: string; //for translation
   description?: string;
+  items?: {
+    title: string;
+    url: string;
+  }[];
 }
 
 export interface authRecoverCognitoState {

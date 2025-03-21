@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { cva } from 'class-variance-authority';
 import {
   AlignCenter,
@@ -29,7 +30,6 @@ import {
   Indent,
   Italic,
   Keyboard,
-  LayoutDashboardIcon,
   Link2,
   Link2Off,
   List,
@@ -65,6 +65,11 @@ import {
   WrapText,
   X,
 } from 'lucide-react';
+
+import Dashboard from '../public/assets/nav-items/dashboard.svg';
+import Portfolio from '../public/assets/nav-items/portfolio.svg';
+import Offers from '../public/assets/nav-items/offers.svg';
+import Notifications from '../public/assets/nav-items/notifications.svg';
 
 import type { LucideIcon } from 'lucide-react';
 
@@ -162,7 +167,10 @@ const borderTop = (props: LucideProps) => (
 
 export const Icons = {
   briefcaseBusiness: BriefcaseBusiness,
-  dashboard: LayoutDashboardIcon,
+  dashboard: Dashboard,
+  portfolio: Portfolio,
+  offers: Offers,
+  notifications: Notifications,
   login: LogIn,
   add: Plus,
   alignCenter: AlignCenter,

@@ -42,7 +42,7 @@ export default function Header() {
 
   return (
     <header className="sticky inset-x-0 top-0 w-full shadow-sm">
-      <nav className="flex items-center justify-between px-4 py-2 lg:justify-end">
+      <nav className="border-border flex items-center justify-between border-b px-6 py-[10px] lg:justify-end">
         <div className={cn('block lg:!hidden')}>
           <MobileSidebar />
         </div>
@@ -53,13 +53,9 @@ export default function Header() {
               <Button
                 variant="outline"
                 size="icon"
-                className="overflow-hidden rounded-full"
+                className="overflow-hidden rounded-full p-[10px]"
               >
-                <User
-                  width={24}
-                  height={24}
-                  className="overflow-hidden rounded-full"
-                />
+                <User className="overflow-hidden rounded-full" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">

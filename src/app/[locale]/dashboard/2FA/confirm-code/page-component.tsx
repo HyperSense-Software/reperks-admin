@@ -28,7 +28,7 @@ import {
 } from 'aws-amplify/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const TOTPConfirmCodeComponent = () => {
   const locale = useLocale();
@@ -39,13 +39,15 @@ const TOTPConfirmCodeComponent = () => {
   const [code, setCode] = useState('');
   const [verifyCode, setVerifyCode] = useState(false);
 
+  const t = useTranslations('dashboard.mfa.confirm-code');
+
   const resentCode = async () => {
     setResendCode(true);
     try {
       await sendUserAttributeVerificationCode({
         userAttributeKey: 'phone_number',
       });
-      toast.success(`SMS Code resent`);
+      toast.success(t('sms-resend'));
     } catch (err: unknown) {
       toast.error(JSON.stringify(err));
     } finally {
@@ -71,6 +73,11 @@ const TOTPConfirmCodeComponent = () => {
           break;
       }
       toast.success(`${confirm2FAType?.toUpperCase()} Code Confirmed`);
+      toast.success(
+        t('code-confirmed', {
+          code: confirm2FAType ? confirm2FAType.toUpperCase() : '',
+        }),
+      );
       router.push(
         `/${locale}/dashboard/2FA/verified?verified=${confirm2FAType}`,
       );
@@ -87,7 +94,9 @@ const TOTPConfirmCodeComponent = () => {
         <div
           className={`flex w-dvw max-w-[744px] flex-col content-center justify-center gap-6`}
         >
-          <p className={`self-center font-medium text-gray-500`}>Step 2 of 2</p>
+          <p className={`self-center font-medium text-gray-500`}>
+            {t('title')}
+          </p>
           <Progress value={100} className={`bg-white`} />
         </div>
       ) : null}
@@ -96,16 +105,16 @@ const TOTPConfirmCodeComponent = () => {
         <CardHeader>
           <CardTitle>
             {confirm2FAType === 'sms'
-              ? 'Verify code number'
+              ? t('confirm2FAType.title.sms')
               : confirm2FAType === 'totp'
-                ? 'Verify Google Authenticator'
+                ? t('confirm2FAType.title.totp')
                 : ''}
           </CardTitle>
           <CardDescription>
             {confirm2FAType === 'sms'
-              ? 'Enter the code you received on your phone.'
+              ? t('confirm2FAType.description.sms')
               : confirm2FAType === 'totp'
-                ? 'Enter a code from Google Authenticator to make sure everything works.'
+                ? t('confirm2FAType.description.totp')
                 : ''}
           </CardDescription>
         </CardHeader>
@@ -130,11 +139,7 @@ const TOTPConfirmCodeComponent = () => {
           </InputOTP>
           {confirm2FAType === 'sms' ? (
             <Button
-              className={
-                resendCode
-                  ? 'w-36 justify-between gap-2'
-                  : 'w-36 justify-between gap-2'
-              }
+              className={'w-auto justify-between gap-2'}
               type={'button'}
               variant={'outline'}
               disabled={resendCode}
@@ -142,7 +147,7 @@ const TOTPConfirmCodeComponent = () => {
                 resentCode();
               }}
             >
-              Resent code
+              {t('resent')}
               {resendCode ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
@@ -153,24 +158,23 @@ const TOTPConfirmCodeComponent = () => {
         <Separator />
         <CardFooter className="flex flex-row items-center justify-end gap-6 py-6">
           <Button asChild type="button" variant={'outline'}>
-            <Link href={`/${locale}/dashboard/settings/security`}>Cancel</Link>
+            <Link href={`/${locale}/dashboard/settings/security`}>
+              {t('cancel')}
+            </Link>
           </Button>
 
           <Button
             type="button"
             className={
-              code.length < 6
-                ? 'w-28 justify-between gap-2 bg-gray-400'
-                : verifyCode
-                  ? 'w-28 justify-between'
-                  : `w-28 justify-center`
+              'w-auto justify-between ' +
+              (code.length < 6 ? 'gap-2 bg-gray-400' : '')
             }
             disabled={verifyCode}
             onClick={() => {
               onSubmit();
             }}
           >
-            Continue
+            {t('continue')}
             {verifyCode ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : null}

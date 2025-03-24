@@ -1,7 +1,4 @@
 {
-  "dashboard": {
-    "title": "Willkommen auf unserer Website"
-  },
   "LanguageSwitcher": {
     "switchLanguage": "Sprachwechsler"
   },
@@ -182,6 +179,47 @@
     }
   },
   "dashboard": {
+    "title": "Willkommen auf unserer Website",
+    "mfa": {
+      "layout-title": "Zwei-Faktor-Authentifizierung",
+      "confirm-code": {
+        "title": "Schritt 2 von 2",
+        "sms-resend": "SMS-Code erneut gesendet",
+        "code-confirmed": "{code} Code bestätigt",
+        "confirm2FAType": {
+          "title": {
+            "sms": "Codenummer überprüfen",
+            "totp": "Google Authenticator verifizieren"
+          },
+          "description": {
+            "sms": "Geben Sie den Code ein, den Sie auf Ihrem Telefon erhalten haben.",
+            "totp": "Geben Sie einen Code von Google Authenticator ein, um sicherzustellen, dass alles funktioniert."
+          }
+        },
+        "resent": "Code erneut gesendet",
+        "cancel": "Stornieren",
+        "continue": "Weitermachen"
+      },
+      "sms": {
+        "addPhone": {
+          "title": "Telefonnummer hinzufügen",
+          "description": "Tragen Sie Ihre Telefonnummer in das Eingabefeld ein.",
+          "form": {
+            "label": "Telefon",
+            "placeholder": "Telefonnummer",
+            "validation": {
+              "phone": "Die Telefonnummer muss mindestens 11 Ziffern haben"
+            }
+          },
+          "messages": {
+            "not-updated": "Telefonnummer nicht aktualisiert",
+            "added": "Telefon {phone} hinzugefügt"
+          },
+          "cancel": "Stornieren",
+          "continue": "Code senden"
+        }
+      }
+    },
     "settings": {
       "security": {
         "default": {
@@ -200,7 +238,7 @@
         },
         "totp": {
           "title": "TOTP 2FA",
-          "description":" Wenn Sie diese Funktion aktivieren, müssen Sie mit Ihrem Telefon einen QR-Code scannen, um das TOTP zu einer Authentifizierungs-App wie Google Authenticator hinzuzufügen.",
+          "description": " Wenn Sie diese Funktion aktivieren, müssen Sie mit Ihrem Telefon einen QR-Code scannen, um das TOTP zu einer Authentifizierungs-App wie Google Authenticator hinzuzufügen.",
           "success": "TOTP auf bevorzugte 2FA eingestellt",
           "disabled": "TOTP 2FA deaktiviert",
           "enabled": "Ermöglicht",

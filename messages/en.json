@@ -1,7 +1,4 @@
 {
-  "dashboard": {
-    "title": "Hello world!"
-  },
   "LanguageSwitcher": {
     "switchLanguage": "Language Switcher"
   },
@@ -182,6 +179,47 @@
     }
   },
   "dashboard": {
+    "title": "Hello world!",
+    "mfa": {
+      "layout-title": "Two-factor authentication",
+      "confirm-code": {
+        "title": "Step 2 of 2",
+        "sms-resend": "SMS Code resent",
+        "code-confirmed": "{code} Code Confirmed",
+        "confirm2FAType": {
+          "title": {
+            "sms": "Verify code number",
+            "totp": "Verify Google Authenticator"
+          },
+          "description": {
+            "sms": "Enter the code you received on your phone.",
+            "totp": "Enter a code from Google Authenticator to make sure everything works."
+          }
+        },
+        "resent": "Resent code",
+        "cancel": "Cancel",
+        "continue": "Continue"
+      },
+      "sms": {
+        "addPhone": {
+          "title": "Add phone number",
+          "description": "Write your phone number in the input.",
+          "form": {
+            "label": "Phone",
+            "placeholder": "Phone number",
+            "validation": {
+              "phone": "Phone must have at least 11 digits"
+            }
+          },
+          "messages": {
+            "not-updated": "Phone Number not updated",
+            "added": "Phone {phone} added"
+          },
+          "cancel": "Cancel",
+          "continue": "Send Code"
+        }
+      }
+    },
     "settings": {
       "security": {
         "default": {

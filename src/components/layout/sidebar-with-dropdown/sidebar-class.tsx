@@ -29,7 +29,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <ChevronLeft />
+      <ChevronLeft className={'mx-auto stroke-slate-500'} />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

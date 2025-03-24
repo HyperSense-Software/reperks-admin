@@ -7,20 +7,6 @@ export const navItems: NavItem[] = [
     icon: 'dashboard',
     label: 'Dashboard',
     isActive: false,
-    items: [
-      {
-        title: 'History',
-        url: '#',
-      },
-      {
-        title: 'Starred',
-        url: '#',
-      },
-      {
-        title: 'Settings',
-        url: '#',
-      },
-    ],
   },
   {
     title: 'Portfolio',

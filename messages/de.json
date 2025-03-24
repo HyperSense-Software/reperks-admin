@@ -127,7 +127,11 @@
         },
         "portfolio": {
             "title": "Portfolio",
-            "label": "Portfolio"
+            "label": "Portfolio",
+             "items":{
+                                        "assets": "Vermögenswerte",
+                                        "tenants":  "Mieter"
+                                    }
         },
         "offers": {
             "title": "Angebote",

@@ -148,7 +148,11 @@
         },
         "portfolio": {
             "title": "Portfolio",
-            "label": "Portfolio"
+            "label": "Portfolio",
+             "items":{
+                            "assets": "Assets",
+                            "tenants":  "Tenants"
+                        }
         },
         "offers": {
             "title": "Offers",

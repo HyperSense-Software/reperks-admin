@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
-
+import Link from 'next/link';
 type IconKeys = keyof typeof Icons;
 
 import {
@@ -20,7 +20,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Icons } from '@/components/icons';
-import { useLocale, useTranslations } from 'next-intl';
 
 export function NavigationMenu({
   items,
@@ -37,64 +36,98 @@ export function NavigationMenu({
     }[];
   }[];
 }) {
-  const t = useTranslations('nav-items');
   const { state } = useSidebar();
   const isMinimized = state === 'collapsed';
   return (
     <SidebarGroup>
-      <SidebarMenu>
+      <SidebarMenu className={'gap-2'}>
         {items.map((item) => {
           const iconKey = (item.icon || 'arrowRight') as IconKeys;
           const Icon = Icons[iconKey];
           return (
             <Collapsible
-              key={t(item.label.toLocaleLowerCase() + '.title')}
+              key={item.title}
               asChild
               defaultOpen={item.isActive}
-              className="group/collapsible"
+              className={'group/collapsible p-0'}
             >
               <SidebarMenuItem
                 className={
-                  'hover:bg-accent hover:text-accent-foreground gap-2 opacity-100 ' +
-                  'overflow-hidden rounded-md p-3 py-4'
+                  'gap-2 overflow-hidden rounded-md opacity-100 group-data-[state=open]/collapsible:bg-transparent ' +
+                  (isMinimized ? ' group-data-[collapsible=icon]:size10!' : '')
                 }
               >
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton
-                    tooltip={t(item.label.toLocaleLowerCase() + '.title')}
-                    className={
-                      'flex h-6 cursor-pointer items-center opacity-100 ' +
-                      'overflow-hidden rounded-md p-0 text-sm font-medium'
-                    }
-                  >
-                    {item.icon && (
-                      <Icon className={`!size-6 flex-none stroke-slate-500`} />
-                    )}
-                    {!isMinimized ? (
-                      <span className="mr-2 truncate text-slate-500">
-                        {t(item.label.toLocaleLowerCase() + '.title')}
-                      </span>
-                    ) : (
-                      ''
-                    )}
-                    <ChevronRight className="ml-auto stroke-slate-500 transition-transform duration-200 group-data-[state=open]/collapsible:-rotate-90" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {item.items?.map((subItem) => (
-                      <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
-                          <a href={subItem.url}>
-                            <span className="text-xs text-slate-950">
-                              {subItem.title}
-                            </span>
-                          </a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
+                {item.items ? (
+                  //have subitems
+                  <>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton
+                        tooltip={item.title}
+                        className={
+                          'hover:text-accent-foreground flex h-auto cursor-pointer items-center overflow-hidden ' +
+                          'rounded-md p-3 py-2 text-sm font-medium opacity-100 group-data-[collapsible=icon]:size-10! [&>svg]:size-6' +
+                          ' group-data-[collapsible=icon]:px-3!'
+                        }
+                      >
+                        {item.icon && (
+                          <Icon className={'flex-none stroke-slate-500'} />
+                        )}
+                        {!isMinimized ? (
+                          <span className="mr-2 truncate text-slate-500">
+                            {item.title}
+                          </span>
+                        ) : (
+                          ''
+                        )}
+                        <ChevronRight className="ml-auto stroke-slate-500 transition-transform duration-200 group-data-[state=open]/collapsible:-rotate-90" />
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <SidebarMenuSub className={'mx-9 mt-2'}>
+                        {item.items?.map((subItem) => (
+                          <SidebarMenuSubItem key={subItem.title}>
+                            <SidebarMenuSubButton
+                              asChild
+                              className={'text-xs font-medium text-slate-500'}
+                            >
+                              <Link href={subItem.url}>
+                                <span className="">{subItem.title}</span>
+                              </Link>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    </CollapsibleContent>
+                  </>
+                ) : (
+                  //don't have subitems
+                  <>
+                    <SidebarMenuButton
+                      tooltip={item.title}
+                      className={
+                        'hover:text-accent-foreground flex h-auto cursor-pointer items-center overflow-hidden ' +
+                        'rounded-md p-3 py-2 text-sm font-medium opacity-100 group-data-[collapsible=icon]:size-10! [&>svg]:size-6' +
+                        ' group-data-[collapsible=icon]:px-3!'
+                      }
+                    >
+                      <Link
+                        href={item.url!}
+                        className="flex items-center gap-3 [&>svg]:size-6"
+                      >
+                        {item.icon && (
+                          <Icon className={'flex-none stroke-slate-500'} />
+                        )}
+                        {!isMinimized ? (
+                          <span className="mr-2 truncate text-slate-500">
+                            {item.title}
+                          </span>
+                        ) : (
+                          ''
+                        )}
+                      </Link>
+                    </SidebarMenuButton>
+                  </>
+                )}
               </SidebarMenuItem>
             </Collapsible>
           );

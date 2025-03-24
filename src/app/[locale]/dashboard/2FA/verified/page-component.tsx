@@ -32,7 +32,9 @@ const Verified2FAComponent = () => {
       <Separator />
       <CardFooter className="flex flex-row justify-end py-6">
         <Button asChild type="button">
-          <Link href={`/${locale}/dashboard/settings/security`}>Done</Link>
+          <Link href={`/${locale}/dashboard/settings/security`}>
+            {t('submit')}
+          </Link>
         </Button>
       </CardFooter>
     </Card>

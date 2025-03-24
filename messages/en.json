@@ -83,7 +83,7 @@
         "cta": "Go back to homepage"
       },
       "formSchema": {
-        "password": "Password requirements: Minimum length at least 8 characters, Contains at least 1 number, Contains at least 1 special character, Contains at least 1 uppercase letter, Contains at least 1 lowercase letter",
+        "password": "Password requirements:\nMinimum length at least 8 characters,\nContains at least 1 number,\nContains at least 1 special character,\nContains at least 1 uppercase letter,\nContains at least 1 lowercase letter",
         "passwordMatch": "Passwords must match"
       },
       "submit": {
@@ -104,6 +104,9 @@
         "login": {
           "label": "Already have an account?",
           "cta": "Login"
+        },
+        "submit": {
+          "label": "Sign in"
         }
       }
     },

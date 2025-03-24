@@ -83,7 +83,7 @@
         "cta": "Zurück zur Startseite"
       },
       "formSchema": {
-        "password": "Passwortanforderungen: Mindestlänge mindestens 8 Zeichen, Enthält mindestens 1 Nummer, Enthält mindestens 1 Sonderzeichen, Enthält mindestens 1 Großbuchstaben, Enthält mindestens 1 Kleinbuchstaben",
+        "password": "Passwortanforderungen:\nMindestlänge mindestens 8 Zeichen,\nEnthält mindestens 1 Nummer,\nEnthält mindestens 1 Sonderzeichen,\nEnthält mindestens 1 Großbuchstaben,\nEnthält mindestens 1 Kleinbuchstaben",
         "passwordMatch": "Passwörter müssen übereinstimmen"
       },
       "submit": {
@@ -104,6 +104,9 @@
         "login": {
           "label": "Haben Sie bereits ein Konto?",
           "cta": "Einloggen"
+        },
+        "submit":{
+          "label": "Anmelden"
         }
       }
     },

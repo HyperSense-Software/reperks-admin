@@ -35,7 +35,7 @@ import { useLocale, useTranslations } from 'next-intl';
 
 function ResetPasswordForm({ email, code }: { email: string; code: string }) {
   const locale = useLocale();
-  const t = useTranslations('auth.resetPassword');
+  const t = useTranslations('auth.reset-password');
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -105,7 +105,7 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
             <CardTitle className="text-2xl">{t('form.title')}</CardTitle>
             <CardDescription>{t('form.description')}</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-4">
+          <CardContent className="grid gap-6 py-6">
             <div className="grid gap-2">
               <FormField
                 control={form.control}
@@ -122,19 +122,19 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
                         />
                         <button
                           type="button"
-                          className={'block'}
                           onClick={toggleVisibility}
+                          className={'absolute top-0 right-0 m-2.5 block'}
                         >
                           {isVisible ? (
-                            <EyeOff className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <EyeOff className="text-muted-foreground h-4 w-4" />
                           ) : (
-                            <Eye className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <Eye className="text-muted-foreground h-4 w-4" />
                           )}
                         </button>
                       </div>
                     </FormControl>
 
-                    <FormMessage />
+                    <FormMessage className={'whitespace-pre'} />
                   </FormItem>
                 )}
               />
@@ -166,14 +166,14 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className={'whitespace-pre'} />
                   </FormItem>
                 )}
               />
             </div>
           </CardContent>
           <CardFooter className={'flex-col'}>
-            <Button className="w-full">Sign in</Button>
+            <Button className="w-full">{t('form.submit.label')}</Button>
             <div className="mt-4 text-center text-sm">
               <p>{t('form.login.label')}</p>
               <Link href={`${locale}/login`} className="underline">

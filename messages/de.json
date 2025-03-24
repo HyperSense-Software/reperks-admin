@@ -181,6 +181,36 @@
       }
     }
   },
+  "dashboard": {
+    "settings": {
+      "security": {
+        "default": {
+          "success": "MFA festlegen",
+          "disabled": "Deaktivierte MFA"
+        },
+        "sms": {
+          "title": "SMS 2FA",
+          "description": "Wenn du diese Funktion aktivierst, musst du dein Handy registrieren und mit dem per SMS erhaltenen Code verifizieren. Später musst du dich bei jedem Login in die App zusätzlich mit einem per SMS erhaltenen Code verifizieren.",
+          "success": "SMS auf bevorzugte 2FA eingestellt",
+          "disabled": "SMS 2FA deaktiviert",
+          "enabled": "Ermöglicht",
+          "submit-txt": "2FA mit SMS einrichten",
+          "set-preferred": "Als bevorzugte 2FA festlegen",
+          "turn-off": "Ausschalten"
+        },
+        "totp": {
+          "title": "TOTP 2FA",
+          "description":" Wenn Sie diese Funktion aktivieren, müssen Sie mit Ihrem Telefon einen QR-Code scannen, um das TOTP zu einer Authentifizierungs-App wie Google Authenticator hinzuzufügen.",
+          "success": "TOTP auf bevorzugte 2FA eingestellt",
+          "disabled": "TOTP 2FA deaktiviert",
+          "enabled": "Ermöglicht",
+          "submit-txt": "2FA mit TOTP einrichten",
+          "set-preferred": "Als bevorzugte 2FA festlegen",
+          "turn-off": "Ausschalten"
+        }
+      }
+    }
+  },
   "nav-items": {
     "dashboard": {
       "title": "Armaturenbrett",

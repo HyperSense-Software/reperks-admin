@@ -7,7 +7,7 @@ import {
   FetchMFAPreferenceOutput,
   updateMFAPreference,
 } from 'aws-amplify/auth';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import {
   Card,
@@ -30,6 +30,8 @@ const ProfileSecurityComponent = () => {
   const [mfaPreferred, setMfaPreferred] = useState<AuthMFAType>(null);
   const [mfaEnabledType, setMfaEnabledType] = useState<AuthMFAType[]>([]);
 
+  const t = useTranslations('dashboard.settings.security');
+
   const setAsPreferredMFA = async (preferred: string) => {
     dispatch(TOGGLE_LOADER(true));
     try {
@@ -37,12 +39,12 @@ const ProfileSecurityComponent = () => {
         case 'SMS':
           await updateMFAPreference({ sms: 'PREFERRED' });
           setMfaPreferred('SMS');
-          toast.success('SMS set at preferred 2FA');
+          toast.success(t('sms.success'));
           break;
         case 'TOTP':
           await updateMFAPreference({ totp: 'PREFERRED' });
           setMfaPreferred('TOTP');
-          toast.success('TOTP set at preferred 2FA');
+          toast.success(t('totp.success'));
           break;
       }
     } catch (err: unknown) {
@@ -64,7 +66,7 @@ const ProfileSecurityComponent = () => {
           setMfaEnabledType(
             mfaEnabledType.filter((AuthMFAType) => AuthMFAType !== 'SMS'),
           );
-          toast.success('Disabled SMS 2FA');
+          toast.success(t('sms.disabled'));
           break;
         case 'TOTP':
           if (mfaEnabledType.includes('SMS')) {
@@ -75,12 +77,12 @@ const ProfileSecurityComponent = () => {
           setMfaEnabledType(
             mfaEnabledType.filter((AuthMFAType) => AuthMFAType !== 'TOTP'),
           );
-          toast.success('Disabled TOTP 2FA');
+          toast.success(t('totp.disabled'));
           break;
         default:
           await updateMFAPreference({ sms: 'DISABLED', totp: 'DISABLED' });
           setMfaEnabledType([]);
-          toast.success('Disabled MFA');
+          toast.success(t('default.disabled'));
           break;
       }
     } catch (err: unknown) {
@@ -114,18 +116,13 @@ const ProfileSecurityComponent = () => {
       <div className={`flex w-full flex-col gap-6`}>
         <Card>
           <CardHeader className="gap-2">
-            <CardTitle>SMS 2FA</CardTitle>
-            <CardDescription>
-              By enabling this feature you will have to register your phone and
-              verify it with the code received vis SMS. Later on, every time you
-              login into the app you will have to additionally very yourself by
-              submitting a code that you will receive via SMS.
-            </CardDescription>
+            <CardTitle>{t('sms.title')}</CardTitle>
+            <CardDescription>{t('sms.description')}</CardDescription>
           </CardHeader>
           {mfaPreferred === 'SMS' ? (
             <CardContent className="flex w-full flex-row items-center">
               <div className={`rounded-full bg-emerald-700 px-2.5 py-0.5`}>
-                <p className={`font-semibold text-white`}>Enabled</p>
+                <p className={`font-semibold text-white`}>{t('sms.enabled')}</p>
               </div>
             </CardContent>
           ) : null}
@@ -140,7 +137,7 @@ const ProfileSecurityComponent = () => {
                     setAsPreferredMFA('SMS');
                   }}
                 >
-                  Set as preferred 2FA
+                  {t('sms.set-preferred')}
                 </Button>
               ) : null}
               <Button
@@ -149,14 +146,14 @@ const ProfileSecurityComponent = () => {
                   turnOffMFA('SMS');
                 }}
               >
-                Turn off
+                {t('sms.turn-off')}
               </Button>
             </CardFooter>
           ) : (
             <CardFooter className="flex flex-row justify-end">
               <Button asChild type="button">
                 <Link href={`/${locale}/dashboard/2FA/sms/addPhone`}>
-                  Set up 2FA with SMS
+                  {t('sms.submit-txt')}
                 </Link>
               </Button>
             </CardFooter>
@@ -164,18 +161,16 @@ const ProfileSecurityComponent = () => {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>TOTP 2FA</CardTitle>
-            <CardDescription>
-              By enabling this feature you will have to scan a QR code with your
-              phone in order to add the TOTP to an authenticator app like Google
-              Authenticator.
-            </CardDescription>
+            <CardTitle>{t('totp.title')}</CardTitle>
+            <CardDescription>{t('totp.description')}</CardDescription>
           </CardHeader>
 
           {mfaPreferred === 'TOTP' ? (
             <CardContent className="flex w-full flex-row items-center">
               <div className={`rounded-full bg-emerald-700 px-2.5 py-0.5`}>
-                <p className={`font-semibold text-white`}>Enabled</p>
+                <p className={`font-semibold text-white`}>
+                  {t('totp.enabled')}
+                </p>
               </div>
             </CardContent>
           ) : null}
@@ -191,7 +186,7 @@ const ProfileSecurityComponent = () => {
                     setAsPreferredMFA('TOTP');
                   }}
                 >
-                  Set as preferred 2FA
+                  {t('totp.set-preferred')}
                 </Button>
               ) : null}
 
@@ -201,14 +196,14 @@ const ProfileSecurityComponent = () => {
                   turnOffMFA('TOTP');
                 }}
               >
-                Turn off
+                {t('totp.turn-off')}
               </Button>
             </CardFooter>
           ) : (
             <CardFooter className="flex flex-row justify-end">
               <Button asChild type="button">
                 <Link href={`/${locale}/dashboard/2FA/totp/qrCode`}>
-                  Set up 2FA with TOTP
+                  {t('totp.submit-txt')}
                 </Link>
               </Button>
             </CardFooter>

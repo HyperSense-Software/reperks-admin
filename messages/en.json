@@ -181,6 +181,36 @@
       }
     }
   },
+  "dashboard": {
+    "settings": {
+      "security": {
+        "default": {
+          "success": "Set MFA",
+          "disabled": "Disabled MFA"
+        },
+        "sms": {
+          "title": "SMS 2FA",
+          "description": "By enabling this feature you will have to register your phone and verify it with the code received vis SMS. Later on, every time you login into the app you will have to additionally very yourself by submitting a code that you will receive via SMS.",
+          "success": "SMS set at preferred 2FA",
+          "disabled": "Disabled SMS 2FA",
+          "enabled": "Enabled",
+          "submit-txt": "Set up 2FA with SMS",
+          "set-preferred": "Set as preferred 2FA",
+          "turn-off": "Turn off"
+        },
+        "totp": {
+          "title": "TOTP 2FA",
+          "description": " By enabling this feature you will have to scan a QR code with your phone in order to add the TOTP to an authenticator app like Google Authenticator.",
+          "success": "TOTP set at preferred 2FA",
+          "disabled": "Disabled TOTP 2FA",
+          "enabled": "Enabled",
+          "submit-txt": "Set up 2FA with TOTP",
+          "set-preferred": "Set as preferred 2FA",
+          "turn-off": "Turn off"
+        }
+      }
+    }
+  },
   "nav-items": {
     "dashboard": {
       "title": "Dashboard",

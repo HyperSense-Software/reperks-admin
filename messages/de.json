@@ -105,7 +105,7 @@
           "label": "Haben Sie bereits ein Konto?",
           "cta": "Einloggen"
         },
-        "submit":{
+        "submit": {
           "label": "Anmelden"
         }
       }
@@ -161,6 +161,23 @@
       "form": {
         "cancel": "Abbrechen",
         "submit": "Absenden"
+      }
+    },
+    "mfa": {
+      "SEO": {
+        "title": "MFA",
+        "description": "Wählen Sie eine Überprüfungsmethode"
+      },
+      "title": "Wählen Sie eine Überprüfungsmethode",
+      "cancel": "Stornieren",
+      "continue": "Weitermachen",
+      "methods": {
+        "sms": {
+          "label": "SMS"
+        },
+        "googleAuth": {
+          "label": "Google Authenticator"
+        }
       }
     }
   },

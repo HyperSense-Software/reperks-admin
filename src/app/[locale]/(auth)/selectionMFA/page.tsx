@@ -12,16 +12,17 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { useLocale } from 'next-intl';
+import { useTranslations } from 'use-intl';
 
 const LoginMFASelection = () => {
   const locale = useLocale();
   const [twoFactorAuth, setTwoFactorAuth] = useState('');
-
+  const t = useTranslations('auth.mfa');
   return (
     <div className="flex flex-col content-center justify-center gap-8 self-center">
       <Card className={`w-dvw max-w-sm`}>
-        <CardHeader>
-          <CardTitle>Choose verification method</CardTitle>
+        <CardHeader className={'gap gap-6'}>
+          <CardTitle>{t('title')}</CardTitle>
           <CardDescription>
             <RadioGroup defaultValue="" className="flex flex-col gap-2">
               <div className="flex items-center space-x-2">
@@ -32,7 +33,7 @@ const LoginMFASelection = () => {
                     setTwoFactorAuth('totp');
                   }}
                 />
-                <Label htmlFor="totp">Google Authenticator</Label>
+                <Label htmlFor="totp">{t('methods.googleAuth.label')}</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem
@@ -42,14 +43,14 @@ const LoginMFASelection = () => {
                     setTwoFactorAuth('sms');
                   }}
                 />
-                <Label htmlFor="sms">SMS</Label>
+                <Label htmlFor="sms">{t('methods.sms.label')}</Label>
               </div>
             </RadioGroup>
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-between">
           <Button asChild type="button" variant={'outline'}>
-            <Link href={`/${locale}/dashboard`}>Cancel</Link>
+            <Link href={`/${locale}/dashboard`}>{t('cancel')}</Link>
           </Button>
 
           <Button
@@ -66,7 +67,7 @@ const LoginMFASelection = () => {
                     : '/login'
               }
             >
-              Continue
+              {t('continue')}
             </Link>
           </Button>
         </CardFooter>

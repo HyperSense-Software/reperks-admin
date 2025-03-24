@@ -162,6 +162,23 @@
         "cancel": "Cancel",
         "submit": "Submit"
       }
+    },
+    "mfa": {
+      "SEO": {
+        "title": "MFA",
+        "description": "Choose verification method"
+      },
+      "title": "Choose verification method",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "methods": {
+        "sms": {
+          "label": "SMS"
+        },
+        "googleAuth": {
+          "label": "Google Authenticator"
+        }
+      }
     }
   },
   "nav-items": {

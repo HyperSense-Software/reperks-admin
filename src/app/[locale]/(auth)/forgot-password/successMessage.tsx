@@ -8,24 +8,22 @@ import {
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useLocale } from 'next-intl';
+import { useTranslations } from 'use-intl';
 
 export function SuccessMessage() {
   const locale = useLocale();
-  // const t = useTranslations('auth.forgot-password');
+  const t = useTranslations('auth.forgot-password.request-submitted');
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-center text-2xl">
-          Request submitted
-        </CardTitle>
+        <CardTitle className="text-center text-2xl">{t('title')}</CardTitle>
         <CardDescription className="text-center">
-          The request has been submitted successfully. <br />
-          Please check your email for further instructions.
+          {t('description')}
         </CardDescription>
       </CardHeader>
       <CardContent className={'text-center'}>
         <Button>
-          <Link href={`/${locale}`}>Go back to homepage</Link>
+          <Link href={`/${locale}`}>{t('link-text')}</Link>
         </Button>
       </CardContent>
     </Card>

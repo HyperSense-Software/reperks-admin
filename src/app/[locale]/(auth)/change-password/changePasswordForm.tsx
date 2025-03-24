@@ -32,30 +32,30 @@ import {
 } from '@/components/ui/card';
 import { useLocale, useTranslations } from 'next-intl';
 
-export const authChangePasswordFormSchema = z
-  .object({
-    challengeResponse: z
-      .string()
-      .regex(
-        new RegExp(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{8,99}$/,
-        ),
-        {
-          message:
-            'Password requirements: \n' +
-            'Minimum length at least 8 characters \n' +
-            'Contains at least 1 number \n' +
-            'Contains at least 1 special character\n' +
-            'Contains at least 1 uppercase letter\n' +
-            'Contains at least 1 lowercase letter\n',
-        },
-      ),
-    repeatChallengeResponse: z.string(),
-  })
-  .refine((data) => data.challengeResponse === data.repeatChallengeResponse, {
-    message: 'Passwords must match',
-    path: ['repeatChallengeResponse'], // This specifies which field the error is associated with
-  });
+// export const authChangePasswordFormSchema = z
+//   .object({
+//     challengeResponse: z
+//       .string()
+//       .regex(
+//         new RegExp(
+//           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{8,99}$/,
+//         ),
+//         {
+//           message:
+//             'Password requirements: \n' +
+//             'Minimum length at least 8 characters \n' +
+//             'Contains at least 1 number \n' +
+//             'Contains at least 1 special character\n' +
+//             'Contains at least 1 uppercase letter\n' +
+//             'Contains at least 1 lowercase letter\n',
+//         },
+//       ),
+//     repeatChallengeResponse: z.string(),
+//   })
+//   .refine((data) => data.challengeResponse === data.repeatChallengeResponse, {
+//     message: 'Passwords must match',
+//     path: ['repeatChallengeResponse'], // This specifies which field the error is associated with
+//   });
 
 function ChangePasswordForm() {
   const locale = useLocale();
@@ -67,6 +67,31 @@ function ChangePasswordForm() {
 
   const [isVisibleRepeat, setIsVisibleRepeat] = useState(false);
   const toggleVisibilityRepeat = () => setIsVisibleRepeat(!isVisibleRepeat);
+
+  const authChangePasswordFormSchema = z
+    .object({
+      challengeResponse: z
+        .string()
+        .regex(
+          new RegExp(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{8,99}$/,
+          ),
+          {
+            message:
+              `${t('validation.password.requirements')}\n` +
+              `${t('validation.password.minLength')}\n` +
+              `${t('validation.password.number')}\n` +
+              `${t('validation.password.specialChar')}\n` +
+              `${t('validation.password.uppercase')}\n` +
+              `${t('validation.password.lowercase')}`,
+          },
+        ),
+      repeatChallengeResponse: z.string(),
+    })
+    .refine((data) => data.challengeResponse === data.repeatChallengeResponse, {
+      message: `${t('validation.password.match')}`,
+      path: ['repeatChallengeResponse'], // This specifies which field the error is associated with
+    });
 
   const form = useForm<z.infer<typeof authChangePasswordFormSchema>>({
     resolver: zodResolver(authChangePasswordFormSchema),
@@ -133,7 +158,7 @@ function ChangePasswordForm() {
             <CardTitle className="text-center text-2xl">{t('title')}</CardTitle>
             <CardDescription>{t('description')}</CardDescription>
           </CardHeader>
-          <CardContent className="grid">
+          <CardContent className="grid gap-6">
             <div className="grid gap-2">
               <FormField
                 control={form.control}
@@ -149,17 +174,21 @@ function ChangePasswordForm() {
                           autoComplete={'new-password'}
                           {...field}
                         />
-                        <button type="button" onClick={toggleVisibility}>
+                        <button
+                          type="button"
+                          onClick={toggleVisibility}
+                          className={'absolute top-0 right-0 m-2.5'}
+                        >
                           {isVisible ? (
-                            <EyeOff className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <EyeOff className="text-muted-foreground h-4 w-4" />
                           ) : (
-                            <Eye className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <Eye className="text-muted-foreground h-4 w-4" />
                           )}
                         </button>
                       </div>
                     </FormControl>
 
-                    <FormMessage />
+                    <FormMessage className={'whitespace-pre'} />
                   </FormItem>
                 )}
               />
@@ -179,17 +208,21 @@ function ChangePasswordForm() {
                           autoComplete={'new-password'}
                           {...field}
                         />
-                        <button type="button" onClick={toggleVisibilityRepeat}>
+                        <button
+                          type="button"
+                          onClick={toggleVisibilityRepeat}
+                          className={'absolute top-0 right-0 m-2.5'}
+                        >
                           {isVisibleRepeat ? (
-                            <EyeOff className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <EyeOff className="text-muted-foreground h-4 w-4" />
                           ) : (
-                            <Eye className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <Eye className="text-muted-foreground h-4 w-4" />
                           )}
                         </button>
                       </div>
                     </FormControl>
 
-                    <FormMessage />
+                    <FormMessage className={'whitespace-pre'} />
                   </FormItem>
                 )}
               />

@@ -1,171 +1,191 @@
 {
-    "dashboard": {
-        "title": "Hello world!"
+  "dashboard": {
+    "title": "Hello world!"
+  },
+  "LanguageSwitcher": {
+    "switchLanguage": "Language Switcher"
+  },
+  "auth": {
+    "login": {
+      "SEO": {
+        "title": "Login",
+        "description": "Login to your account"
+      },
+      "title": "Login",
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "submit": "Login",
+      "forgotPassword": "Forgot password?",
+      "validation": {
+        "email": {
+          "required": "Email is required",
+          "invalid": "Invalid email address"
+        },
+        "password": {
+          "requirements": "Password requirements:",
+          "minLength": "Minimum length at least 8 characters",
+          "number": "Contains at least 1 number",
+          "specialChar": "Contains at least 1 special character",
+          "uppercase": "Contains at least 1 uppercase letter",
+          "lowercase": "Contains at least 1 lowercase letter"
+        }
+      }
     },
-    "LanguageSwitcher": {
-        "switchLanguage": "Language Switcher"
+    "change-password": {
+      "SEO": {
+        "title": "Change Password",
+        "description": "Change your account password"
+      },
+      "title": "Setup Password",
+      "description": "Set your new password.",
+      "submit": {
+        "success": "Success"
+      },
+      "form": {
+        "password": {
+          "label": "New password",
+          "placeholder": "Enter your new password"
+        },
+        "passwordRepeat": {
+          "label": "Repeat new password",
+          "placeholder": "Repeat your new password"
+        },
+        "submit": {
+          "button": "Change password"
+        }
+      },
+      "validation": {
+        "password": {
+          "match": "Passwords must match",
+          "requirements": "Password requirements:",
+          "minLength": "Minimum length at least 8 characters",
+          "number": "Contains at least 1 number",
+          "specialChar": "Contains at least 1 special character",
+          "uppercase": "Contains at least 1 uppercase letter",
+          "lowercase": "Contains at least 1 lowercase letter"
+        }
+      }
     },
-    "auth": {
+    "reset-password": {
+      "SEO": {
+        "title": "Forgot Password",
+        "description": "Forgot your password? No worries, we'll help you reset it."
+      },
+      "invalidLink": {
+        "title": "Invalid link",
+        "description": "The link you are trying to use is invalid.",
+        "cta": "Go back to homepage"
+      },
+      "formSchema": {
+        "password": "Password requirements: Minimum length at least 8 characters, Contains at least 1 number, Contains at least 1 special character, Contains at least 1 uppercase letter, Contains at least 1 lowercase letter",
+        "passwordMatch": "Passwords must match"
+      },
+      "submit": {
+        "error": "An error occurred",
+        "success": "Success"
+      },
+      "form": {
+        "title": "Change password",
+        "description": "Set you new password.",
+        "password": {
+          "label": "New password",
+          "placeholder": "Enter your new password"
+        },
+        "passwordRepeat": {
+          "label": "Repeat new password",
+          "placeholder": "Repeat your new password"
+        },
         "login": {
-            "SEO": {
-                "title": "Login",
-                "description": "Login to your account"
-            },
-            "title": "Login",
-            "email": {
-                "label": "Email",
-                "placeholder": "Enter your email"
-            },
-            "password": {
-                "label": "Password",
-                "placeholder": "Enter your password"
-            },
-            "submit": "Login",
-            "forgotPassword": "Forgot password?",
-            "validation": {
-                "email": {
-                    "required": "Email is required",
-                    "invalid": "Invalid email address"
-                },
-                "password": {
-                    "requirements": "Password requirements:",
-                    "minLength": "Minimum length at least 8 characters",
-                    "number": "Contains at least 1 number",
-                    "specialChar": "Contains at least 1 special character",
-                    "uppercase": "Contains at least 1 uppercase letter",
-                    "lowercase": "Contains at least 1 lowercase letter"
-                }
-            }
-        },
-        "change-password": {
-            "SEO": {
-                "title": "Change Password",
-                "description": "Change your account password"
-            },
-            "title": "Setup Password",
-            "description": "Set your new password.",
-            "submit": {
-                "success": "Success"
-            },
-            "form": {
-                "password": {
-                    "label": "New password",
-                    "placeholder": "Enter your new password"
-                },
-                "passwordRepeat": {
-                    "label": "Repeat new password",
-                    "placeholder": "Repeat your new password"
-                },
-                "submit": {
-                    "button": "Change password"
-                }
-            }
-        },
-        "reset-password": {
-            "SEO": {
-                "title": "Forgot Password",
-                "description": "Forgot your password? No worries, we'll help you reset it."
-            },
-            "invalidLink": {
-                "title": "Invalid link",
-                "description": "The link you are trying to use is invalid.",
-                "cta": "Go back to homepage"
-            },
-            "formSchema": {
-                "password": "Password requirements: Minimum length at least 8 characters, Contains at least 1 number, Contains at least 1 special character, Contains at least 1 uppercase letter, Contains at least 1 lowercase letter",
-                "passwordMatch": "Passwords must match"
-            },
-            "submit": {
-                "error": "An error occurred",
-                "success": "Success"
-            },
-            "form": {
-                "title": "Change password",
-                "description": "Set you new password.",
-                "password": {
-                    "label": "New password",
-                    "placeholder": "Enter your new password"
-                },
-                "passwordRepeat": {
-                    "label": "Repeat new password",
-                    "placeholder": "Repeat your new password"
-                },
-                "login": {
-                    "label": "Already have an account?",
-                    "cta": "Login"
-                }
-            }
-        },
-        "forgot-password": {
-            "SEO": {
-                "title": "Forgot Password",
-                "description": "Forgot your password? No worries, we'll help you reset it."
-            },
-            "form-schema": {
-                "email": "Enter your email address to reset your password."
-            },
-            "form": {
-                "title": "Forgot password",
-                "description": "Enter your email address to reset your password.",
-                "email": {
-                    "label": "Email",
-                    "placeholder": "Enter your email address"
-                },
-                "submit": "Reset password",
-                "login": {
-                    "label": "Already have an account?",
-                    "cta": "Login"
-                }
-            }
-        },
-        "confirm-code": {
-            "SEO": {
-                "title": "Confirm Code",
-                "description": "Confirm the code sent to your email or authenticator "
-            },
-            "submit": {
-                "next": "NEXT STEP: ",
-                "success": "Successfully logged in!"
-            },
-            "sms": {
-                "title": "Verify code number",
-                "description": "Enter the code sent to your phone number"
-            },
-            "totp": {
-                "title": "Verify code",
-                "description": "Enter the code from your authenticator app"
-            },
-            "form": {
-                "cancel": "Cancel",
-                "submit": "Submit"
-            }
+          "label": "Already have an account?",
+          "cta": "Login"
         }
+      }
     },
-    "nav-items": {
-        "dashboard": {
-            "title": "Dashboard",
-            "label": "Dashboard"
+    "forgot-password": {
+      "SEO": {
+        "title": "Forgot Password",
+        "description": "Forgot your password? No worries, we'll help you reset it."
+      },
+      "form-schema": {
+        "email": "Enter your email address to reset your password."
+      },
+      "submit": {
+        "error": "An error occurred",
+        "success": "Reset password"
+      },
+      "form": {
+        "title": "Forgot password",
+        "description": "Enter your email address to reset your password.",
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter your email address"
         },
-        "portfolio": {
-            "title": "Portfolio",
-            "label": "Portfolio",
-             "items":{
-                            "assets": "Assets",
-                            "tenants":  "Tenants"
-                        }
-        },
-        "offers": {
-            "title": "Offers",
-            "label": "Offers"
-        },
-        "notifications": {
-            "title": "Notifications",
-            "label": "Notifications"
+        "submit": "Reset password",
+        "login": {
+          "label": "Already have an account?",
+          "cta": "Login"
         }
+      },
+      "request-submitted": {
+        "title": "Request submitted",
+        "description": "The request has been submitted successfully.\n Please check your email for further instructions.",
+        "link-text": "Go back to homepage"
+      }
     },
-    "sidebar-top": {
-        "title": "My Account",
-        "settings": "User Settings",
-        "logout": "Logout"
+    "confirm-code": {
+      "SEO": {
+        "title": "Confirm Code",
+        "description": "Confirm the code sent to your email or authenticator "
+      },
+      "submit": {
+        "next": "NEXT STEP: ",
+        "success": "Successfully logged in!"
+      },
+      "sms": {
+        "title": "Verify code number",
+        "description": "Enter the code sent to your phone number"
+      },
+      "totp": {
+        "title": "Verify code",
+        "description": "Enter the code from your authenticator app"
+      },
+      "form": {
+        "cancel": "Cancel",
+        "submit": "Submit"
+      }
     }
+  },
+  "nav-items": {
+    "dashboard": {
+      "title": "Dashboard",
+      "label": "Dashboard"
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "label": "Portfolio",
+      "items": {
+        "assets": "Assets",
+        "tenants": "Tenants"
+      }
+    },
+    "offers": {
+      "title": "Offers",
+      "label": "Offers"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "label": "Notifications"
+    }
+  },
+  "sidebar-top": {
+    "title": "My Account",
+    "settings": "User Settings",
+    "logout": "Logout"
+  }
 }

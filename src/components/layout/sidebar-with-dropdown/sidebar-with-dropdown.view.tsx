@@ -41,7 +41,7 @@ export default function SidebarWithDropdownView({
         className={'bg-transparent duration-0'}
         {...props}
       >
-        <SidebarHeader className="border-border hidden border-b p-6 py-[14px] lg:block">
+        <SidebarHeader className="border-border hidden border-b p-6 py-[12px] lg:block">
           <Link
             href={`/${locale}/`}
             target="_blank"
@@ -51,15 +51,15 @@ export default function SidebarWithDropdownView({
           </Link>
         </SidebarHeader>
 
-        <div data-slot="sidebar-navigation" className="px-2 py-4">
-          <SidebarTrigger
-            className={cn(
-              'bg-background absolute top-12 -right-3 z-50 -mt-1 cursor-pointer rounded-full border',
-              'transition-transform duration-200',
-              isMinimized && 'rotate-180',
-            )}
-          ></SidebarTrigger>
-          <SidebarContent>
+        <SidebarTrigger
+          className={cn(
+            'bg-background absolute top-12 -right-[14px] z-50 -mt-1 cursor-pointer rounded-full border',
+            'transition-transform duration-200',
+            isMinimized && 'rotate-180',
+          )}
+        ></SidebarTrigger>
+        <div data-slot="sidebar-navigation">
+          <SidebarContent className="px-2 py-4">
             <NavigationMenu items={translatedItems} />
           </SidebarContent>
         </div>

@@ -20,12 +20,13 @@ import { Alert, AlertTitle } from '@/components/ui/alert';
 import { useAppDispatch } from '@/store';
 import { TOGGLE_LOADER } from '@/store/app/app.actions';
 import { setUpTOTP } from '@aws-amplify/auth';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const TOTPQRCodeComponent = () => {
   const locale = useLocale();
   const dispatch = useAppDispatch();
   const [uri, setURI] = useState<URL>();
+  const t = useTranslations('dashboard.mfa.totp.qrCode');
 
   useEffect(() => {
     dispatch(TOGGLE_LOADER(true));
@@ -48,15 +49,13 @@ const TOTPQRCodeComponent = () => {
       <div
         className={`flex w-dvw max-w-[744px] flex-col content-center justify-center gap-6`}
       >
-        <p className={`self-center font-medium text-gray-500`}>Step 1 of 2</p>
+        <p className={`self-center font-medium text-gray-500`}>{t('title')}</p>
         <Progress value={50} className={`bg-white`} />
       </div>
       <Card className={`w-dvw max-w-sm`}>
         <CardHeader>
-          <CardTitle>Register HSS Admin</CardTitle>
-          <CardDescription>
-            Open the Google Authenticator app and scan this QR code.
-          </CardDescription>
+          <CardTitle>{t('card.title')}</CardTitle>
+          <CardDescription>{t('card.description')}</CardDescription>
         </CardHeader>
 
         <CardContent className="flex flex-col gap-6 px-6 pb-6">
@@ -75,22 +74,19 @@ const TOTPQRCodeComponent = () => {
             className={`flex w-full flex-row content-center justify-center gap-3 rounded-md border border-gray-200 bg-white p-4 align-middle`}
           >
             <InfoCircledIcon className="h-4 w-4" />
-            <AlertTitle className="font-medium">
-              Once HSS Admin is registered you’ll start seeing 6-digit
-              verification codes in the app.
-            </AlertTitle>
+            <AlertTitle className="font-medium">{t('card.alert')}</AlertTitle>
           </Alert>
         </CardContent>
         <Separator />
         <CardFooter className="flex flex-row justify-end gap-6 py-6">
           <Button asChild type="button" variant={'outline'}>
             <Link href={`/${locale}/dashboard/settings/security`}>
-              <p className={`font-medium`}>Cancel</p>
+              <p className={`font-medium`}>{t('cancel')}</p>
             </Link>
           </Button>
           <Button asChild type="button">
             <Link href={`/${locale}/dashboard/2FA/confirm-code?confirm=totp`}>
-              Continue
+              {t('continue')}
             </Link>
           </Button>
         </CardFooter>

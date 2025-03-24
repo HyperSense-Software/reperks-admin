@@ -11,22 +11,22 @@ import {
 import { useSearchParams } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const Verified2FAComponent = () => {
   const locale = useLocale();
   const params = useSearchParams();
-  const verified2FAType = params.get('verified');
+  const verified2FAType = params.get('verified') || '';
+  const t = useTranslations('dashboard.mfa.verified');
+
   return (
     <Card className={`w-dvw max-w-[744px]`}>
       <CardHeader>
-        <CardTitle>Verified</CardTitle>
+        <CardTitle>{t('title')}</CardTitle>
         <CardDescription>
-          {verified2FAType === 'sms'
-            ? 'From now on, you’ll use verification via SMS to sign in to HSS Admin.'
-            : verified2FAType === 'totp'
-              ? 'From now on, you’ll use Google Authenticator to sign in to HSS Admin.'
-              : null}
+          {['sms', 'totp'].indexOf(verified2FAType) > -1
+            ? t('description.' + verified2FAType)
+            : null}
         </CardDescription>
       </CardHeader>
       <Separator />

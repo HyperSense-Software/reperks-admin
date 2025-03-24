@@ -218,6 +218,26 @@
           "cancel": "Cancel",
           "continue": "Send Code"
         }
+      },
+      "totp": {
+        "qrCode": {
+          "title": "Step 1 of 2",
+          "card": {
+            "title": "Register HSS Admin",
+            "description": "Open the Google Authenticator app and scan this QR code.",
+            "alert": "Once HSS Admin is registered you’ll start seeing 6-digit verification codes in the app."
+          },
+          "cancel": "Cancel",
+          "continue": "Continue"
+         }
+      },
+      "verified": {
+        "title": "Verified",
+        "description": {
+          "sms": "From now on, you’ll use verification via SMS to sign in to HSS Admin.",
+          "totp": "From now on, you’ll use Google Authenticator to sign in to HSS Admin."
+        },
+        "submit": "Done"
       }
     },
     "settings": {

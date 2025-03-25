@@ -1,5 +1,5 @@
 'use client';
-import { memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -152,20 +152,25 @@ function ChangePasswordForm() {
 
   return (
     <Form {...form}>
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm border-none bg-transparent shadow-none">
         <form onSubmit={form.handleSubmit(clientAction)} className="space-y-8">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">{t('title')}</CardTitle>
-            <CardDescription>{t('description')}</CardDescription>
+          <CardHeader className={'mb-6 gap-2 px-0'}>
+            <CardTitle className="text-left text-2xl text-zinc-950">
+              {t('title')}
+            </CardTitle>
+            <div className="text-left text-sm text-zinc-500">
+              {t('description')}
+            </div>
           </CardHeader>
-          <CardContent className="grid gap-6">
+
+          <CardContent className="mb-6 grid gap-2 px-0">
             <div className="grid gap-2">
               <FormField
                 control={form.control}
                 name="challengeResponse"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.password.label')}</FormLabel>
+                    {/*<FormLabel>{t('form.password.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -188,7 +193,7 @@ function ChangePasswordForm() {
                       </div>
                     </FormControl>
 
-                    <FormMessage className={'whitespace-pre'} />
+                    <FormMessage className={'text-left whitespace-pre'} />
                   </FormItem>
                 )}
               />
@@ -199,7 +204,7 @@ function ChangePasswordForm() {
                 name="repeatChallengeResponse"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.passwordRepeat.label')}</FormLabel>
+                    {/*<FormLabel>{t('form.passwordRepeat.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -222,14 +227,18 @@ function ChangePasswordForm() {
                       </div>
                     </FormControl>
 
-                    <FormMessage className={'whitespace-pre'} />
+                    <FormMessage className={'text-left whitespace-pre'} />
                   </FormItem>
                 )}
               />
             </div>
           </CardContent>
-          <CardFooter className={'flex-col'}>
-            <Button type="submit" className="w-full">
+
+          <CardFooter className={'flex-col px-0'}>
+            <Button
+              type="submit"
+              className="w-full cursor-pointer bg-zinc-900 font-medium text-zinc-50 hover:bg-zinc-700"
+            >
               {t('form.submit.button')}
             </Button>
           </CardFooter>

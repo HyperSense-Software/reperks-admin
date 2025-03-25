@@ -1,5 +1,5 @@
 'use client';
-import { memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Mail } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -87,22 +87,25 @@ function ForgotPasswordForm() {
     <SuccessMessage />
   ) : (
     <Form {...form}>
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm border-none bg-transparent shadow-none">
         <form onSubmit={form.handleSubmit(clientAction)} className="space-y-8">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">
+          <CardHeader className={'mb-6 gap-2 px-0'}>
+            <CardTitle className="text-left text-2xl text-zinc-950">
               {t('form.title')}
             </CardTitle>
-            <CardDescription>{t('form.description')}</CardDescription>
+            <div className="text-left text-sm text-zinc-500">
+              {t('form.description')}
+            </div>
           </CardHeader>
-          <CardContent className="grid">
+
+          <CardContent className="mb-6 grid gap-2 px-0">
             <div className="grid gap-2">
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.email.label')}</FormLabel>
+                    {/*<FormLabel>{t('form.email.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -119,8 +122,11 @@ function ForgotPasswordForm() {
               />
             </div>
           </CardContent>
-          <CardFooter className={'flex-col'}>
-            <Button type="submit" className="w-full">
+          <CardFooter className={'flex-col px-0'}>
+            <Button
+              type="submit"
+              className="w-full cursor-pointer bg-zinc-900 font-medium text-zinc-50 hover:bg-zinc-700"
+            >
               {t('form.submit')}
             </Button>
           </CardFooter>

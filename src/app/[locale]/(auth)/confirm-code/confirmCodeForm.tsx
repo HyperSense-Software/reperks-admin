@@ -101,16 +101,16 @@ const ConfirmTOTPCodeForm = () => {
 
   return (
     <div className="flex flex-col content-center justify-center gap-8 self-center">
-      <Card className={`w-dvw max-w-sm`}>
+      <Card className="w-full max-w-sm border-none bg-transparent shadow-none">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-left text-2xl text-zinc-950">
             {verify2FAType === 'sms'
               ? t('sms.title')
               : verify2FAType === 'totp'
                 ? t('totp.title')
                 : ''}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-left text-sm text-zinc-500">
             {verify2FAType === 'sms'
               ? t('sms.description')
               : verify2FAType === 'totp'

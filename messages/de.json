@@ -9,6 +9,7 @@
         "description": "Melden Sie sich bei Ihrem Konto an"
       },
       "title": "Einloggen",
+      "description": "Hallo! Bitte melden Sie sich bei Ihrem Konto an.",
       "email": {
         "label": "Email",
         "placeholder": "Geben Sie Ihre E-Mail-Adresse ein"

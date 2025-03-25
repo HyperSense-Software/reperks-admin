@@ -1,5 +1,5 @@
 'use client';
-import { memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 import { useDispatch } from 'react-redux';
@@ -99,20 +99,25 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
 
   return (
     <Form {...form}>
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm border-none bg-transparent shadow-none">
         <form onSubmit={form.handleSubmit(clientAction)}>
-          <CardHeader>
-            <CardTitle className="text-2xl">{t('form.title')}</CardTitle>
-            <CardDescription>{t('form.description')}</CardDescription>
+          <CardHeader className={'mb-6 gap-2 px-0'}>
+            <CardTitle className="text-left text-2xl text-zinc-950">
+              {t('form.title')}
+            </CardTitle>
+            <div className="text-left text-sm text-zinc-500">
+              {t('form.description')}
+            </div>
           </CardHeader>
-          <CardContent className="grid gap-6 py-6">
+
+          <CardContent className="mb-6 grid gap-2 px-0">
             <div className="grid gap-2">
               <FormField
                 control={form.control}
                 name="newPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.password.label')}</FormLabel>
+                    {/*<FormLabel>{t('form.password.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -134,7 +139,7 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
                       </div>
                     </FormControl>
 
-                    <FormMessage className={'whitespace-pre'} />
+                    <FormMessage className={'text-left whitespace-pre'} />
                   </FormItem>
                 )}
               />
@@ -145,7 +150,7 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
                 name="repeatNewPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('form.passwordRepeat.label')}</FormLabel>
+                    {/*<FormLabel>{t('form.passwordRepeat.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -155,25 +160,28 @@ function ResetPasswordForm({ email, code }: { email: string; code: string }) {
                         />
                         <button
                           type="button"
-                          className={'block'}
+                          className={'absolute top-0 right-0 m-2.5 block'}
                           onClick={toggleVisibilityRepeat}
                         >
                           {isVisibleRepeat ? (
-                            <EyeOff className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <EyeOff className="text-muted-foreground h-4 w-4" />
                           ) : (
-                            <Eye className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <Eye className="text-muted-foreground h-4 w-4" />
                           )}
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage className={'whitespace-pre'} />
+                    <FormMessage className={'text-left whitespace-pre'} />
                   </FormItem>
                 )}
               />
             </div>
           </CardContent>
-          <CardFooter className={'flex-col'}>
-            <Button className="w-full">{t('form.submit.label')}</Button>
+          <CardFooter className={'flex-col px-0'}>
+            <Button className="w-full cursor-pointer bg-zinc-900 font-medium text-zinc-50 hover:bg-zinc-700">
+              {t('form.submit.label')}
+            </Button>
+
             <div className="mt-4 text-center text-sm">
               <p>{t('form.login.label')}</p>
               <Link href={`${locale}/login`} className="underline">

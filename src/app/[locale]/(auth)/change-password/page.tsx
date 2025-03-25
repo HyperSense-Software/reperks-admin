@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import ChangePasswordForm from './changePasswordForm';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';

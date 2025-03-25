@@ -15,7 +15,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -159,7 +158,7 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <Card className="w-full max-w-sm shadow-md">
+      <Card className="w-full max-w-sm border-none bg-transparent shadow-none">
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-9"
@@ -170,17 +169,23 @@ export function LoginForm() {
             }
           }}
         >
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">{t('title')}</CardTitle>
+          <CardHeader className={'mb-6 gap-2 px-0'}>
+            <CardTitle className="text-left text-2xl text-zinc-950">
+              {t('title')}
+            </CardTitle>
+            <div className="text-left text-sm text-zinc-500">
+              {t('description')}
+            </div>
           </CardHeader>
-          <CardContent className="grid gap-4">
+
+          <CardContent className="mb-6 grid gap-2 px-0">
             <div className="grid gap-2">
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('email.label')}</FormLabel>
+                    {/*<FormLabel>{t('email.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -203,7 +208,7 @@ export function LoginForm() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('password.label')}</FormLabel>
+                    {/*<FormLabel>{t('password.label')}</FormLabel>*/}
                     <FormControl>
                       <div className="relative w-full">
                         <Input
@@ -212,11 +217,15 @@ export function LoginForm() {
                           placeholder={t('password.placeholder')}
                           {...field}
                         />
-                        <button type="button" onClick={toggleVisibility}>
+                        <button
+                          type="button"
+                          onClick={toggleVisibility}
+                          className={'absolute top-0 right-0 m-2.5'}
+                        >
                           {isVisible ? (
-                            <EyeOff className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <EyeOff className="text-muted-foreground h-4 w-4" />
                           ) : (
-                            <Eye className="text-muted-foreground absolute top-0 right-0 m-2.5 h-4 w-4" />
+                            <Eye className="text-muted-foreground h-4 w-4" />
                           )}
                         </button>
                       </div>
@@ -227,16 +236,24 @@ export function LoginForm() {
                 )}
               />
             </div>
-          </CardContent>
-          <CardFooter className={'flex-col'}>
-            <Button type="submit" className="w-full">
-              {t('submit')}
-            </Button>
-            <div className="mt-4 text-center text-sm">
-              <Link href={`/${locale}/forgot-password`} className="underline">
+
+            <div className="text-right">
+              <Link
+                href={`/${locale}/forgot-password`}
+                className="text-sm font-bold text-zinc-900"
+              >
                 {t('forgotPassword')}
               </Link>
             </div>
+          </CardContent>
+
+          <CardFooter className={'flex-col px-0'}>
+            <Button
+              type="submit"
+              className="w-full cursor-pointer bg-zinc-900 font-medium text-zinc-50 hover:bg-zinc-700"
+            >
+              {t('submit')}
+            </Button>
           </CardFooter>
         </form>
       </Card>

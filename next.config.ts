@@ -4,6 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const nextConfig: NextConfig = {
   // Image optimization API configuration for SVGs
   images: {
+    //path: '/',
     // Allow SVGs to be processed by the Image Optimization API
     dangerouslyAllowSVG: true,
     // Force the browser to download the image instead of displaying it
@@ -14,6 +15,20 @@ const nextConfig: NextConfig = {
     formats: ['image/webp'],
     // Optional: Set minimum cache TTL in seconds
     minimumCacheTTL: 60,
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.hypersense-software.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 
   // Configure webpack to handle SVGs as React components

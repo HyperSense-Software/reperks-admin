@@ -9,6 +9,7 @@
         "description": "Login to your account"
       },
       "title": "Login",
+      "description": "Hey there! Please log in to your account.",
       "email": {
         "label": "Email",
         "placeholder": "Enter your email"

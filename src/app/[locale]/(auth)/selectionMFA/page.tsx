@@ -20,9 +20,11 @@ const LoginMFASelection = () => {
   const t = useTranslations('auth.mfa');
   return (
     <div className="flex flex-col content-center justify-center gap-8 self-center">
-      <Card className={`w-dvw max-w-sm`}>
-        <CardHeader className={'gap gap-6'}>
-          <CardTitle>{t('title')}</CardTitle>
+      <Card className="w-full max-w-sm border-none bg-transparent shadow-none">
+        <CardHeader className={'gap gap-6 text-center'}>
+          <CardTitle className="text-left text-2xl text-zinc-950">
+            {t('title')}
+          </CardTitle>
           <CardDescription>
             <RadioGroup defaultValue="" className="flex flex-col gap-2">
               <div className="flex items-center space-x-2">
@@ -33,7 +35,9 @@ const LoginMFASelection = () => {
                     setTwoFactorAuth('totp');
                   }}
                 />
-                <Label htmlFor="totp">{t('methods.googleAuth.label')}</Label>
+                <Label className={'text-sm text-zinc-500'} htmlFor="totp">
+                  {t('methods.googleAuth.label')}
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem
@@ -43,7 +47,9 @@ const LoginMFASelection = () => {
                     setTwoFactorAuth('sms');
                   }}
                 />
-                <Label htmlFor="sms">{t('methods.sms.label')}</Label>
+                <Label className={'text-sm text-zinc-500'} htmlFor="sms">
+                  {t('methods.sms.label')}
+                </Label>
               </div>
             </RadioGroup>
           </CardDescription>
@@ -53,11 +59,7 @@ const LoginMFASelection = () => {
             <Link href={`/${locale}/dashboard`}>{t('cancel')}</Link>
           </Button>
 
-          <Button
-            asChild
-            type="button"
-            className={twoFactorAuth !== '' ? `` : `bg-gray-200`}
-          >
+          <Button asChild type="button">
             <Link
               href={
                 twoFactorAuth === 'sms'
@@ -65,6 +67,12 @@ const LoginMFASelection = () => {
                   : twoFactorAuth === 'totp'
                     ? `/confirm-code?verify=totp`
                     : '/login'
+              }
+              className={
+                twoFactorAuth !== ''
+                  ? ``
+                  : `bg-gray-200` +
+                    ' !bg-zinc-900 font-medium text-zinc-50 hover:bg-zinc-700'
               }
             >
               {t('continue')}

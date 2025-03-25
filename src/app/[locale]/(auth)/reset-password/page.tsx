@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
-//import ResetPasswordForm from './resetPasswordForm';
 import { getTranslations } from 'next-intl/server';
+import React from 'react';
 
 export async function generateMetadata({
   params,
@@ -24,8 +24,9 @@ export default function ResetPassword() {
   // const code = searchParams.code as string;
 
   // if (!code || !email) {
-  return <InvalidParams />;
-  // }
-
-  //return <ResetPasswordForm email={'ady2test.com'} code={'1234'} />;
+  {
+    /*<ResetPasswordForm email={'ady2test.com'} code={'1234'} />*/
+  }
+  return;
+  <InvalidParams />;
 }

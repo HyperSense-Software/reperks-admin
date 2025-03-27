@@ -23,7 +23,6 @@ import { TOGGLE_LOADER } from '@/store/app/app.actions';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,

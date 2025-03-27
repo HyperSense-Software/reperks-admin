@@ -2,9 +2,6 @@ import { Metadata } from 'next';
 import React from 'react';
 import { LoginForm } from './loginForm';
 import { getTranslations } from 'next-intl/server';
-import { ResponsiveImage } from '@/components/images/ResponsiveImage';
-
-import LoginLeftSideImg from '@/public/assets/images/login-left-side.jpg';
 
 export async function generateMetadata({
   params,

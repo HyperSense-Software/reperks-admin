@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
 import { toast } from 'sonner';
+import { Amplify } from 'aws-amplify';
+import awsconfig from '@/components/common/aws-exports';
 
 export default function ConfirmCode() {
   const searchParams = useSearchParams();
@@ -15,6 +17,7 @@ export default function ConfirmCode() {
   >(null);
 
   useEffect(() => {
+    Amplify.configure(awsconfig, { ssr: true });
     if (email && code) {
       console.log('email', email);
       confirmSignUp({

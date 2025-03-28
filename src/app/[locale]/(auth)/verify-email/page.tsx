@@ -1,14 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
 import { toast } from 'sonner';
 import { Amplify } from 'aws-amplify';
 import awsconfig from '@/components/common/aws-exports';
 
+// Configure Amplify globally
+Amplify.configure(awsconfig, { ssr: true });
+
 export default function ConfirmCode() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const email = searchParams.get('email');
   const code = searchParams.get('code');
   const [isVerifying, setIsVerifying] = useState(true);
@@ -17,29 +21,32 @@ export default function ConfirmCode() {
   >(null);
 
   useEffect(() => {
-    Amplify.configure(awsconfig, { ssr: true });
-    if (email && code) {
-      console.log('email', email);
-      confirmSignUp({
-        username: email,
-        confirmationCode: code,
-      })
-        .then((data) => {
-          setVerificationResult('success');
-          setIsVerifying(true);
-          console.log(data);
-          toast.success('Email verified successfully');
-        })
-        .catch((error) => {
-          console.error('Error confirming sign up', error);
-          setIsVerifying(true);
-          setVerificationResult('error');
-        });
-    } else {
+    if (!email || !code) {
       setVerificationResult('error');
-      setIsVerifying(true);
+      setIsVerifying(false);
+      return;
     }
-  }, [code, email]);
+
+    const verifyEmail = async () => {
+      try {
+        await confirmSignUp({
+          username: email,
+          confirmationCode: code,
+        });
+
+        setVerificationResult('success');
+        setIsVerifying(false);
+        toast.success('Email verified successfully');
+      } catch (error) {
+        console.error('Error confirming sign up', error);
+        setVerificationResult('error');
+        setIsVerifying(false);
+        toast.error('Failed to verify email');
+      }
+    };
+
+    verifyEmail();
+  }, [code, email, router]);
 
   if (!code || !email) {
     return <InvalidParams />;
@@ -53,7 +60,7 @@ export default function ConfirmCode() {
         <p className="text-gray-600">Verifying your email address...</p>
       )}
 
-      {verificationResult === 'success' && (
+      {verificationResult === 'success' && !isVerifying && (
         <div className="text-center">
           <p className="mb-2 font-medium text-green-600">
             Your email has been verified successfully!
@@ -62,7 +69,7 @@ export default function ConfirmCode() {
         </div>
       )}
 
-      {verificationResult === 'error' && (
+      {verificationResult === 'error' && !isVerifying && (
         <div className="text-center">
           <p className="mb-2 font-medium text-red-600">
             Failed to verify your email.

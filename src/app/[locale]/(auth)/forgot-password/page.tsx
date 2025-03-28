@@ -20,6 +20,5 @@ export async function generateMetadata({
 }
 
 export default function RecoverPassword() {
-  return;
-  <ForgotPasswordForm />;
+  return <ForgotPasswordForm />;
 }

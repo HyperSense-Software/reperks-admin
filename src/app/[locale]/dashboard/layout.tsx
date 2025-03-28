@@ -9,7 +9,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <VerifyUserAuth role={['admin', 'super_admin', 'landloard']}>
+    <VerifyUserAuth role={['admin', 'super_admin', 'landlord']}>
       <DashboardLayoutView>{children}</DashboardLayoutView>
     </VerifyUserAuth>
   );

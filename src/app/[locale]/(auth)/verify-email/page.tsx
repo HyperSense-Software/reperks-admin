@@ -1,12 +1,9 @@
-// src/app/[locale]/(auth)/verify-email/page.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
-import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useLocale } from 'next-intl';
 
 export default function ConfirmCode() {
   const searchParams = useSearchParams();

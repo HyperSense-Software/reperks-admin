@@ -4,11 +4,6 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
 import { toast } from 'sonner';
-import { Amplify } from 'aws-amplify';
-import awsconfig from '@/components/common/aws-exports';
-
-// Configure Amplify globally
-Amplify.configure(awsconfig, { ssr: true });
 
 export default function ConfirmCode() {
   const searchParams = useSearchParams();

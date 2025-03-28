@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
+import ResetPasswordForm from './resetPasswordForm';
 
 export async function generateMetadata({
   params,
@@ -19,14 +20,17 @@ export async function generateMetadata({
   };
 }
 
-export default function ResetPassword() {
-  // const email = searchParams.email as string;
-  // const code = searchParams.code as string;
+export default async function ResetPassword({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const email = (await searchParams).email as string;
+  const code = (await searchParams).code as string;
 
-  // if (!code || !email) {
-  {
-    /*<ResetPasswordForm email={'ady2test.com'} code={'1234'} />*/
+  if (!code || !email) {
+    return <InvalidParams />;
   }
-  return;
-  <InvalidParams />;
+
+  return <ResetPasswordForm email={email} code={code} />;
 }

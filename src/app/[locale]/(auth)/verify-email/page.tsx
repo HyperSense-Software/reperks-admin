@@ -16,37 +16,30 @@ export default function ConfirmCode() {
   const [verificationResult, setVerificationResult] = useState<
     'success' | 'error' | null
   >(null);
-  const router = useRouter();
-  const locale = useLocale();
 
   useEffect(() => {
-    const verifyEmail = async () => {
-      if (!code || !email) return;
-
-      try {
-        await confirmSignUp({
-          username: email,
-          confirmationCode: code,
+    if (email && code) {
+      console.log('email', email);
+      confirmSignUp({
+        username: email,
+        confirmationCode: code,
+      })
+        .then((data) => {
+          setVerificationResult('success');
+          setIsVerifying(true);
+          console.log(data);
+          toast.success('Email verified successfully');
+        })
+        .catch((error) => {
+          console.error('Error confirming sign up', error);
+          setIsVerifying(true);
+          setVerificationResult('error');
         });
-
-        setVerificationResult('success');
-        toast.success('Email verified successfully');
-
-        // Redirect to login page after 3 seconds
-        setTimeout(() => {
-          router.push(`/${locale}/login`);
-        }, 3000);
-      } catch (error) {
-        console.error('Error confirming sign up', error);
-        setVerificationResult('error');
-        toast.error('Failed to verify email');
-      } finally {
-        setIsVerifying(false);
-      }
-    };
-
-    verifyEmail();
-  }, [code, email, router, locale]);
+    } else {
+      setVerificationResult('error');
+      setIsVerifying(true);
+    }
+  }, []);
 
   if (!code || !email) {
     return <InvalidParams />;

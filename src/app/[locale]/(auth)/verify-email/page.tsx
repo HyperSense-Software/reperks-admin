@@ -36,7 +36,7 @@ export default function ConfirmCode() {
       setVerificationResult('error');
       setIsVerifying(true);
     }
-  }, []);
+  }, [code, email]);
 
   if (!code || !email) {
     return <InvalidParams />;

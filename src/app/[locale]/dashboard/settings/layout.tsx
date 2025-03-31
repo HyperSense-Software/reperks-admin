@@ -3,24 +3,27 @@ import React from 'react';
 import PageContainer from '@/components/ui/page-container';
 import { SidebarNav } from '@/components/sidebar-nav/sidebar-nav';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-
-const sidebarNavItems = [
-  {
-    title: 'Profile',
-    href: '/dashboard/settings/profile',
-  },
-  {
-    title: 'Security',
-    href: '/dashboard/settings/security',
-  },
-];
-
-const breadcrumbItems = [
-  { title: 'Dashboard', link: '/dashboard' },
-  { title: 'User Settings', link: '/dashboard/settings' },
-];
+import { useTranslations } from 'use-intl';
 
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
+  const t = useTranslations('dashboard.settings');
+
+  const sidebarNavItems = [
+    {
+      title: t('menu.profile'),
+      href: '/dashboard/settings/profile',
+    },
+    {
+      title: t('menu.security'),
+      href: '/dashboard/settings/security',
+    },
+  ];
+
+  const breadcrumbItems = [
+    { title: t('breadcrumbs.dashboard'), link: '/dashboard' },
+    { title: t('breadcrumbs.settings'), link: '/dashboard/settings' },
+  ];
+
   return (
     <PageContainer scrollable={true}>
       <div className={``}>

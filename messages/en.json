@@ -242,6 +242,14 @@
       }
     },
     "settings": {
+      "menu": {
+        "profile": "Profile",
+        "security": "Security"
+      },
+      "breadcrumbs": {
+        "dashboard": "Dashboard",
+        "settings": "User Settings"
+      },
       "security": {
         "default": {
           "success": "Set MFA",

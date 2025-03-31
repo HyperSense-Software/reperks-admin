@@ -242,6 +242,14 @@
       }
     },
     "settings": {
+      "menu": {
+        "profile": "Profil",
+        "security": "Sicherheit"
+      },
+      "breadcrumbs": {
+        "dashboard": "Armaturenbrett",
+        "settings": "Einstellungen"
+      },
       "security": {
         "default": {
           "success": "MFA festlegen",

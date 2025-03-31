@@ -22,7 +22,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
     --input: 20 5.9% 90%;
-    --ring: 24.6 95% 53.1%;
+    --ring: 168 66% 47% 1;
     --radius: 0.5rem;
 }
 
@@ -30,7 +30,7 @@
     .dark {
         --border: 214, 6%, 94%, 1;
         --background: 0 0% 100%;
-        --foreground: 20 14.3% 4.1%;
+        --foreground: 168 66% 47% 1;
         --card: 0 0% 100%;
         --card-foreground: 20 14.3% 4.1%;
         --popover: 0 0% 100%;

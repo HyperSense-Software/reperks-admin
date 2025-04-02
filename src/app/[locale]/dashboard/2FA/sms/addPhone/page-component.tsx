@@ -80,6 +80,8 @@ const AddPhoneComponent = () => {
       toast.success(t('messages.added', { phone }));
       router.push(`/${locale}/dashboard/2FA/confirm-code?confirm=sms`);
     } catch (err: unknown) {
+      console.error(err);
+
       toast.error(JSON.stringify(err));
     }
   };

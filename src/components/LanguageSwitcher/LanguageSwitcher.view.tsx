@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { usePathname, useRouter } from 'next/navigation';
-import { DetailedHTMLProps, HTMLAttributes, useEffect } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -35,10 +35,6 @@ export const LanguageSwitcher = ({
 
     router.push(newPath);
   };
-
-  useEffect(() => {
-    console.log('locale', locale);
-  }, [locale]);
 
   return (
     <div {...props}>

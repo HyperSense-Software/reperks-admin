@@ -177,6 +177,17 @@
           "label": "Google Authenticator"
         }
       }
+    },
+    "verify-email": {
+      "title": "Email Verification",
+      "isVerifying": "Verifying your email address...",
+      "success": "Email verified",
+      "error": " Failed to verify your email.",
+      "error-message": "Please try again or contact support.",
+      "toast": {
+        "success": "Email verified",
+        "error": "Failed to verify your email"
+      }
     }
   },
   "dashboard": {
@@ -224,19 +235,19 @@
         "qrCode": {
           "title": "Step 1 of 2",
           "card": {
-            "title": "Register HSS Admin",
+            "title": "Register Reperks TOTP",
             "description": "Open the Google Authenticator app and scan this QR code.",
-            "alert": "Once HSS Admin is registered you’ll start seeing 6-digit verification codes in the app."
+            "alert": "Once Reperks Admin is registered you’ll start seeing 6-digit verification codes in the app."
           },
           "cancel": "Cancel",
           "continue": "Continue"
-         }
+        }
       },
       "verified": {
         "title": "Verified",
         "description": {
-          "sms": "From now on, you’ll use verification via SMS to sign in to HSS Admin.",
-          "totp": "From now on, you’ll use Google Authenticator to sign in to HSS Admin."
+          "sms": "From now on, you’ll use verification via SMS to sign in to Reperks.",
+          "totp": "From now on, you’ll use Google Authenticator to sign in to Reperks."
         },
         "submit": "Done"
       }

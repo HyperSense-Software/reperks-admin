@@ -39,7 +39,7 @@ export async function middleware(request: NextRequest) {
     '/',
   ].some((route) => {
     const langPrefix = routing.locales.map((lang) => `/${lang}${route}`);
-    return langPrefix.some((path) => pathname.startsWith(path));
+    return langPrefix.some((path) => pathname === path);
   });
 
   if (isPublicRoute) {

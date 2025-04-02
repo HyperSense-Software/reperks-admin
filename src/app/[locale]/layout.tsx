@@ -9,6 +9,7 @@ import './globals.css';
 import { StoreProvider } from '@/components/StoreProvider/StoreProvider';
 import ConfigureAmplifyClientSide from '@/components/common/ConfigureAmplifyClientSide';
 import { Toaster } from '@/components/ui/sonner';
+import Favicon from './favicon.ico';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,11 +18,17 @@ export const metadata: Metadata = {
   description: 'Dashboard App',
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   const locale = await getLocale();
 
   return (
     <html lang={locale}>
+      <head>
+        <link rel="icon" href={Favicon.src} sizes="any" />
+        <title></title>
+      </head>
       <body className={inter.className}>
         <StoreProvider>
           <NextTopLoader showSpinner={false} />

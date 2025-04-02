@@ -224,9 +224,9 @@
         "qrCode": {
           "title": "Schritt 1 von 2",
           "card": {
-            "title": "HSS-Admin registrieren",
+            "title": "Reperks registrieren",
             "description": "Öffnen Sie die Google Authenticator-App und scannen Sie diesen QR-Code.",
-            "alert": "Sobald der HSS-Administrator registriert ist, werden in der App 6-stellige Bestätigungscodes angezeigt."
+            "alert": "Sobald der Reperks registriert ist, werden in der App 6-stellige Bestätigungscodes angezeigt."
           },
           "cancel": "Stornieren",
           "continue": "Weitermachen"
@@ -235,8 +235,8 @@
       "verified": {
         "title": "Verifiziert",
         "description": {
-          "sms": "Ab sofort nutzen Sie zur Anmeldung bei HSS Admin die Verifizierung per SMS.",
-          "totp": "Von nun an verwenden Sie Google Authenticator, um sich bei HSS Admin anzumelden."
+          "sms": "Ab sofort nutzen Sie zur Anmeldung bei reperks Admin die Verifizierung per SMS.",
+          "totp": "Von nun an verwenden Sie Google Authenticator, um sich bei Reperks Admin anzumelden."
         },
         "submit": "Erledigt"
       }

@@ -52,10 +52,6 @@ export default function PersonalInfoForm({
     },
   });
 
-  // useEffect(() => {
-  //   form.reset(initialData);
-  // }, [initialData, form.reset, form]);
-
   // Handle form submission
   async function onSubmit(data: FormValues) {
     try {

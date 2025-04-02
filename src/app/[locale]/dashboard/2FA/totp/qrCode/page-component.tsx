@@ -32,7 +32,7 @@ const TOTPQRCodeComponent = () => {
     dispatch(TOGGLE_LOADER(true));
     setUpTOTP()
       .then((totpSetupDetails) => {
-        const appName = 'HSS-next-admin';
+        const appName = 'reperks';
         const setupUri = totpSetupDetails.getSetupUri(appName);
         setURI(setupUri);
       })
@@ -52,7 +52,7 @@ const TOTPQRCodeComponent = () => {
         <p className={`self-center font-medium text-gray-500`}>{t('title')}</p>
         <Progress value={50} className={`bg-white`} />
       </div>
-      <Card className={`w-dvw max-w-sm`}>
+      <Card className={`mx-auto w-dvw max-w-sm`}>
         <CardHeader>
           <CardTitle>{t('card.title')}</CardTitle>
           <CardDescription>{t('card.description')}</CardDescription>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import * as z from 'zod';
+
 import {
   InputOTP,
   InputOTPGroup,
@@ -18,12 +19,7 @@ import {
   updateUserAttributes,
 } from 'aws-amplify/auth';
 import { Loader2 } from 'lucide-react';
-
-const formSchema = z.object({
-  code: z.string().length(6, 'Verification code must be 6 digits'),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { useTranslations } from 'use-intl';
 
 const PhoneConfirmCodeComponent = ({
   phone,
@@ -32,6 +28,12 @@ const PhoneConfirmCodeComponent = ({
   phone: string | null;
   setVerifyPhone: (value: boolean) => void;
 }) => {
+  const t = useTranslations('settings.profile.phoneConfirm');
+  const formSchema = z.object({
+    code: z.string().length(6, t('validation.codeLength')),
+  });
+
+  type FormValues = z.infer<typeof formSchema>;
   const [resendCode, setResendCode] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRemoving, setIsRemoving] = useState(false);
@@ -65,11 +67,11 @@ const PhoneConfirmCodeComponent = ({
           phone_number: '',
         },
       });
-      toast.success('Phone number removed successfully');
+      toast.success(t('toast.removeSuccess'));
       setVerifyPhone(false);
     } catch (err: unknown) {
       console.log(err);
-      toast.error('Failed to remove phone number');
+      toast.error(t('toast.removeError'));
     } finally {
       setIsRemoving(false);
     }
@@ -82,9 +84,11 @@ const PhoneConfirmCodeComponent = ({
         userAttributeKey: 'phone_number',
         confirmationCode: data.code,
       });
+      toast.success(t('toast.success'));
       setVerifyPhone(false);
     } catch (err: unknown) {
-      toast.error(JSON.stringify(err));
+      console.log(JSON.stringify(err));
+      toast.error(t('toast.error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -97,8 +101,7 @@ const PhoneConfirmCodeComponent = ({
         className="grid grid-cols-1 gap-4"
       >
         <p>
-          Enter the verification code sent to your phone:{' '}
-          <small>({phone})</small>
+          {t('enterCode')} <small>({phone})</small>
         </p>
 
         <Controller
@@ -133,7 +136,7 @@ const PhoneConfirmCodeComponent = ({
               disabled={resendCode}
               onClick={resentCode}
             >
-              Resend
+              {t('buttons.resend')}
               {resendCode ? (
                 <Loader2 className="ml-2 h-4 w-4 animate-spin" />
               ) : null}
@@ -150,14 +153,14 @@ const PhoneConfirmCodeComponent = ({
               {isRemoving ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Remove Phone
+              {t('buttons.removePhone')}
             </Button>
             <Button
               type="submit"
               className="cursor-pointer"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Verifying...' : 'Verify Code'}
+              {isSubmitting ? t('buttons.verifying') : t('buttons.verify')}
             </Button>
           </div>
         </div>

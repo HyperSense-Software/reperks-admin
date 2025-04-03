@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -20,20 +21,6 @@ import {
   sendUserAttributeVerificationCode,
   updateUserAttributes,
 } from 'aws-amplify/auth';
-import { useTranslations } from 'next-intl';
-
-// Define form schema with Zod
-const formSchema = z.object({
-  phone: z
-    .string()
-    .min(1, 'Phone number is required')
-    .regex(
-      /^\+[1-9]\d{1,14}$/,
-      'Please enter a valid phone number with country code (e.g., +12345678901)',
-    ),
-});
-
-type FormValues = z.infer<typeof formSchema>;
 
 export default function PhoneChangeForm({
   phone,
@@ -42,7 +29,15 @@ export default function PhoneChangeForm({
   phone: string | null;
   setVerifyPhone: (value: boolean) => void;
 }) {
-  const t = useTranslations('dashboard.mfa.sms.addPhone');
+  const t = useTranslations('dashboard.settings.profile.phoneNumber.form');
+  const formSchema = z.object({
+    phone: z
+      .string()
+      .min(1, t('validation.required'))
+      .regex(/^\+[1-9]\d{1,14}$/, t('validation.format')),
+  });
+  type FormValues = z.infer<typeof formSchema>;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setNewPhone] = useState('');
 
@@ -53,35 +48,29 @@ export default function PhoneChangeForm({
     },
   });
 
-  // Handle form submission
   async function onSubmit(data: FormValues) {
     try {
       setIsSubmitting(true);
+      const { phone_number } = await updateUserAttributes({
+        userAttributes: {
+          phone_number: data.phone,
+        },
+      });
 
-      try {
-        const { phone_number } = await updateUserAttributes({
-          userAttributes: {
-            phone_number: data.phone,
-          },
-        });
-
-        if (!phone_number.isUpdated) {
-          toast.error(t('messages.not-updated'));
-        }
-
-        await sendUserAttributeVerificationCode({
-          userAttributeKey: 'phone_number',
-        });
-        setNewPhone(data.phone);
-        setVerifyPhone(true);
-      } catch (error) {
-        console.error('Failed to fetch user profile:', error);
-      } finally {
-        setIsSubmitting(false);
+      if (!phone_number.isUpdated) {
+        toast.error(t('error'));
+        return;
       }
+
+      await sendUserAttributeVerificationCode({
+        userAttributeKey: 'phone_number',
+      });
+      setNewPhone(data.phone);
+      setVerifyPhone(true);
+      toast.success(t('success'));
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error('Failed to update your information. Please try again.');
+      toast.error(t('error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -98,9 +87,9 @@ export default function PhoneChangeForm({
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone number</FormLabel>
+              <FormLabel>{t('phone.label')}</FormLabel>
               <FormControl>
-                <Input placeholder="Phone number goes here" {...field} />
+                <Input placeholder={t('phone.placeholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -113,7 +102,7 @@ export default function PhoneChangeForm({
             className="cursor-pointer"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Updating...' : 'Update info'}
+            {isSubmitting ? t('submit.updating') : t('submit.update')}
           </Button>
         </div>
       </form>

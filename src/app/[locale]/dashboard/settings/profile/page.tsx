@@ -11,10 +11,12 @@ import BillingInfoForm from '@/app/[locale]/dashboard/settings/profile/billing-i
 import { fetchUserAttributes } from '@aws-amplify/auth';
 import PhoneChangeForm from '@/app/[locale]/dashboard/settings/profile/phone-change-form';
 import PhoneConfirmCodeComponent from '@/app/[locale]/dashboard/settings/profile/phone-confirm-form';
+import { useTranslations } from 'use-intl';
 
 export const dynamic = 'force-dynamic';
 
 const EditProfile = () => {
+  const t = useTranslations('dashboard.settings.profile');
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingPhone, setIsLoadingPhone] = useState(true);
@@ -23,7 +25,6 @@ const EditProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('Fetching user profile...');
       try {
         setIsLoading(true);
         const apiPath =
@@ -79,7 +80,7 @@ const EditProfile = () => {
     <main className="">
       <Card className="w-full max-w-2xl">
         <CardHeader className={'m-0 gap-0 border-b-1 pb-4'}>
-          <CardTitle className={'text-xl'}>Personal info</CardTitle>
+          <CardTitle className={'text-xl'}>{t('personalInfo.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -87,14 +88,14 @@ const EditProfile = () => {
           ) : user ? (
             <PersonalInfoForm initialData={user} />
           ) : (
-            <p>Failed to load user information.</p>
+            <p>{t('personalInfo.loadError')}</p>
           )}
         </CardContent>
       </Card>
 
       <Card className="mt-4 w-full max-w-2xl">
         <CardHeader className={'m-0 gap-0 border-b-1 pb-4'}>
-          <CardTitle className={'text-xl'}>Phone number</CardTitle>
+          <CardTitle className={'text-xl'}>{t('phoneNumber.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoadingPhone ? (
@@ -119,7 +120,7 @@ const EditProfile = () => {
 
       <Card className="mt-4 w-full max-w-2xl">
         <CardHeader className={'m-0 gap-0 border-b-1 pb-4'}>
-          <CardTitle className={'text-xl'}>Billing information</CardTitle>
+          <CardTitle className={'text-xl'}>{t('billingInfo.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -127,7 +128,7 @@ const EditProfile = () => {
           ) : user ? (
             <BillingInfoForm initialData={user} />
           ) : (
-            <p>Failed to load user information.</p>
+            <p>{t('billingInfo.loadError')}</p>
           )}
         </CardContent>
       </Card>

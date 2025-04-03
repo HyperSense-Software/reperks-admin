@@ -275,6 +275,105 @@
           "set-preferred": "Als bevorzugte 2FA festlegen",
           "turn-off": "Ausschalten"
         }
+      },
+      "profile": {
+        "personalInfo": {
+          "title": "Persönliche Informationen",
+          "loadError": "Fehler beim Laden der Benutzerinformationen.",
+          "form": {
+            "validation": {
+              "companyName": {
+                "required": "Firmenname ist erforderlich"
+              },
+              "firstName": {
+                "required": "Vorname ist erforderlich"
+              },
+              "lastName": {
+                "required": "Nachname ist erforderlich"
+              },
+              "city": {
+                "required": "Stadt ist erforderlich"
+              },
+              "postalCode": {
+                "required": "Postleitzahl ist erforderlich"
+              },
+              "address": {
+                "required": "Adresse ist erforderlich"
+              }
+            },
+            "companyName": {
+              "label": "Firmenname",
+              "placeholder": "Firmenname"
+            },
+            "firstName": {
+              "label": "Vorname",
+              "placeholder": "Vorname"
+            },
+            "lastName": {
+              "label": "Nachname",
+              "placeholder": "Nachname"
+            },
+            "city": {
+              "label": "Stadt",
+              "placeholder": "Stadt"
+            },
+            "postalCode": {
+              "label": "Postleitzahl",
+              "placeholder": "Postleitzahl"
+            },
+            "address": {
+              "label": "Adresse",
+              "placeholder": "Adresse"
+            },
+            "submit": {
+              "updating": "Aktualisierung...",
+              "update": "Informationen aktualisieren"
+            },
+            "success": "Ihre persönlichen Informationen wurden aktualisiert.",
+            "error": "Ihre Informationen konnten nicht aktualisiert werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "phoneNumber": {
+          "title": "Telefonnummer",
+          "form": {
+            "phone": {
+              "label": "Telefonnummer",
+              "placeholder": "Telefonnummer mit Ländervorwahl eingeben"
+            },
+            "submit": {
+              "updating": "Aktualisierung...",
+              "update": "Telefonnummer aktualisieren"
+            },
+            "validation": {
+              "required": "Telefonnummer ist erforderlich",
+              "format": "Bitte geben Sie eine gültige Telefonnummer mit Ländervorwahl ein (z.B. +49123456789)"
+            },
+            "success": "Ihre Telefonnummer wurde aktualisiert.",
+            "error": "Ihre Telefonnummer konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "billingInfo": {
+          "title": "Rechnungsinformationen",
+          "loadError": "Fehler beim Laden der Benutzerinformationen."
+        },
+        "phoneConfirm": {
+          "enterCode": "Geben Sie den an Ihr Telefon gesendeten Bestätigungscode ein:",
+          "buttons": {
+            "resend": "Erneut senden",
+            "removePhone": "Telefon entfernen",
+            "verify": "Code bestätigen",
+            "verifying": "Überprüfung..."
+          },
+          "validation": {
+            "codeLength": "Der Bestätigungscode muss 6 Ziffern enthalten"
+          },
+          "toast": {
+            "success": "Telefonnummer erfolgreich verifiziert",
+            "error": "Telefonnummer konnte nicht verifiziert werden",
+            "removeSuccess": "Telefonnummer erfolgreich entfernt",
+            "removeError": "Telefonnummer konnte nicht entfernt werden"
+          }
+        }
       }
     }
   },

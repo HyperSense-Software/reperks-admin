@@ -286,6 +286,105 @@
           "set-preferred": "Set as preferred 2FA",
           "turn-off": "Turn off"
         }
+      },
+      "profile": {
+        "personalInfo": {
+          "title": "Personal info",
+          "loadError": "Failed to load user information.",
+          "form": {
+            "validation": {
+              "companyName": {
+                "required": "Company name is required"
+              },
+              "firstName": {
+                "required": "First name is required"
+              },
+              "lastName": {
+                "required": "Last name is required"
+              },
+              "city": {
+                "required": "City is required"
+              },
+              "postalCode": {
+                "required": "Postal code is required"
+              },
+              "address": {
+                "required": "Address is required"
+              }
+            },
+            "companyName": {
+              "label": "Company name",
+              "placeholder": "Company name"
+            },
+            "firstName": {
+              "label": "First name",
+              "placeholder": "First name"
+            },
+            "lastName": {
+              "label": "Last name",
+              "placeholder": "Last name"
+            },
+            "city": {
+              "label": "City",
+              "placeholder": "City"
+            },
+            "postalCode": {
+              "label": "Postal code",
+              "placeholder": "Postal code"
+            },
+            "address": {
+              "label": "Address",
+              "placeholder": "Address"
+            },
+            "submit": {
+              "updating": "Updating...",
+              "update": "Update info"
+            },
+            "success": "Your personal information has been updated.",
+            "error": "Failed to update your information. Please try again."
+          }
+        },
+        "phoneNumber": {
+          "title": "Phone number",
+          "form": {
+            "phone": {
+              "label": "Phone number",
+              "placeholder": "Enter phone number with country code"
+            },
+            "submit": {
+              "updating": "Updating...",
+              "update": "Update phone number"
+            },
+            "validation": {
+              "required": "Phone number is required",
+              "format": "Please enter a valid phone number with country code (e.g., +12345678901)"
+            },
+            "success": "Your phone number has been updated.",
+            "error": "Failed to update your phone number. Please try again."
+          }
+        },
+        "billingInfo": {
+          "title": "Billing information",
+          "loadError": "Failed to load user information."
+        },
+        "phoneConfirm": {
+          "enterCode": "Enter the verification code sent to your phone:",
+          "buttons": {
+            "resend": "Resend",
+            "removePhone": "Remove Phone",
+            "verify": "Verify Code",
+            "verifying": "Verifying..."
+          },
+          "validation": {
+            "codeLength": "Verification code must be 6 digits"
+          },
+          "toast": {
+            "success": "Phone number verified successfully",
+            "error": "Failed to verify phone number",
+            "removeSuccess": "Phone number removed successfully",
+            "removeError": "Failed to remove phone number"
+          }
+        }
       }
     }
   },

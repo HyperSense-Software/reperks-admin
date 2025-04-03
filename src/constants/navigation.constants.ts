@@ -10,18 +10,18 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Portfolio',
-    url: '/portfolio',
+    url: '#',
     icon: 'portfolio',
     label: 'Portfolio',
     isActive: false,
     items: [
       {
         title: 'Assets',
-        url: '#',
+        url: '/dashboard/assets',
       },
       {
         title: 'Tenants',
-        url: '#',
+        url: '/dashboard/tenants',
       },
     ],
   },

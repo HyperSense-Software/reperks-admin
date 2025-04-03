@@ -20,6 +20,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Icons } from '@/components/icons';
+import { useLocale } from 'next-intl';
 
 export function NavigationMenu({
   items,
@@ -37,6 +38,7 @@ export function NavigationMenu({
   }[];
 }) {
   const { state } = useSidebar();
+  const locale = useLocale();
   const isMinimized = state === 'collapsed';
   return (
     <SidebarGroup>
@@ -90,7 +92,7 @@ export function NavigationMenu({
                               asChild
                               className={'text-xs font-medium text-slate-500'}
                             >
-                              <Link href={subItem.url}>
+                              <Link href={`/${locale}${subItem.url}`}>
                                 <span className="">{subItem.title}</span>
                               </Link>
                             </SidebarMenuSubButton>

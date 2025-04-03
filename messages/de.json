@@ -177,6 +177,17 @@
           "label": "Google Authenticator"
         }
       }
+    },
+    "verify-email": {
+      "title": "E-Mail Verifizierung",
+      "isVerifying": "Ihre E-Mail-Adresse wird verifiziert...",
+      "success": "E-Mail verifiziert",
+      "error": "E-Mail-Verifizierung fehlgeschlagen.",
+      "error-message": "Bitte versuchen Sie es erneut oder kontaktieren Sie den Support.",
+      "toast": {
+        "success": "E-Mail verifiziert",
+        "error": "E-Mail-Verifizierung fehlgeschlagen"
+      }
     }
   },
   "dashboard": {

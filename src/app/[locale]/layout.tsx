@@ -10,6 +10,7 @@ import { StoreProvider } from '@/components/StoreProvider/StoreProvider';
 import ConfigureAmplifyClientSide from '@/components/common/ConfigureAmplifyClientSide';
 import { Toaster } from '@/components/ui/sonner';
 import Favicon from './favicon.ico';
+import CheckCognitoUser from '@/components/common/CheckCognitoUser';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -33,9 +34,9 @@ export default async function RootLayout({
         <StoreProvider>
           <NextTopLoader showSpinner={false} />
           <ConfigureAmplifyClientSide>
-            <ConfigureAmplifyClientSide>
+            <CheckCognitoUser>
               <NextIntlClientProvider>{children}</NextIntlClientProvider>
-            </ConfigureAmplifyClientSide>
+            </CheckCognitoUser>
             <Toaster richColors />
           </ConfigureAmplifyClientSide>
         </StoreProvider>

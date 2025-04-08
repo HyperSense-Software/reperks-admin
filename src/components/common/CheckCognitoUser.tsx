@@ -5,15 +5,13 @@ import { ReactNode, useEffect } from 'react';
 import { fetchUserAttributes, signOut } from '@aws-amplify/auth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
 
 Amplify.configure(awsconfig, { ssr: true });
 
-export default function ConfigureAmplifyClientSide({
+export default function CheckCognitoUser({
   children,
 }: Readonly<{ children: ReactNode }>) {
   const router = useRouter();
-  const locale = useLocale();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,7 +21,7 @@ export default function ConfigureAmplifyClientSide({
         console.log(error);
         await signOut().then(() => {
           toast.success('Logged out');
-          router.push(`/${locale}/login`);
+          router.push(`/`);
         });
       }
     };

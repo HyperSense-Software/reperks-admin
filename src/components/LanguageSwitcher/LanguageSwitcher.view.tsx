@@ -12,9 +12,6 @@ import {
 import { usePathname, useRouter } from 'next/navigation';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import axiosInstance from '@/instance/axiosInstance';
-import { AxiosResponse } from 'axios';
-import { Response } from '@/interfaces/APIResponse';
-import { IUser } from '@/models/user.interface';
 
 const languages = [
   { code: 'en', name: 'English' },

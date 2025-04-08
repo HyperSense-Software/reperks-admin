@@ -11,6 +11,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { usePathname, useRouter } from 'next/navigation';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import axiosInstance from '@/instance/axiosInstance';
+import { AxiosResponse } from 'axios';
+import { Response } from '@/interfaces/APIResponse';
+import { IUser } from '@/models/user.interface';
 
 const languages = [
   { code: 'en', name: 'English' },
@@ -26,12 +30,24 @@ export const LanguageSwitcher = ({
 
   const t = useTranslations('LanguageSwitcher');
 
-  const handleLanguageChange = (newLocale: string) => {
+  const handleLanguageChange = async (newLocale: string) => {
     if (locale === newLocale) return;
 
     const pathParts = pathname.split('/');
     pathParts[1] = newLocale;
     const newPath = pathParts.join('/');
+
+    try {
+      await axiosInstance.put(
+        process.env.NEXT_PUBLIC_API_BASE_URL + 'v1/common/users/updateLang',
+        {
+          lang: newLocale,
+        },
+      );
+      router.push(newPath);
+    } catch (error) {
+      console.error('Error updating language', error);
+    }
 
     router.push(newPath);
   };

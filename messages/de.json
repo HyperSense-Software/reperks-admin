@@ -272,7 +272,9 @@
           "success": "SMS auf bevorzugte 2FA eingestellt",
           "disabled": "SMS 2FA deaktiviert",
           "enabled": "Ermöglicht",
+          "default": "Standard",
           "submit-txt": "2FA mit SMS einrichten",
+          "add-phone-txt": "Telefonnummer hinzufügen",
           "set-preferred": "Als bevorzugte 2FA festlegen",
           "turn-off": "Ausschalten"
         },
@@ -282,6 +284,7 @@
           "success": "TOTP auf bevorzugte 2FA eingestellt",
           "disabled": "TOTP 2FA deaktiviert",
           "enabled": "Ermöglicht",
+          "default": "Standard",
           "submit-txt": "2FA mit TOTP einrichten",
           "set-preferred": "Als bevorzugte 2FA festlegen",
           "turn-off": "Ausschalten"

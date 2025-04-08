@@ -33,7 +33,9 @@ export default async function RootLayout({
         <StoreProvider>
           <NextTopLoader showSpinner={false} />
           <ConfigureAmplifyClientSide>
-            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            <ConfigureAmplifyClientSide>
+              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            </ConfigureAmplifyClientSide>
             <Toaster richColors />
           </ConfigureAmplifyClientSide>
         </StoreProvider>

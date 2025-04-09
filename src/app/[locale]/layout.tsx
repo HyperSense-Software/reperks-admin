@@ -34,9 +34,7 @@ export default async function RootLayout({
         <StoreProvider>
           <NextTopLoader showSpinner={false} />
           <ConfigureAmplifyClientSide>
-            <CheckCognitoUser>
-              <NextIntlClientProvider>{children}</NextIntlClientProvider>
-            </CheckCognitoUser>
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
             <Toaster richColors />
           </ConfigureAmplifyClientSide>
         </StoreProvider>

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { PlusIcon } from 'lucide-react';
+
 import {
   Asset,
   AssetFilters,
@@ -12,7 +14,6 @@ import AssetTable from './components/asset-table';
 import AssetFiltersComponent from './components/asset-filters';
 import AssetForm from './components/asset-form';
 import { Button } from '@/components/ui/button';
-import { PlusIcon } from 'lucide-react';
 
 export default function AssetsPage() {
   const [assets, setAssets] = useState<Asset[]>([]);

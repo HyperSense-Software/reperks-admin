@@ -22,7 +22,8 @@ const Pagination = ({
   handlePageSizeChange,
 }: PaginationProps) => {
   const totalPages: number = Math.ceil(totalItems / itemsPerPage);
-  const pageSizeOptions = [10, 20, 30, 40, 50];
+  const pageSizeOptions = [1, 2, 3, 4, 5].map((item) => itemsPerPage * item);
+
   // const filtersOptions: any | null = useAppSelector(filterOptionsSelector);
 
   const pageSizeChange = (value: number) => {
@@ -39,8 +40,8 @@ const Pagination = ({
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
           <Select
-            value={`${itemsPerPage}`}
-            defaultValue={`${itemsPerPage}`}
+            value={itemsPerPage + ''}
+            defaultValue={itemsPerPage + ''}
             onValueChange={(value) => {
               handlePageSizeChange(Number(value));
             }}

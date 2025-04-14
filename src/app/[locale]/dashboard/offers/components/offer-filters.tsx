@@ -23,11 +23,11 @@ export default function OfferFiltersComponent({
 
   // Submit filters when debounced value changes
   useEffect(() => {
-    // onFilterChange(debouncedFilters);
-  }, [debouncedFilters, onFilterChange]);
+    onFilterChange(debouncedFilters);
+    console.log(debouncedFilters);
+  }, [debouncedFilters]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('adsdsa');
     const { name, value } = e.target;
     setLocalFilters((prev) => ({
       ...prev,
@@ -44,8 +44,9 @@ export default function OfferFiltersComponent({
             id="keyword"
             name="keyword"
             placeholder="Search..."
-            value={localFilters.keyword || ''}
-            onChange={handleInputChange}
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
             className="pl-9"
           />
         </div>

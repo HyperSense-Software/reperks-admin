@@ -38,7 +38,7 @@ export default function OffersPage() {
 
   const fetchOffers = async () => {
     setIsLoading(true);
-    console.log(filters, 'fetch');
+
     try {
       const response = await getOffers({
         offset: pagination.offset,
@@ -61,7 +61,6 @@ export default function OffersPage() {
   };
 
   useEffect(() => {
-    console.log(filters);
     fetchOffers();
   }, [pagination.offset, pagination.limit, filters, sort]);
 
@@ -74,6 +73,7 @@ export default function OffersPage() {
   };
 
   const handleFilterChange = (newFilters: OfferFilters) => {
+    console.log(newFilters, 'newFilters');
     setFilters(newFilters);
     setPagination((prev) => ({ ...prev, offset: 0 }));
   };

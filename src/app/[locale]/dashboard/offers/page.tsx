@@ -16,6 +16,7 @@ import OfferForm from './components/offer-form';
 import { Button } from '@/components/ui/button';
 import { getOffers, getOffersCount } from '@/lib/api/offers';
 import { useTranslations } from 'next-intl';
+import { PerPage } from '@/utils/utils';
 
 export default function OffersPage() {
   const t = useTranslations('dashboard.offers');
@@ -25,7 +26,7 @@ export default function OffersPage() {
   const [total, setTotal] = useState(0);
   const [pagination, setPagination] = useState<PaginationParams>({
     offset: 0,
-    limit: 2,
+    limit: PerPage,
   });
   const [filters, setFilters] = useState<OfferFilters>({});
   const [sort, setSort] = useState<SortParams>({

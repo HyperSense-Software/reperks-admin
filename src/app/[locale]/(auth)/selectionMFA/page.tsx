@@ -63,10 +63,10 @@ const LoginMFASelection = () => {
             <Link
               href={
                 twoFactorAuth === 'sms'
-                  ? `/confirm-code?verify=sms`
+                  ? `/${locale}/confirm-code?verify=sms`
                   : twoFactorAuth === 'totp'
-                    ? `/confirm-code?verify=totp`
-                    : '/login'
+                    ? `/${locale}/confirm-code?verify=totp`
+                    : `/${locale}/login`
               }
               className={
                 twoFactorAuth !== ''

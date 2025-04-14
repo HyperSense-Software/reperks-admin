@@ -177,6 +177,17 @@
           "label": "Google Authenticator"
         }
       }
+    },
+    "verify-email": {
+      "title": "E-Mail Verifizierung",
+      "isVerifying": "Ihre E-Mail-Adresse wird verifiziert...",
+      "success": "E-Mail verifiziert",
+      "error": "E-Mail-Verifizierung fehlgeschlagen.",
+      "error-message": "Bitte versuchen Sie es erneut oder kontaktieren Sie den Support.",
+      "toast": {
+        "success": "E-Mail verifiziert",
+        "error": "E-Mail-Verifizierung fehlgeschlagen"
+      }
     }
   },
   "dashboard": {
@@ -224,9 +235,9 @@
         "qrCode": {
           "title": "Schritt 1 von 2",
           "card": {
-            "title": "HSS-Admin registrieren",
+            "title": "Reperks registrieren",
             "description": "Öffnen Sie die Google Authenticator-App und scannen Sie diesen QR-Code.",
-            "alert": "Sobald der HSS-Administrator registriert ist, werden in der App 6-stellige Bestätigungscodes angezeigt."
+            "alert": "Sobald der Reperks registriert ist, werden in der App 6-stellige Bestätigungscodes angezeigt."
           },
           "cancel": "Stornieren",
           "continue": "Weitermachen"
@@ -235,8 +246,8 @@
       "verified": {
         "title": "Verifiziert",
         "description": {
-          "sms": "Ab sofort nutzen Sie zur Anmeldung bei HSS Admin die Verifizierung per SMS.",
-          "totp": "Von nun an verwenden Sie Google Authenticator, um sich bei HSS Admin anzumelden."
+          "sms": "Ab sofort nutzen Sie zur Anmeldung bei reperks Admin die Verifizierung per SMS.",
+          "totp": "Von nun an verwenden Sie Google Authenticator, um sich bei Reperks Admin anzumelden."
         },
         "submit": "Erledigt"
       }
@@ -261,7 +272,9 @@
           "success": "SMS auf bevorzugte 2FA eingestellt",
           "disabled": "SMS 2FA deaktiviert",
           "enabled": "Ermöglicht",
+          "default": "Standard",
           "submit-txt": "2FA mit SMS einrichten",
+          "add-phone-txt": "Telefonnummer hinzufügen",
           "set-preferred": "Als bevorzugte 2FA festlegen",
           "turn-off": "Ausschalten"
         },
@@ -271,9 +284,109 @@
           "success": "TOTP auf bevorzugte 2FA eingestellt",
           "disabled": "TOTP 2FA deaktiviert",
           "enabled": "Ermöglicht",
+          "default": "Standard",
           "submit-txt": "2FA mit TOTP einrichten",
           "set-preferred": "Als bevorzugte 2FA festlegen",
           "turn-off": "Ausschalten"
+        }
+      },
+      "profile": {
+        "personalInfo": {
+          "title": "Persönliche Informationen",
+          "loadError": "Fehler beim Laden der Benutzerinformationen.",
+          "form": {
+            "validation": {
+              "companyName": {
+                "required": "Firmenname ist erforderlich"
+              },
+              "firstName": {
+                "required": "Vorname ist erforderlich"
+              },
+              "lastName": {
+                "required": "Nachname ist erforderlich"
+              },
+              "city": {
+                "required": "Stadt ist erforderlich"
+              },
+              "postalCode": {
+                "required": "Postleitzahl ist erforderlich"
+              },
+              "address": {
+                "required": "Adresse ist erforderlich"
+              }
+            },
+            "companyName": {
+              "label": "Firmenname",
+              "placeholder": "Firmenname"
+            },
+            "firstName": {
+              "label": "Vorname",
+              "placeholder": "Vorname"
+            },
+            "lastName": {
+              "label": "Nachname",
+              "placeholder": "Nachname"
+            },
+            "city": {
+              "label": "Stadt",
+              "placeholder": "Stadt"
+            },
+            "postalCode": {
+              "label": "Postleitzahl",
+              "placeholder": "Postleitzahl"
+            },
+            "address": {
+              "label": "Adresse",
+              "placeholder": "Adresse"
+            },
+            "submit": {
+              "updating": "Aktualisierung...",
+              "update": "Informationen aktualisieren"
+            },
+            "success": "Ihre persönlichen Informationen wurden aktualisiert.",
+            "error": "Ihre Informationen konnten nicht aktualisiert werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "phoneNumber": {
+          "title": "Telefonnummer",
+          "form": {
+            "phone": {
+              "label": "Telefonnummer",
+              "placeholder": "Telefonnummer mit Ländervorwahl eingeben"
+            },
+            "submit": {
+              "updating": "Aktualisierung...",
+              "update": "Telefonnummer aktualisieren"
+            },
+            "validation": {
+              "required": "Telefonnummer ist erforderlich",
+              "format": "Bitte geben Sie eine gültige Telefonnummer mit Ländervorwahl ein (z.B. +49123456789)"
+            },
+            "success": "Ihre Telefonnummer wurde aktualisiert.",
+            "error": "Ihre Telefonnummer konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "billingInfo": {
+          "title": "Rechnungsinformationen",
+          "loadError": "Fehler beim Laden der Benutzerinformationen."
+        },
+        "phoneConfirm": {
+          "enterCode": "Geben Sie den an Ihr Telefon gesendeten Bestätigungscode ein:",
+          "buttons": {
+            "resend": "Erneut senden",
+            "removePhone": "Telefon entfernen",
+            "verify": "Code bestätigen",
+            "verifying": "Überprüfung..."
+          },
+          "validation": {
+            "codeLength": "Der Bestätigungscode muss 6 Ziffern enthalten"
+          },
+          "toast": {
+            "success": "Telefonnummer erfolgreich verifiziert",
+            "error": "Telefonnummer konnte nicht verifiziert werden",
+            "removeSuccess": "Telefonnummer erfolgreich entfernt",
+            "removeError": "Telefonnummer konnte nicht entfernt werden"
+          }
         }
       }
     }

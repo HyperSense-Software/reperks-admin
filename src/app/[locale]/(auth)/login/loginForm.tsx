@@ -148,7 +148,7 @@ export function LoginForm() {
       }
     } catch (error: unknown) {
       dispatch(TOGGLE_LOADER(false));
-      console.error(error);
+      console.log(error);
       if (typeof error === 'object' && error !== null && 'message' in error) {
         const errorMessage = (error as { message: string }).message;
         toast.error(JSON.stringify(errorMessage));

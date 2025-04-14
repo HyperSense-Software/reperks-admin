@@ -21,6 +21,8 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/store';
 import { TOGGLE_LOADER } from '@/store/app/app.actions';
+import { fetchUserAttributes } from '@aws-amplify/auth';
+import { Badge } from '@/components/ui/badge';
 
 export type AuthMFAType = 'SMS' | 'TOTP' | 'EMAIL' | null;
 
@@ -29,6 +31,9 @@ const ProfileSecurityComponent = () => {
   const dispatch = useAppDispatch();
   const [mfaPreferred, setMfaPreferred] = useState<AuthMFAType>(null);
   const [mfaEnabledType, setMfaEnabledType] = useState<AuthMFAType[]>([]);
+
+  const [userPhone, setUserPhone] = useState<string | null>(null);
+  const [verifyPhone, setVerifyPhone] = useState<boolean>(false);
 
   const t = useTranslations('dashboard.settings.security');
 
@@ -39,11 +44,13 @@ const ProfileSecurityComponent = () => {
         case 'SMS':
           await updateMFAPreference({ sms: 'PREFERRED' });
           setMfaPreferred('SMS');
+          getUserSettingMFA();
           toast.success(t('sms.success'));
           break;
         case 'TOTP':
           await updateMFAPreference({ totp: 'PREFERRED' });
           setMfaPreferred('TOTP');
+          getUserSettingMFA();
           toast.success(t('totp.success'));
           break;
       }
@@ -67,6 +74,7 @@ const ProfileSecurityComponent = () => {
             mfaEnabledType.filter((AuthMFAType) => AuthMFAType !== 'SMS'),
           );
           toast.success(t('sms.disabled'));
+          getUserSettingMFA();
           break;
         case 'TOTP':
           if (mfaEnabledType.includes('SMS')) {
@@ -78,10 +86,12 @@ const ProfileSecurityComponent = () => {
             mfaEnabledType.filter((AuthMFAType) => AuthMFAType !== 'TOTP'),
           );
           toast.success(t('totp.disabled'));
+          getUserSettingMFA();
           break;
         default:
           await updateMFAPreference({ sms: 'DISABLED', totp: 'DISABLED' });
           setMfaEnabledType([]);
+          getUserSettingMFA();
           toast.success(t('default.disabled'));
           break;
       }
@@ -91,11 +101,12 @@ const ProfileSecurityComponent = () => {
       dispatch(TOGGLE_LOADER(false));
     }
   };
-  useEffect(() => {
+  const getUserSettingMFA = async () => {
     dispatch(TOGGLE_LOADER(true));
-
     fetchMFAPreference()
       .then(({ enabled, preferred }: FetchMFAPreferenceOutput) => {
+        console.log('enabled', enabled);
+        console.log('preferred', preferred);
         if (enabled) {
           setMfaEnabledType(enabled);
           if (preferred) {
@@ -109,7 +120,30 @@ const ProfileSecurityComponent = () => {
       .finally(() => {
         dispatch(TOGGLE_LOADER(false));
       });
-  }, [dispatch]);
+  };
+  const getUserAttributes = async () => {
+    try {
+      dispatch(TOGGLE_LOADER(true));
+      const userAttributes = await fetchUserAttributes();
+
+      console.log('userAttributes', userAttributes);
+      if (userAttributes.phone_number) {
+        setUserPhone(userAttributes.phone_number);
+        setVerifyPhone(userAttributes.phone_number_verified === 'true');
+      }
+      dispatch(TOGGLE_LOADER(false));
+      // setIsLoadingPhone(false);
+    } catch (error) {
+      console.error('Error fetching user attributes:', error);
+      dispatch(TOGGLE_LOADER(false));
+      // setIsLoadingPhone(false);
+    }
+  };
+
+  useEffect(() => {
+    getUserSettingMFA();
+    getUserAttributes();
+  }, []);
 
   return (
     <div className="flex w-full flex-col gap-6">
@@ -119,13 +153,16 @@ const ProfileSecurityComponent = () => {
             <CardTitle>{t('sms.title')}</CardTitle>
             <CardDescription>{t('sms.description')}</CardDescription>
           </CardHeader>
-          {mfaPreferred === 'SMS' ? (
-            <CardContent className="flex w-full flex-row items-center">
-              <div className={`rounded-full bg-emerald-700 px-2.5 py-0.5`}>
-                <p className={`font-semibold text-white`}>{t('sms.enabled')}</p>
-              </div>
-            </CardContent>
-          ) : null}
+          <CardContent>
+            <div className={`flex w-full gap-2`}>
+              {mfaEnabledType.includes('SMS') ? (
+                <Badge variant={'default'}>{t('sms.enabled')}</Badge>
+              ) : null}
+              {mfaPreferred === 'SMS' ? (
+                <Badge variant={'outline'}>{t('sms.default')}</Badge>
+              ) : null}
+            </div>
+          </CardContent>
           <Separator />
           {mfaEnabledType && mfaEnabledType.includes('SMS') ? (
             <CardFooter className="flex flex-row justify-end gap-6">
@@ -152,9 +189,33 @@ const ProfileSecurityComponent = () => {
           ) : (
             <CardFooter className="flex flex-row justify-end">
               <Button asChild type="button">
-                <Link href={`/${locale}/dashboard/2FA/sms/addPhone`}>
-                  {t('sms.submit-txt')}
-                </Link>
+                {userPhone && verifyPhone ? (
+                  mfaEnabledType.includes('SMS') ? (
+                    <Button
+                      type="button"
+                      variant={'outline'}
+                      onClick={() => {
+                        setAsPreferredMFA('SMS');
+                      }}
+                    >
+                      {t('sms.set-preferred')}
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      variant={'outline'}
+                      onClick={() => {
+                        setAsPreferredMFA('SMS');
+                      }}
+                    >
+                      {t('sms.enabled')}
+                    </Button>
+                  )
+                ) : (
+                  <Link href={`/${locale}/dashboard/2FA/sms/addPhone`}>
+                    {t('sms.add-phone-txt')}
+                  </Link>
+                )}
               </Button>
             </CardFooter>
           )}
@@ -165,15 +226,17 @@ const ProfileSecurityComponent = () => {
             <CardDescription>{t('totp.description')}</CardDescription>
           </CardHeader>
 
-          {mfaPreferred === 'TOTP' ? (
-            <CardContent className="flex w-full flex-row items-center">
-              <div className={`rounded-full bg-emerald-700 px-2.5 py-0.5`}>
-                <p className={`font-semibold text-white`}>
-                  {t('totp.enabled')}
-                </p>
-              </div>
-            </CardContent>
-          ) : null}
+          <CardContent>
+            <div className={`flex w-full gap-2`}>
+              {mfaEnabledType.includes('TOTP') ? (
+                <Badge variant={'default'}>{t('totp.enabled')}</Badge>
+              ) : null}
+
+              {mfaPreferred === 'TOTP' ? (
+                <Badge variant={'outline'}>{t('totp.default')}</Badge>
+              ) : null}
+            </div>
+          </CardContent>
 
           <Separator />
           {mfaEnabledType && mfaEnabledType.includes('TOTP') ? (

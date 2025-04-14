@@ -177,6 +177,17 @@
           "label": "Google Authenticator"
         }
       }
+    },
+    "verify-email": {
+      "title": "Email Verification",
+      "isVerifying": "Verifying your email address...",
+      "success": "Email verified",
+      "error": " Failed to verify your email.",
+      "error-message": "Please try again or contact support.",
+      "toast": {
+        "success": "Email verified",
+        "error": "Failed to verify your email"
+      }
     }
   },
   "dashboard": {
@@ -224,19 +235,19 @@
         "qrCode": {
           "title": "Step 1 of 2",
           "card": {
-            "title": "Register HSS Admin",
+            "title": "Register Reperks TOTP",
             "description": "Open the Google Authenticator app and scan this QR code.",
-            "alert": "Once HSS Admin is registered you’ll start seeing 6-digit verification codes in the app."
+            "alert": "Once Reperks Admin is registered you’ll start seeing 6-digit verification codes in the app."
           },
           "cancel": "Cancel",
           "continue": "Continue"
-         }
+        }
       },
       "verified": {
         "title": "Verified",
         "description": {
-          "sms": "From now on, you’ll use verification via SMS to sign in to HSS Admin.",
-          "totp": "From now on, you’ll use Google Authenticator to sign in to HSS Admin."
+          "sms": "From now on, you’ll use verification via SMS to sign in to Reperks.",
+          "totp": "From now on, you’ll use Google Authenticator to sign in to Reperks."
         },
         "submit": "Done"
       }
@@ -261,7 +272,9 @@
           "success": "SMS set at preferred 2FA",
           "disabled": "Disabled SMS 2FA",
           "enabled": "Enabled",
+          "default": "Default",
           "submit-txt": "Set up 2FA with SMS",
+          "add-phone-txt": "Set Phone number",
           "set-preferred": "Set as preferred 2FA",
           "turn-off": "Turn off"
         },
@@ -271,9 +284,109 @@
           "success": "TOTP set at preferred 2FA",
           "disabled": "Disabled TOTP 2FA",
           "enabled": "Enabled",
+          "default": "Default",
           "submit-txt": "Set up 2FA with TOTP",
           "set-preferred": "Set as preferred 2FA",
           "turn-off": "Turn off"
+        }
+      },
+      "profile": {
+        "personalInfo": {
+          "title": "Personal info",
+          "loadError": "Failed to load user information.",
+          "form": {
+            "validation": {
+              "companyName": {
+                "required": "Company name is required"
+              },
+              "firstName": {
+                "required": "First name is required"
+              },
+              "lastName": {
+                "required": "Last name is required"
+              },
+              "city": {
+                "required": "City is required"
+              },
+              "postalCode": {
+                "required": "Postal code is required"
+              },
+              "address": {
+                "required": "Address is required"
+              }
+            },
+            "companyName": {
+              "label": "Company name",
+              "placeholder": "Company name"
+            },
+            "firstName": {
+              "label": "First name",
+              "placeholder": "First name"
+            },
+            "lastName": {
+              "label": "Last name",
+              "placeholder": "Last name"
+            },
+            "city": {
+              "label": "City",
+              "placeholder": "City"
+            },
+            "postalCode": {
+              "label": "Postal code",
+              "placeholder": "Postal code"
+            },
+            "address": {
+              "label": "Address",
+              "placeholder": "Address"
+            },
+            "submit": {
+              "updating": "Updating...",
+              "update": "Update info"
+            },
+            "success": "Your personal information has been updated.",
+            "error": "Failed to update your information. Please try again."
+          }
+        },
+        "phoneNumber": {
+          "title": "Phone number",
+          "form": {
+            "phone": {
+              "label": "Phone number",
+              "placeholder": "Enter phone number with country code"
+            },
+            "submit": {
+              "updating": "Updating...",
+              "update": "Update phone number"
+            },
+            "validation": {
+              "required": "Phone number is required",
+              "format": "Please enter a valid phone number with country code (e.g., +12345678901)"
+            },
+            "success": "Your phone number has been updated.",
+            "error": "Failed to update your phone number. Please try again."
+          }
+        },
+        "billingInfo": {
+          "title": "Billing information",
+          "loadError": "Failed to load user information."
+        },
+        "phoneConfirm": {
+          "enterCode": "Enter the verification code sent to your phone:",
+          "buttons": {
+            "resend": "Resend",
+            "removePhone": "Remove Phone",
+            "verify": "Verify Code",
+            "verifying": "Verifying..."
+          },
+          "validation": {
+            "codeLength": "Verification code must be 6 digits"
+          },
+          "toast": {
+            "success": "Phone number verified successfully",
+            "error": "Failed to verify phone number",
+            "removeSuccess": "Phone number removed successfully",
+            "removeError": "Failed to remove phone number"
+          }
         }
       }
     }

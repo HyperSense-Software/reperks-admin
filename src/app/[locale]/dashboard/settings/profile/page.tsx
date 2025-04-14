@@ -8,12 +8,20 @@ import { IUser } from '@/models/user.interface';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import BillingInfoForm from '@/app/[locale]/dashboard/settings/profile/billing-info-form';
+import { fetchUserAttributes } from '@aws-amplify/auth';
+import PhoneChangeForm from '@/app/[locale]/dashboard/settings/profile/phone-change-form';
+import PhoneConfirmCodeComponent from '@/app/[locale]/dashboard/settings/profile/phone-confirm-form';
+import { useTranslations } from 'use-intl';
 
 export const dynamic = 'force-dynamic';
 
 const EditProfile = () => {
+  const t = useTranslations('dashboard.settings.profile');
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingPhone, setIsLoadingPhone] = useState(true);
+  const [userPhone, setUserPhone] = useState<string | null>(null);
+  const [verifyPhone, setVerifyPhone] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +48,24 @@ const EditProfile = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function loadUserAttributes() {
+      try {
+        const userAttributes = await fetchUserAttributes();
+        if (userAttributes.phone_number) {
+          setUserPhone(userAttributes.phone_number);
+          setVerifyPhone(userAttributes.phone_number_verified !== 'true');
+        }
+        setIsLoadingPhone(false);
+      } catch (error) {
+        console.error('Error fetching user attributes:', error);
+        setIsLoadingPhone(false);
+      }
+    }
+
+    loadUserAttributes();
+  }, [verifyPhone]);
+
   const LoadingSkeleton = () => (
     <div className="space-y-4">
       <Skeleton className="h-[20px] w-[250px] rounded-full" />
@@ -54,7 +80,7 @@ const EditProfile = () => {
     <main className="">
       <Card className="w-full max-w-2xl">
         <CardHeader className={'m-0 gap-0 border-b-1 pb-4'}>
-          <CardTitle className={'text-xl'}>Personal info</CardTitle>
+          <CardTitle className={'text-xl'}>{t('personalInfo.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -62,14 +88,39 @@ const EditProfile = () => {
           ) : user ? (
             <PersonalInfoForm initialData={user} />
           ) : (
-            <p>Failed to load user information.</p>
+            <p>{t('personalInfo.loadError')}</p>
           )}
         </CardContent>
       </Card>
 
       <Card className="mt-4 w-full max-w-2xl">
         <CardHeader className={'m-0 gap-0 border-b-1 pb-4'}>
-          <CardTitle className={'text-xl'}>Billing information</CardTitle>
+          <CardTitle className={'text-xl'}>{t('phoneNumber.title')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoadingPhone ? (
+            <LoadingSkeleton />
+          ) : (
+            <>
+              {!verifyPhone ? (
+                <PhoneChangeForm
+                  phone={userPhone}
+                  setVerifyPhone={setVerifyPhone}
+                />
+              ) : (
+                <PhoneConfirmCodeComponent
+                  phone={userPhone}
+                  setVerifyPhone={setVerifyPhone}
+                />
+              )}
+            </>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="mt-4 w-full max-w-2xl">
+        <CardHeader className={'m-0 gap-0 border-b-1 pb-4'}>
+          <CardTitle className={'text-xl'}>{t('billingInfo.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -77,7 +128,7 @@ const EditProfile = () => {
           ) : user ? (
             <BillingInfoForm initialData={user} />
           ) : (
-            <p>Failed to load user information.</p>
+            <p>{t('billingInfo.loadError')}</p>
           )}
         </CardContent>
       </Card>

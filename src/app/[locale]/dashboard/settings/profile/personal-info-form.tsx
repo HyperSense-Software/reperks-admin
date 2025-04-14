@@ -1,9 +1,9 @@
 'use client';
-
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useTranslations } from 'use-intl';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -21,23 +21,21 @@ import { AxiosResponse } from 'axios';
 import { Response } from '@/interfaces/APIResponse';
 import axiosInstance from '@/instance/axiosInstance';
 
-// Define form schema with Zod
-const formSchema = z.object({
-  companyName: z.string().min(1, 'Company name is required'),
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  city: z.string().min(1, 'City is required'),
-  address: z.string().min(1, 'Address is required'),
-  postalCode: z.string().min(1, 'Postal code is required'),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
 export default function PersonalInfoForm({
   initialData,
 }: {
   initialData: IUser;
 }) {
+  const t = useTranslations('dashboard.settings.profile.personalInfo.form');
+  const formSchema = z.object({
+    companyName: z.string().min(1, t('validation.companyName.required')),
+    firstName: z.string().min(1, t('validation.firstName.required')),
+    lastName: z.string().min(1, t('validation.lastName.required')),
+    city: z.string().min(1, t('validation.city.required')),
+    address: z.string().min(1, t('validation.address.required')),
+    postalCode: z.string().min(1, t('validation.postalCode.required')),
+  });
+  type FormValues = z.infer<typeof formSchema>;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
@@ -52,39 +50,27 @@ export default function PersonalInfoForm({
     },
   });
 
-  // useEffect(() => {
-  //   form.reset(initialData);
-  // }, [initialData, form.reset, form]);
-
-  // Handle form submission
   async function onSubmit(data: FormValues) {
     try {
       setIsSubmitting(true);
+      const apiPath =
+        process.env.NEXT_PUBLIC_API_BASE_URL +
+        'v1/landlord/users/updateProfile';
+      const response: AxiosResponse<Response<IUser>> = await axiosInstance.put(
+        apiPath,
+        data,
+      );
 
-      try {
-        const apiPath =
-          process.env.NEXT_PUBLIC_API_BASE_URL +
-          'v1/landlord/users/updateProfile';
-        const response: AxiosResponse<Response<IUser>> =
-          await axiosInstance.put(apiPath, {
-            ...data,
-          });
-
-        if (
-          response.data.error_code.code === 0 &&
-          response.data.error_code.message === 'Success'
-        ) {
-          toast.success('Your personal information has been updated.');
-          form.reset(response.data.response);
-        }
-      } catch (error) {
-        console.error('Failed to fetch user profile:', error);
-      } finally {
-        setIsSubmitting(false);
+      if (
+        response.data.error_code.code === 0 &&
+        response.data.error_code.message === 'Success'
+      ) {
+        toast.success(t('success'));
+        form.reset(response.data.response);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error('Failed to update your information. Please try again.');
+      toast.error(t('error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -102,9 +88,12 @@ export default function PersonalInfoForm({
             name="companyName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Company name</FormLabel>
+                <FormLabel>{t('companyName.label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Company name" {...field} />
+                  <Input
+                    placeholder={t('companyName.placeholder')}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,9 +106,9 @@ export default function PersonalInfoForm({
           name="firstName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First name</FormLabel>
+              <FormLabel>{t('firstName.label')}</FormLabel>
               <FormControl>
-                <Input placeholder="First name" {...field} />
+                <Input placeholder={t('firstName.placeholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -131,9 +120,9 @@ export default function PersonalInfoForm({
           name="lastName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last name</FormLabel>
+              <FormLabel>{t('lastName.label')}</FormLabel>
               <FormControl>
-                <Input placeholder="Last name" {...field} />
+                <Input placeholder={t('lastName.placeholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -145,9 +134,9 @@ export default function PersonalInfoForm({
           name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>City</FormLabel>
+              <FormLabel>{t('city.label')}</FormLabel>
               <FormControl>
-                <Input placeholder="City" {...field} />
+                <Input placeholder={t('city.placeholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -159,9 +148,9 @@ export default function PersonalInfoForm({
           name="postalCode"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Postal code</FormLabel>
+              <FormLabel>{t('postalCode.label')}</FormLabel>
               <FormControl>
-                <Input placeholder="Postal code" {...field} />
+                <Input placeholder={t('postalCode.placeholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -174,9 +163,9 @@ export default function PersonalInfoForm({
             name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address</FormLabel>
+                <FormLabel>{t('address.label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Address" {...field} />
+                  <Input placeholder={t('address.placeholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -190,7 +179,7 @@ export default function PersonalInfoForm({
             className="cursor-pointer"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Updating...' : 'Update info'}
+            {isSubmitting ? t('submit.updating') : t('submit.update')}
           </Button>
         </div>
       </form>

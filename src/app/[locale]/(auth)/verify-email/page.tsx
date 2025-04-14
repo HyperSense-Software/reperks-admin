@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { InvalidParams } from '@/app/[locale]/(auth)/reset-password/InvalidParams';
 import { toast } from 'sonner';
+import { useTranslations } from 'use-intl';
 
 export default function ConfirmCode() {
   const searchParams = useSearchParams();
@@ -14,6 +15,7 @@ export default function ConfirmCode() {
   const [verificationResult, setVerificationResult] = useState<
     'success' | 'error' | null
   >(null);
+  const t = useTranslations('auth.verify-email');
 
   useEffect(() => {
     if (!email || !code) {
@@ -31,17 +33,17 @@ export default function ConfirmCode() {
 
         setVerificationResult('success');
         setIsVerifying(false);
-        toast.success('Email verified successfully');
+        toast.success(t('toast.success'));
       } catch (error) {
         console.error('Error confirming sign up', error);
         setVerificationResult('error');
         setIsVerifying(false);
-        toast.error('Failed to verify email');
+        toast.error(t('toast.error'));
       }
     };
 
-    verifyEmail();
-  }, [code, email, router]);
+    verifyEmail().then();
+  }, [code, email, router, t]);
 
   if (!code || !email) {
     return <InvalidParams />;
@@ -49,27 +51,20 @@ export default function ConfirmCode() {
 
   return (
     <div className="flex flex-col items-center justify-center p-6">
-      <h1 className="mb-4 text-2xl font-semibold">Email Verification</h1>
+      <h1 className="mb-4 text-2xl font-semibold">{t('title')}</h1>
 
-      {isVerifying && (
-        <p className="text-gray-600">Verifying your email address...</p>
-      )}
+      {isVerifying && <p className="text-gray-600">{t('isVerifying')}</p>}
 
       {verificationResult === 'success' && !isVerifying && (
         <div className="text-center">
-          <p className="mb-2 font-medium text-green-600">
-            Your email has been verified successfully!
-          </p>
-          <p className="text-gray-600">Redirecting to login page...</p>
+          <p className="mb-2 font-medium text-green-600">{t('success')}</p>
         </div>
       )}
 
       {verificationResult === 'error' && !isVerifying && (
         <div className="text-center">
-          <p className="mb-2 font-medium text-red-600">
-            Failed to verify your email.
-          </p>
-          <p className="text-gray-600">Please try again or contact support.</p>
+          <p className="mb-2 font-medium text-red-600">{t('error')}</p>
+          <p className="text-gray-600"> {t('error-message')}</p>
         </div>
       )}
     </div>

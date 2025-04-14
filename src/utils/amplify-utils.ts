@@ -9,7 +9,9 @@ export const { runWithAmplifyServerContext } = createServerRunner({
   config: awsconfig,
 });
 
-export async function AuthGetCurrentUserServer(): Promise<AuthSession | undefined> {
+export async function AuthGetCurrentUserServer(): Promise<
+  AuthSession | undefined
+> {
   try {
     return await runWithAmplifyServerContext({
       nextServerContext: { cookies },

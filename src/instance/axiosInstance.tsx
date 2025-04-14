@@ -6,7 +6,7 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(
   async (config) => {
     try {
-      const session = await fetchAuthSession();
+      const session = await fetchAuthSession({ forceRefresh: true });
       const token = session?.tokens?.accessToken.toString();
       config.headers.Authorization = `Bearer ${token}`;
     } catch (error) {
@@ -15,6 +15,8 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log('error', error);
+
     return Promise.reject(error);
   },
 );

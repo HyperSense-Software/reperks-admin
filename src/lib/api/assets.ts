@@ -6,13 +6,13 @@ import {
 } from '@/types/assets';
 import axiosInstance from '@/instance/axiosInstance';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const getAssets = async (
   params: AssetListParams,
 ): Promise<ResponseWrapper<Asset[]>> => {
   const { offset, limit, filters, sort } = params;
-
+  console.log(API_URL, '===============');
   const response = await axiosInstance.get<ResponseWrapper<Asset[]>>(
     `${API_URL}/v1/landlord/assets`,
     {

@@ -389,6 +389,27 @@
           }
         }
       }
+    },
+    "offers": {
+      "title": "Offers",
+      "table": {
+        "fields": {
+          "name": "Name",
+          "category": "Category",
+          "reward": "Reward",
+          "valid": "Valid through",
+          "actions": "Actions"
+        },
+        "add": {
+            "label": "Add Offer"
+        },
+        "delete":{
+          "label": "Delete",
+          "title": "Are you absolutely sure?",
+          "description": "This action cannot be undone. This will permanently delete the\n offer and remove it from our servers.",
+          "error": "Failed to delete offer:"
+        }
+      }
     }
   },
   "nav-items": {

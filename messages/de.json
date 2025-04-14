@@ -389,6 +389,27 @@
           }
         }
       }
+    },
+    "offers": {
+      "title": "Angebote",
+      "table": {
+        "fields": {
+          "name": "Name",
+          "category": "Kategorie",
+          "reward": "Belohnen",
+          "valid": "Gültig bis",
+          "actions": "Aktionen"
+        },
+        "add": {
+          "label": "Angebot hinzufügen"
+        },
+        "delete": {
+          "label": "Löschen",
+          "title": "Sind Sie ganz sicher?",
+          "description": "Diese Aktion kann nicht rückgängig gemacht werden. Dadurch wird das Angebot dauerhaft gelöscht und von unseren Servern entfernt.",
+          "error": "Angebot konnte nicht gelöscht werden:"
+        }
+      }
     }
   },
   "nav-items": {

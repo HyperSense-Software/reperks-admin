@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { PlusIcon } from 'lucide-react';
 
 import {
@@ -32,7 +32,7 @@ export default function AssetsPage() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
 
-  const fetchAssets = async () => {
+  const fetchAssets = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await getAssets({
@@ -53,11 +53,11 @@ export default function AssetsPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchAssets();
-  }, [pagination.offset, pagination.limit, filters, sort]);
+  }, [pagination.offset, pagination.limit, filters, sort, fetchAssets]);
 
   const handlePageChange = (offset: number) => {
     setPagination((prev) => ({ ...prev, offset }));

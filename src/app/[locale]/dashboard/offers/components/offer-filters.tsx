@@ -25,7 +25,7 @@ export default function OfferFiltersComponent({
   useEffect(() => {
     onFilterChange(debouncedFilters);
     console.log(debouncedFilters);
-  }, [debouncedFilters]);
+  }, [debouncedFilters, onFilterChange]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

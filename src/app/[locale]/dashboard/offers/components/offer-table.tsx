@@ -8,12 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import {
-  Offer,
-  OfferFilters,
-  PaginationParams,
-  SortParams,
-} from '@/types/offers';
+import { Offer, PaginationParams, SortParams } from '@/types/offers';
 import { ArrowUpDown, Edit, Trash2 } from 'lucide-react';
 
 import {

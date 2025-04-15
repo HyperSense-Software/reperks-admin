@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { PlusIcon } from 'lucide-react';
 
 import {
@@ -12,11 +12,12 @@ import {
 
 import OfferTable from './components/offer-table';
 import OfferFiltersComponent from './components/offer-filters';
-import OfferForm from './components/offer-form';
+
 import { Button } from '@/components/ui/button';
 import { getOffers, getOffersCount } from '@/lib/api/offers';
 import { useTranslations } from 'next-intl';
 import { PerPage } from '@/utils/utils';
+import OfferForm from '@/app/[locale]/dashboard/offers/components/offer-form';
 
 export default function OffersPage() {
   const t = useTranslations('dashboard.offers');
@@ -37,7 +38,7 @@ export default function OffersPage() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
 
-  const fetchOffers = async () => {
+  const fetchOffers = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -59,11 +60,11 @@ export default function OffersPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [filters, sort, pagination.limit, pagination.offset]);
 
   useEffect(() => {
     fetchOffers();
-  }, [pagination.offset, pagination.limit, filters, sort]);
+  }, [pagination.offset, pagination.limit, filters, sort, fetchOffers]);
 
   const handlePageChange = (offset: number) => {
     setPagination((prev) => ({ ...prev, offset }));
@@ -73,11 +74,11 @@ export default function OffersPage() {
     setPagination({ offset: 0, limit });
   };
 
-  const handleFilterChange = (newFilters: OfferFilters) => {
+  const handleFilterChange = useCallback((newFilters: OfferFilters) => {
     console.log(newFilters, 'newFilters');
     setFilters(newFilters);
     setPagination((prev) => ({ ...prev, offset: 0 }));
-  };
+  }, []);
 
   const handleSortChange = (field: keyof Offer, direction: 'asc' | 'desc') => {
     setSort({ field, direction });

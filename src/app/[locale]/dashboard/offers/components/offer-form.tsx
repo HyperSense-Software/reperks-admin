@@ -63,6 +63,7 @@ const formatDate = 'dd.MM.yyyy';
 export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [stepNo, setStepNo] = useState(0);
+
   const [date, setDate] = useState<DateRange | undefined>();
   const isEditing = !!offer;
 
@@ -72,7 +73,12 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
   const validTo = offer?.validTo
     ? format(new Date(offer.validTo * 1000), formatDate)
     : '';
-
+  if (offer) {
+    setDate({
+      from: new Date(offer.validFrom * 1000),
+      to: new Date(offer.validTo * 1000),
+    });
+  }
   const form = useForm<OfferFormValues>({
     resolver: zodResolver(offerFormSchema),
     defaultValues: {

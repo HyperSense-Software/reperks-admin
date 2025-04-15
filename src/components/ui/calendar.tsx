@@ -3,9 +3,7 @@
 import * as React from 'react';
 import {
   ChevronDownIcon,
-  ChevronLeft,
   ChevronLeftIcon,
-  ChevronRight,
   ChevronRightIcon,
   ChevronUpIcon,
 } from 'lucide-react';
@@ -134,7 +132,7 @@ function Calendar({
 Calendar.displayName = 'Calendar';
 export { Calendar };
 
-function Chevron({ orientation = 'left', ...props }) {
+function Chevron({ orientation = 'left' }) {
   switch (orientation) {
     case 'left':
       return <ChevronLeftIcon className="h-4 w-4" />;

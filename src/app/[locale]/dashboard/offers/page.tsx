@@ -129,11 +129,13 @@ export default function OffersPage() {
         onRefresh={fetchOffers}
       />
 
-      <OfferForm
-        open={isAddDialogOpen}
-        offer={selectedOffer}
-        onClose={handleFormClose}
-      />
+      {isAddDialogOpen && (
+        <OfferForm
+          open={isAddDialogOpen}
+          offer={selectedOffer}
+          onClose={handleFormClose}
+        />
+      )}
     </div>
   );
 }

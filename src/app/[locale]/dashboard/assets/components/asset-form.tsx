@@ -45,7 +45,7 @@ type AssetFormValues = z.infer<typeof assetFormSchema>;
 export default function AssetForm({ open, asset, onClose }: AssetFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditing = !!asset;
-
+  console.log('assets form', open);
   const form = useForm<AssetFormValues>({
     resolver: zodResolver(assetFormSchema),
     defaultValues: {

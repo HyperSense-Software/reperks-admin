@@ -75,7 +75,6 @@ export default function OffersPage() {
   };
 
   const handleFilterChange = useCallback((newFilters: OfferFilters) => {
-    console.log(newFilters, 'newFilters');
     setFilters(newFilters);
     setPagination((prev) => ({ ...prev, offset: 0 }));
   }, []);

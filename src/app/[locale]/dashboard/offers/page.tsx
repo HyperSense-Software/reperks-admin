@@ -89,6 +89,7 @@ export default function OffersPage() {
   };
 
   const handleEditClick = (offer: Offer) => {
+    console.log('handleEditClick', offer);
     setSelectedOffer(offer);
     setIsAddDialogOpen(true);
   };
@@ -130,7 +131,7 @@ export default function OffersPage() {
 
       {isAddDialogOpen && (
         <OfferForm
-          open={isAddDialogOpen}
+          open={true}
           offer={selectedOffer}
           onClose={handleFormClose}
         />

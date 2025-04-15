@@ -40,7 +40,6 @@ export default function OffersPage() {
 
   const fetchOffers = useCallback(async () => {
     setIsLoading(true);
-
     try {
       const response = await getOffers({
         offset: pagination.offset,
@@ -95,6 +94,7 @@ export default function OffersPage() {
   };
 
   const handleFormClose = (refetch: boolean = false) => {
+    console.log('handleFormClose', refetch);
     setIsAddDialogOpen(false);
     if (refetch) {
       fetchOffers();
@@ -129,13 +129,11 @@ export default function OffersPage() {
         onRefresh={fetchOffers}
       />
 
-      {isAddDialogOpen && (
-        <OfferForm
-          open={true}
-          offer={selectedOffer}
-          onClose={handleFormClose}
-        />
-      )}
+      <OfferForm
+        open={isAddDialogOpen}
+        offer={selectedOffer}
+        onClose={handleFormClose}
+      />
     </div>
   );
 }

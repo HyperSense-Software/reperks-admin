@@ -29,6 +29,7 @@ export const offerFormSchema = z.object({
       ),
     offerDescription: z.string().min(1, 'Offer description is required'),
     offerThumbnail: z.string().optional(),
+    storageFolder: z.string().optional(),
   }),
   step2: z.object({
     // validFrom: z.number().min(1, 'Valid from date is required'),
@@ -50,6 +51,7 @@ export const fieldsOffer = [
     'step1.offerReward',
     'step1.offerDescription',
     'step1.offerThumbnail',
+    'step1.storageFolder',
   ],
   [
     'step2.validRange',
@@ -65,6 +67,7 @@ export type OfferFieldsName =
   | 'step1.offerReward'
   | 'step1.offerDescription'
   | 'step1.offerThumbnail'
+  | 'step1.storageFolder'
   | 'step2.validRange'
   | 'step2.offerRequirements'
   | 'step2.offerDocuments'

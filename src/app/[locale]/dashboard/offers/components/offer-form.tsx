@@ -11,46 +11,23 @@ import {
   DialogFooter,
   DialogDescription,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { format } from 'date-fns';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { createOffer, updateOffer } from '@/lib/api/offers';
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-
-import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@udecode/cn';
-import { Checkbox } from '@/components/ui/checkbox';
-import { CalendarIcon } from 'lucide-react';
+
 import {
-  ContractTypesValues,
   fieldsOffer,
   OfferFieldsName,
   offerFormSchema,
   OfferFormValues,
 } from './offer-form-schema';
+import { format } from 'date-fns';
+import OfferFormStep1 from '@/app/[locale]/dashboard/offers/components/offer-form-step1';
+import OfferFormStep2 from '@/app/[locale]/dashboard/offers/components/offer-form-step2';
+import { formatDate } from '@/utils/utils';
 import { DateRange } from 'react-day-picker';
 
 interface OfferFormProps {
@@ -59,10 +36,10 @@ interface OfferFormProps {
   onClose: (refetch?: boolean) => void;
 }
 
-const formatDate = 'dd.MM.yyyy';
 export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [stepNo, setStepNo] = useState(0);
+  const isEditing = !!offer;
 
   const validFrom = offer?.validFrom
     ? format(new Date(offer.validFrom * 1000), formatDate)
@@ -78,9 +55,19 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
     : undefined;
 
   const [date, setDate] = useState<DateRange | undefined>(startRange);
-  const isEditing = !!offer;
 
-  console.log('open form', open);
+  const setRange = (range: DateRange | undefined) => {
+    if (!range) return;
+    setDate(range);
+    if (range.to && range.from) {
+      const validFrom = range?.from ? format(range.from, formatDate) : '';
+      const validTo = range?.to ? format(range.to, formatDate) : '';
+      const validRange = validFrom ? `${validFrom} - ${validTo}` : '';
+      form.setValue('step2.validRange', validRange);
+      form.trigger('step2.validRange');
+    }
+  };
+
   const form = useForm<OfferFormValues>({
     resolver: zodResolver(offerFormSchema),
     defaultValues: {
@@ -104,7 +91,7 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
     mode: 'all',
   });
 
-  const prevStep = async () => {
+  const changeStep = async (type = 'next') => {
     if (![0, 1, 2].includes(stepNo)) return;
     const fieldsToValidate = fieldsOffer[stepNo];
     if ([0, 1].includes(stepNo)) {
@@ -113,22 +100,10 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
       });
       if (!output) return;
     }
-
-    const currentStep = stepNo >= 1 ? stepNo - 1 : stepNo;
-    if (currentStep !== stepNo) setStepNo(currentStep);
-  };
-
-  const nextStep = async () => {
-    if (![0, 1, 2].includes(stepNo)) return;
-    const fieldsToValidate = fieldsOffer[stepNo];
-    if ([0, 1].includes(stepNo)) {
-      const output = await form.trigger(fieldsToValidate as OfferFieldsName[], {
-        shouldFocus: true,
-      });
-      if (!output) return;
+    let currentStep = stepNo + 1;
+    if (type === 'prev') {
+      currentStep = stepNo >= 1 ? stepNo - 1 : stepNo;
     }
-
-    const currentStep = stepNo + 1;
     if (currentStep !== stepNo) setStepNo(currentStep);
   };
 
@@ -181,18 +156,6 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
     }
   };
 
-  const setRange = (range: DateRange | undefined) => {
-    if (!range) return;
-    setDate(range);
-    if (range.to && range.from) {
-      const validFrom = range?.from ? format(range.from, formatDate) : '';
-      const validTo = range?.to ? format(range.to, formatDate) : '';
-      const validRange = validFrom ? `${validFrom} - ${validTo}` : '';
-      form.setValue('step2.validRange', validRange);
-      form.trigger('step2.validRange');
-    }
-  };
-
   return (
     <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[500px]">
@@ -229,192 +192,25 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div
-              className={cn(
-                'grid-cols-1 gap-4',
-                stepNo == 0 ? 'grid' : 'hidden',
-              )}
-            >
-              <FormField
-                control={form.control}
-                name="step1.offerName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Offer Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter offer Name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="step1.offerCategory"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl className={'w-full'}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Category" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className={'w-full'}>
-                        {ContractTypesValues.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="step1.offerReward"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Reward</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Reward" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="step1.offerDescription"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Offer description</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Offer description" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div
-              className={cn(
-                'grid-cols-1 gap-4',
-                stepNo == 1 ? 'grid' : 'hidden',
-              )}
-            >
-              <div className={'grid gap-4'}>
-                <FormField
-                  control={form.control}
-                  name="step2.validRange"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Timeframe</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            id="date"
-                            variant={'outline'}
-                            className={cn(
-                              'w-full justify-between text-left font-normal',
-                              !date && 'text-muted-foreground',
-                            )}
-                          >
-                            {date?.from ? (
-                              date.to ? (
-                                <>
-                                  {format(date.from, formatDate)} -{' '}
-                                  {format(date.to, formatDate)}
-                                </>
-                              ) : (
-                                format(date.from, formatDate)
-                              )
-                            ) : (
-                              <span>Select the time period</span>
-                            )}
-
-                            <CalendarIcon className={'ml-auto'} />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="range"
-                            defaultMonth={date?.from}
-                            selected={date}
-                            onSelect={(range) => setRange(range)}
-                            numberOfMonths={2}
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormControl>
-                        <Input {...field} className={'hidden'}></Input>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="step2.offerRequirements"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Requirements</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Offer requirements" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="step2.offerDocuments"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Other documents</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Other documents" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="step2.needProof"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Need Proof</FormLabel>
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            {stepNo === 0 && <OfferFormStep1 form={form} />}
+            {stepNo === 1 && (
+              <OfferFormStep2 form={form} date={date} setRange={setRange} />
+            )}
 
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={prevStep}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => changeStep('prev')}
+                disabled={isSubmitting}
+              >
                 Previous
               </Button>
               {stepNo}
               <Button
                 className={stepNo === 2 ? 'hidden' : ''}
                 type="button"
-                onClick={nextStep}
+                onClick={() => changeStep()}
                 disabled={isSubmitting}
               >
                 Next

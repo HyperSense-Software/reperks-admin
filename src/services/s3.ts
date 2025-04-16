@@ -25,7 +25,7 @@ export const preSignedUrl = async (
   }
 
   const baseAPIPath = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const apiPath = baseAPIPath + '/s3/presignedURL';
+  const apiPath = baseAPIPath + '/v1/s3/presignedURL';
   try {
     const data = {
       key: params.key,
@@ -36,7 +36,6 @@ export const preSignedUrl = async (
       await axiosInstance.post(apiPath, {
         ...data,
       });
-
     if (
       response.data.error_code.code === 0 &&
       response.data.error_code.message === 'Success'
@@ -52,7 +51,7 @@ export const preSignedUrl = async (
     return null;
   } catch (err: unknown) {
     console.log('Error - preSignedUrl: ', err);
-    return err;
+    throw err;
   }
 };
 
@@ -101,6 +100,6 @@ export const uploadToS3 = async ({
     console.log('res', res);
     return res.status === 204;
   } catch (error) {
-    return error;
+    throw error;
   }
 };

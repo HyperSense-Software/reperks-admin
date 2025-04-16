@@ -8,7 +8,6 @@ interface AssetFiltersProps {
   filters: AssetFilters;
   onFilterChange: (filters: AssetFilters) => void;
 }
-
 export default function AssetFiltersComponent({
   filters,
   onFilterChange,

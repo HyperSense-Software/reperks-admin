@@ -36,7 +36,7 @@ export const s3UploadSlice = createSlice({
           state.error = action.payload;
         },
       );
-  }, // Add extra reducers here for Async Await .replace('tmp/', '')
+  }, // Add extra reducers here for Async Await .replace('temp/', '')
 });
 
 export default s3UploadSlice.reducer;

@@ -39,7 +39,7 @@ export const offerFormSchema = z.object({
     needProof: z.boolean(),
   }),
   step3: z.object({
-    assetsList: z.array(z.string()).optional(),
+    assetsList: z.array(z.number()).optional(),
   }),
 });
 export type OfferFormValues = z.infer<typeof offerFormSchema>;

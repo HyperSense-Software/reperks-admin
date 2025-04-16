@@ -20,8 +20,8 @@ import { UseFormReturn } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { File } from 'lucide-react';
 import { useCallback, useState } from 'react';
-import { preSignedUrl } from '@/services/s3';
-import { uuidTopic } from '@/utils/utils';
+import { preSignedUrl, PresignedUrlResponse } from '@/services/s3';
+import { tempFilePrefix, uuidTopic } from '@/utils/utils';
 import * as React from 'react';
 
 export default function OfferFormStep1({
@@ -43,15 +43,21 @@ export default function OfferFormStep1({
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const prevFileName = thumbnailName;
     try {
-      const fileName = 'tmp/' + storageFolder + '/' + acceptedFiles[0].name;
+      const fileName =
+        tempFilePrefix + storageFolder + '/' + acceptedFiles[0].name;
       const s3File = await preSignedUrl({
         key: fileName,
         type: acceptedFiles[0].type,
         size: acceptedFiles[0].size,
         file: acceptedFiles[0],
       });
-      setThumbnailName(acceptedFiles[0].name);
-      console.log(s3File, 's3File');
+      const resp = s3File as PresignedUrlResponse;
+
+      if (resp) {
+        const newFile = resp.fields?.key || '';
+        setThumbnailName(newFile);
+        form.setValue('step1.offerThumbnail', newFile);
+      }
     } catch (e) {
       console.log(e);
       const errMsg = e as Error;

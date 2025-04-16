@@ -68,6 +68,9 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
     }
   };
 
+  const defaultAssets = offer?.assets?.map((item) => item.id) || [];
+  console.log(defaultAssets);
+
   const form = useForm<OfferFormValues>({
     resolver: zodResolver(offerFormSchema),
     defaultValues: {
@@ -85,7 +88,7 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
         needProof: offer?.needProof || false,
       },
       step3: {
-        assetsList: offer?.assetsList || [],
+        assetsList: defaultAssets,
       },
     },
     mode: 'all',
@@ -113,15 +116,15 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
     try {
       const updatedValues = {
         ...values.step1,
-        ...values.step3,
         validFrom: 0,
         validTo: 0,
         offerReward: parseFloat(values.step1.offerReward),
         offerRequirements: values.step2.offerRequirements || '',
         offerDocuments: values.step2.offerDocuments || '',
         needProof: values.step2.needProof || false,
+        assetsList: values.step3.assetsList,
       };
-
+      console.log('updatedValues', updatedValues);
       if (date?.from && date?.to) {
         updatedValues.validFrom = Math.floor(date.from.getTime() / 1000);
         updatedValues.validTo = Math.floor(date.to.getTime() / 1000);
@@ -206,7 +209,7 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
               >
                 Previous
               </Button>
-              {stepNo}
+
               <Button
                 className={stepNo === 2 ? 'hidden' : ''}
                 type="button"

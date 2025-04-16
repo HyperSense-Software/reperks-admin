@@ -1,3 +1,5 @@
+import { Asset } from '@/types/assets';
+
 export interface Offer {
   id: number;
   offerName: string;
@@ -13,6 +15,7 @@ export interface Offer {
   validTo: number;
   createdAt: number;
   updatedAt: number;
+  assets?: Asset[];
 }
 
 export interface OfferFilters {

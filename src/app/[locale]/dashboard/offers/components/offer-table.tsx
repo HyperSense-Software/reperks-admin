@@ -39,7 +39,7 @@ interface OfferTableProps {
 }
 
 export default function OfferTable({
-  offers,
+  offers = [],
   isLoading,
   pagination,
   total,

@@ -21,10 +21,10 @@ export default function OffersPage() {
       <OffersGrid
         openForm={openForm}
         setSelectedOffer={setSelectedOffer}
-        dialogOpenStatus={dialogOpenStatus}
+        refetch={dialogOpenStatus === -1}
         setDialogOpenStatus={setDialogOpenStatus}
       />
-      {dialogOpenStatus}
+
       {dialogOpenStatus == 1 && (
         <OfferForm
           offer={selectedOffer}

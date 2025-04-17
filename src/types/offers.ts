@@ -10,6 +10,7 @@ export interface Offer {
   offerThumbnail?: string;
   offerDocuments?: string;
   needProof?: boolean;
+  askPermission?: boolean;
   assetsList?: number[];
   offerReward: number;
   validFrom: number;

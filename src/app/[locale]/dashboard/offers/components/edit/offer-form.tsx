@@ -91,6 +91,7 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
       },
       step3: {
         assetsList: defaultAssets,
+        askPermission: offer?.askPermission || false,
       },
     },
     mode: 'all',
@@ -137,6 +138,7 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
         offerRequirements: values.step2?.offerRequirements || '',
         offerDocuments: values.step2?.offerDocuments || '',
         needProof: values.step2?.needProof || false,
+        askPermission: values.step3?.askPermission || false,
         assetsList: values.step3?.assetsList || [],
       };
 

@@ -40,6 +40,7 @@ export const offerFormSchema = z.object({
   }),
   step3: z.object({
     assetsList: z.array(z.number()).optional(),
+    askPermission: z.boolean(),
   }),
 });
 export type OfferFormValues = z.infer<typeof offerFormSchema>;
@@ -59,7 +60,7 @@ export const fieldsOffer = [
     'step2.offerDocuments',
     'step2.needProof',
   ],
-  ['step3.assetsList'],
+  ['step3.assetsList', 'step3.askPermission'],
 ];
 export type OfferFieldsName =
   | 'step1.offerName'
@@ -71,4 +72,5 @@ export type OfferFieldsName =
   | 'step2.validRange'
   | 'step2.offerRequirements'
   | 'step2.offerDocuments'
+  | 'step3.askPermission'
   | 'step2.needProof';

@@ -5,7 +5,6 @@ import {
   ResponseWrapper,
 } from '@/types/assets';
 import axiosInstance from '@/instance/axiosInstance';
-import { toast } from 'sonner';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

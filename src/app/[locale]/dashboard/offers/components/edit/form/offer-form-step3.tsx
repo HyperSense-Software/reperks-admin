@@ -4,6 +4,13 @@ import { UseFormReturn } from 'react-hook-form';
 import * as React from 'react';
 import { Asset } from '@/types/assets';
 import { ChevronDown } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/components/ui/form';
 
 export default function OfferFormStep3({
   form,
@@ -28,6 +35,17 @@ export default function OfferFormStep3({
     form.setValue('step3.assetsList', newVal);
   };
 
+  const selectAll = (checked: boolean) => {
+    if (checked) {
+      const allAssets = assets.map((item) => item.id);
+      setSelectedAssets(allAssets);
+      form.setValue('step3.assetsList', allAssets);
+    } else {
+      setSelectedAssets([]);
+      form.setValue('step3.assetsList', []);
+    }
+  };
+
   return (
     <div className={cn('grid grid-cols-1 gap-4')}>
       <div>
@@ -39,7 +57,7 @@ export default function OfferFormStep3({
               className="flex flex-col items-start justify-start gap-1 self-stretch"
             >
               <div className="inline-flex items-start justify-start gap-1 self-stretch">
-                <div className="text-Foreground-default justify-start text-sm leading-tight font-medium">
+                <div className="justify-start text-sm leading-tight font-medium">
                   Select the addresses you want to send the offer to
                 </div>
               </div>
@@ -115,6 +133,58 @@ export default function OfferFormStep3({
                   </div>
                 );
               })}
+          </div>
+        </div>
+
+        <div className={'mt-4 flex w-full items-center justify-start gap-2'}>
+          <div className="inline-flex items-center justify-start gap-2 self-stretch">
+            <Checkbox
+              className={'cursor-pointer'}
+              onCheckedChange={selectAll}
+            />{' '}
+            <div className="justify-start text-sm leading-tight font-medium">
+              Send this offer to all my tenants
+            </div>
+          </div>
+        </div>
+
+        <div className={'mt-4 flex w-full items-center justify-start gap-2'}>
+          <div className="inline-flex items-center justify-start gap-2 self-stretch">
+            <FormField
+              control={form.control}
+              name="step3.askPermission"
+              render={({ field }) => (
+                <FormItem className="inline-flex items-center justify-start gap-2 self-stretch">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="inline items-center justify-start gap-2 self-stretch">
+                    <span className="text-sm leading-tight font-medium">
+                      Ask tenants for permission to access their{' '}
+                    </span>
+                    <span className="text-sm leading-tight font-bold">
+                      address
+                    </span>
+                    <span className="text-sm leading-tight font-medium">
+                      ,{' '}
+                    </span>
+                    <span className="text-sm leading-tight font-bold">
+                      name
+                    </span>
+                    <span className="text-sm leading-tight font-medium">
+                      {' '}
+                      and{' '}
+                    </span>
+                    <span className="text-sm leading-tight font-bold">
+                      email address*
+                    </span>
+                  </FormLabel>
+                </FormItem>
+              )}
+            />
           </div>
         </div>
       </div>

@@ -13,14 +13,14 @@ import { PaginationParams, SortParams } from '@/types/assets';
 
 interface OffersGridProps {
   openForm: (id: number) => void;
-  dialogOpenStatus: number;
+  refetch: boolean;
   setDialogOpenStatus: (status: number) => void;
   setSelectedOffer: (offer: Offer | null) => void;
 }
 
 export default function OffersGrid({
   setSelectedOffer,
-  dialogOpenStatus,
+  refetch,
   setDialogOpenStatus,
 }: OffersGridProps) {
   const t = useTranslations('dashboard.offers');
@@ -60,6 +60,13 @@ export default function OffersGrid({
       setIsLoading(false);
     }
   }, [filters, sort, pagination.limit, pagination.offset]);
+  useEffect(() => {
+    if (refetch) {
+      fetchOffers();
+      setDialogOpenStatus(0);
+    }
+  }, [refetch, fetchOffers]);
+
   useEffect(() => {
     fetchOffers();
   }, [pagination.offset, pagination.limit, filters, sort, fetchOffers]);

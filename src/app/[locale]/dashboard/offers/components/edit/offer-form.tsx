@@ -32,6 +32,7 @@ import { DateRange } from 'react-day-picker';
 import { Asset, toastError } from '@/types/assets';
 import OfferFormStep3 from './form/offer-form-step3';
 import { getAssets } from '@/lib/api/assets';
+import OfferFormStart from '@/app/[locale]/dashboard/offers/components/edit/form/offer-form-start';
 
 interface OfferFormProps {
   offer: Offer | null;
@@ -39,9 +40,10 @@ interface OfferFormProps {
 }
 
 export default function OfferForm({ offer, onClose }: OfferFormProps) {
+  //check we are in add mode to display first 2 screens for templates
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [assets, setAssets] = useState<Asset[]>([]);
-  const [stepNo, setStepNo] = useState(0);
+  const [stepNo, setStepNo] = useState(!offer ? -2 : 0);
   const isEditing = !!offer;
 
   const validFrom = offer?.validFrom
@@ -190,78 +192,93 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
     <Dialog open={true} onOpenChange={(open) => !open && onClose(0)}>
       <DialogContent className="top-[60px] translate-y-0 px-0 pb-0 sm:max-w-[500px]">
         <DialogHeader className={'px-6'}>
-          <div>
-            <div className="inline-flex h-5 items-center justify-start gap-0.5 self-stretch py-2">
-              <button
-                className={cn(
-                  'relative h-1.5 w-4 rounded-[100px]',
-                  stepNo === 0 ? 'bg-zinc-950' : 'bg-gray-200',
-                )}
-              />
-              <button
-                className={cn(
-                  'relative h-1.5 w-4 rounded-[100px]',
-                  stepNo === 1 ? 'bg-zinc-950' : 'bg-gray-200',
-                )}
-              />
-              <button
-                className={cn(
-                  'relative h-1.5 w-4 rounded-[100px]',
-                  stepNo === 2 ? 'bg-zinc-950' : 'bg-gray-200',
-                )}
-              />
+          {stepNo >= 0 && (
+            <div>
+              <div className="inline-flex h-5 items-center justify-start gap-0.5 self-stretch py-2">
+                <button
+                  className={cn(
+                    'relative h-1.5 w-4 rounded-[100px]',
+                    stepNo === 0 ? 'bg-zinc-950' : 'bg-gray-200',
+                  )}
+                />
+                <button
+                  className={cn(
+                    'relative h-1.5 w-4 rounded-[100px]',
+                    stepNo === 1 ? 'bg-zinc-950' : 'bg-gray-200',
+                  )}
+                />
+                <button
+                  className={cn(
+                    'relative h-1.5 w-4 rounded-[100px]',
+                    stepNo === 2 ? 'bg-zinc-950' : 'bg-gray-200',
+                  )}
+                />
+              </div>
             </div>
-          </div>
+          )}
+
           <DialogTitle>
-            {isEditing ? 'Edit Offer' : 'Create new offer'}
-            {stepNo === 2 ? '- Assign assets' : ''}
+            {stepNo === -2
+              ? 'Do you want to add a new offer?'
+              : stepNo === -1
+                ? 'Offer templates'
+                : (isEditing ? 'Edit offer' : 'Create new offer') +
+                  (stepNo === 2 ? '- Assign assets' : '')}
           </DialogTitle>
-          <DialogDescription className="text-foreground-muted justify-start self-stretch text-sm leading-tight font-normal">
-            {stepNo === 2
-              ? 'Double check if the information suits you needs and select your recipients.'
-              : '' + 'Please fill in the form in order to create your offer.'}
+          <DialogDescription className="text-foreground-muted justify-start self-stretch text-sm leading-tight">
+            {stepNo === -2
+              ? 'You can start one from scratch or you can choose a template.'
+              : stepNo === -1
+                ? 'Choose one of our templates'
+                : stepNo === 2
+                  ? 'Double check if the information suits you needs and select your recipients.'
+                  : '' +
+                    'Please fill in the form in order to create your offer.'}
           </DialogDescription>
         </DialogHeader>
+        {stepNo >= 0 && (
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              {stepNo === 0 && <OfferFormStep1 form={form} />}
+              {stepNo === 1 && (
+                <OfferFormStep2 form={form} date={date} setRange={setRange} />
+              )}
+              {stepNo === 2 && <OfferFormStep3 assets={assets} form={form} />}
+              <DialogFooter className={'border-t border-slate-200 px-6 py-4'}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className={stepNo === 0 ? 'hidden' : ''}
+                  onClick={() => changeStep('prev')}
+                  disabled={isSubmitting}
+                >
+                  Previous
+                </Button>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {stepNo === 0 && <OfferFormStep1 form={form} />}
-            {stepNo === 1 && (
-              <OfferFormStep2 form={form} date={date} setRange={setRange} />
-            )}
-            {stepNo === 2 && <OfferFormStep3 assets={assets} form={form} />}
-            <DialogFooter className={'border-t border-slate-200 px-6 py-4'}>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => changeStep('prev')}
-                disabled={isSubmitting}
-              >
-                Previous
-              </Button>
-
-              <Button
-                className={stepNo === 2 ? 'hidden' : ''}
-                type="button"
-                onClick={() => changeStep()}
-                disabled={isSubmitting}
-              >
-                Next
-              </Button>
-              <Button
-                className={stepNo === 2 ? '' : 'hidden'}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {isSubmitting
-                  ? 'Saving...'
-                  : isEditing
-                    ? 'Update offer'
-                    : 'Create offer'}
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+                <Button
+                  className={stepNo === 2 ? 'hidden' : ''}
+                  type="button"
+                  onClick={() => changeStep()}
+                  disabled={isSubmitting}
+                >
+                  Next
+                </Button>
+                <Button
+                  className={stepNo === 2 ? '' : 'hidden'}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? 'Saving...'
+                    : isEditing
+                      ? 'Update offer'
+                      : 'Create offer'}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        )}
+        {stepNo === -2 && <OfferFormStart setStepNo={setStepNo} />}
       </DialogContent>
     </Dialog>
   );

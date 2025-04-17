@@ -33,6 +33,7 @@ import { Asset, toastError } from '@/types/assets';
 import OfferFormStep3 from './form/offer-form-step3';
 import { getAssets } from '@/lib/api/assets';
 import OfferFormStart from '@/app/[locale]/dashboard/offers/components/edit/form/offer-form-start';
+import OfferFormTemplates from '@/app/[locale]/dashboard/offers/components/edit/form/offer-form-templates';
 
 interface OfferFormProps {
   offer: Offer | null;
@@ -96,6 +97,7 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
         askPermission: offer?.askPermission || false,
       },
     },
+    reValidateMode: 'onChange',
     mode: 'all',
   });
 
@@ -113,6 +115,30 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
     if (currentStep !== stepNo) setStepNo(currentStep);
   };
 
+  const setTemplateValues = (values: Partial<Offer>) => {
+    const keys = Object.keys(values) as (keyof Offer)[];
+    for (const key of keys) {
+      switch (key) {
+        case 'offerName':
+        case 'offerDescription':
+        case 'offerCategory':
+          form.setValue(`step1.${key}`, values[key] ? values[key] : '0');
+          break;
+        case 'offerReward':
+          form.setValue(
+            `step1.${key}`,
+            values[key] ? values[key].toString() : '0',
+          );
+          break;
+        case 'offerDocuments':
+        case 'offerRequirements':
+        case 'needProof':
+          form.setValue(`step2.${key}`, values[key]);
+          break;
+      }
+    }
+    setStepNo(0);
+  };
   const onSubmit = async (values: Partial<OfferFormValues>) => {
     setIsSubmitting(true);
 
@@ -279,6 +305,9 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
           </Form>
         )}
         {stepNo === -2 && <OfferFormStart setStepNo={setStepNo} />}
+        {stepNo === -1 && (
+          <OfferFormTemplates setTemplateValues={setTemplateValues} />
+        )}
       </DialogContent>
     </Dialog>
   );

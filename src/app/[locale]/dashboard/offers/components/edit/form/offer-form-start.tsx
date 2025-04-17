@@ -11,7 +11,7 @@ export default function OfferFormStart({
         onClick={() => {
           setStepNo(0);
         }}
-        className="inline-flex cursor-pointer items-start justify-start gap-2 self-stretch rounded-lg p-6 outline outline-1 outline-offset-[-1px] outline-slate-500"
+        className="inline-flex cursor-pointer items-start justify-start gap-2 self-stretch rounded-lg p-6 outline outline-offset-[-1px] outline-slate-500"
       >
         <div className="">
           <PlusCircle className="h-6 w-6 stroke-zinc-950" />
@@ -27,7 +27,7 @@ export default function OfferFormStart({
         onClick={() => {
           setStepNo(-1);
         }}
-        className="inline-flex cursor-pointer items-start justify-start gap-2 self-stretch rounded-lg p-6 outline outline-1 outline-offset-[-1px] outline-slate-500"
+        className="inline-flex cursor-pointer items-start justify-start gap-2 self-stretch rounded-lg p-6 outline outline-offset-[-1px] outline-slate-500"
       >
         <div className="">
           <ClipboardList className="h-6 w-6 stroke-zinc-950" />

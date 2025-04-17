@@ -1,10 +1,6 @@
-import {
-  Offer,
-  OfferFilters,
-  OfferListParams,
-  ResponseWrapper,
-} from '@/types/offers';
+import { Offer, OfferFilters, OfferListParams } from '@/types/offers';
 import axiosInstance from '@/instance/axiosInstance';
+import { ResponseWrapper } from '@/types/assets';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -66,6 +62,7 @@ export const updateOffer = async (
   id: number,
   offer: Partial<Offer>,
 ): Promise<Offer> => {
+  // try {
   const response = await axiosInstance.put<Offer>(
     `${API_URL}/v1/landlord/offers/${id}`,
     offer,

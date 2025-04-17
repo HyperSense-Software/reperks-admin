@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ContractTypesValues, OfferFormValues } from './offer-form-schema';
+import { ContractTypesValues } from './offer-form-schema';
 import { Textarea } from '@/components/ui/textarea';
 import { UseFormReturn } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
@@ -24,11 +24,7 @@ import { preSignedUrl, PresignedUrlResponse } from '@/services/s3';
 import { tempFilePrefix, uuidTopic } from '@/utils/utils';
 import * as React from 'react';
 
-export default function OfferFormStep1({
-  form,
-}: {
-  form: UseFormReturn<OfferFormValues>;
-}) {
+export default function OfferFormStep1({ form }: { form: UseFormReturn<any> }) {
   const storageFolder = form.getValues('step1.storageFolder')
     ? form.getValues('step1.storageFolder')
     : 'offers/' + uuidTopic('storage');
@@ -55,7 +51,7 @@ export default function OfferFormStep1({
 
       if (resp) {
         const newFile = resp.fields?.key || '';
-        setThumbnailName(newFile);
+        setThumbnailName(newFile.split('/').pop() || '');
         form.setValue('step1.offerThumbnail', newFile);
       }
     } catch (e) {

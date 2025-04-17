@@ -16,9 +16,24 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     console.log('error', error);
-
     return Promise.reject(error);
   },
 );
 
+axiosInstance.interceptors.response.use(
+  (response) => {
+    // If the response is successful (status code 2xx), return the response data
+    return response;
+  },
+  (error) => {
+    // Handle errors globally
+    if (error.response) {
+      const errorResponse = error.response.data;
+      if (errorResponse.error_code && errorResponse.error_code.message) {
+        throw new Error(errorResponse.error_code.message);
+      }
+    }
+    throw error;
+  },
+);
 export default axiosInstance;

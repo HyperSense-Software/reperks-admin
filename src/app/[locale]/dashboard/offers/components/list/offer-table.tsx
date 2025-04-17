@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Offer, PaginationParams, SortParams } from '@/types/offers';
+import { Offer } from '@/types/offers';
 import { ArrowUpDown, Edit, Trash2 } from 'lucide-react';
 
 import {
@@ -24,6 +24,7 @@ import {
 import Pagination from '@/components/pagination/pagination.view';
 import { deleteOffer } from '@/lib/api/offers';
 import { useTranslations } from 'next-intl';
+import { PaginationParams, SortParams } from '@/types/assets';
 
 interface OfferTableProps {
   offers: Offer[];

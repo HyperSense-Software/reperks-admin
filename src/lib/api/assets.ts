@@ -5,6 +5,7 @@ import {
   ResponseWrapper,
 } from '@/types/assets';
 import axiosInstance from '@/instance/axiosInstance';
+import { toast } from 'sonner';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -63,7 +64,7 @@ export const createAsset = async (
 };
 
 export const updateAsset = async (
-  id: string,
+  id: number,
   asset: Partial<Asset>,
 ): Promise<Asset> => {
   const response = await axiosInstance.put<Asset>(
@@ -73,6 +74,6 @@ export const updateAsset = async (
   return response.data;
 };
 
-export const deleteAsset = async (id: string): Promise<void> => {
+export const deleteAsset = async (id: number): Promise<void> => {
   await axiosInstance.delete(`${API_URL}/v1/landlord/assets/${id}`);
 };

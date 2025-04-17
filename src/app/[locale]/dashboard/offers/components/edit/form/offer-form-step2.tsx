@@ -21,14 +21,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { format } from 'date-fns';
 import { formatDate } from '@/utils/utils';
 import { DateRange } from 'react-day-picker';
-import { OfferFormValues } from './offer-form-schema';
 
 export default function OfferFormStep2({
   form,
   date,
   setRange,
 }: {
-  form: UseFormReturn<OfferFormValues>;
+  form: UseFormReturn<any>;
   date: DateRange | undefined;
   setRange: (range: DateRange | undefined) => void;
 }) {

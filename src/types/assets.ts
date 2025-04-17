@@ -1,5 +1,8 @@
+import { toast } from 'sonner';
+import { Offer } from '@/types/offers';
+
 export interface Asset {
-  id: string;
+  id: number;
   assetId: string;
   address: string;
   unitId: string;
@@ -23,7 +26,7 @@ export interface PaginationParams {
 }
 
 export interface SortParams {
-  field: keyof Asset;
+  field: keyof Asset | keyof Offer;
   direction: 'asc' | 'desc';
 }
 
@@ -36,3 +39,11 @@ export interface ResponseWrapper<T> {
   error_code: { code: number; message: string };
   response: T;
 }
+
+export const toastError = (error: any) => {
+  if (error.message) {
+    toast.error(error.message);
+  } else {
+    toast.error('Something went wrong');
+  }
+};

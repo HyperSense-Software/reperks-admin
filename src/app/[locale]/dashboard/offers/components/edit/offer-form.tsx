@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Offer } from '@/types/offers';
@@ -23,21 +23,24 @@ import {
   OfferFieldsName,
   offerFormSchema,
   OfferFormValues,
-} from './offer-form-schema';
+} from './form/offer-form-schema';
 import { format } from 'date-fns';
-import OfferFormStep1 from '@/app/[locale]/dashboard/offers/components/offer-form-step1';
-import OfferFormStep2 from '@/app/[locale]/dashboard/offers/components/offer-form-step2';
+import OfferFormStep1 from './form/offer-form-step1';
+import OfferFormStep2 from './form/offer-form-step2';
 import { formatDate } from '@/utils/utils';
 import { DateRange } from 'react-day-picker';
+import { Asset, toastError } from '@/types/assets';
+import OfferFormStep3 from './form/offer-form-step3';
+import { getAssets } from '@/lib/api/assets';
 
 interface OfferFormProps {
-  open: boolean;
   offer: Offer | null;
-  onClose: (refetch?: boolean) => void;
+  onClose: (status?: number) => void;
 }
 
-export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
+export default function OfferForm({ offer, onClose }: OfferFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [assets, setAssets] = useState<Asset[]>([]);
   const [stepNo, setStepNo] = useState(0);
   const isEditing = !!offer;
 
@@ -68,8 +71,7 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
     }
   };
 
-  const defaultAssets = offer?.assets?.map((item) => item.id) || [];
-  console.log(defaultAssets);
+  const defaultAssets = offer?.assets?.map((item) => item.assetId) || [];
 
   const form = useForm<OfferFormValues>({
     resolver: zodResolver(offerFormSchema),
@@ -103,28 +105,41 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
       });
       if (!output) return;
     }
-    let currentStep = stepNo + 1;
-    if (type === 'prev') {
-      currentStep = stepNo >= 1 ? stepNo - 1 : stepNo;
-    }
+    const currentStep =
+      type === 'prev' ? (stepNo >= 1 ? stepNo - 1 : stepNo) : stepNo + 1;
     if (currentStep !== stepNo) setStepNo(currentStep);
   };
 
-  const onSubmit = async (values: OfferFormValues) => {
+  const onSubmit = async (values: Partial<OfferFormValues>) => {
     setIsSubmitting(true);
 
     try {
+      if (
+        !values.step1?.offerName ||
+        !values.step1?.offerCategory ||
+        !values.step1?.offerReward ||
+        values.step1?.offerReward === '0'
+      ) {
+        toast.error('Offer is incompleted');
+        return;
+      }
+
+      const offerRewardValue = parseFloat(values.step1.offerReward);
+      if (isNaN(offerRewardValue)) {
+        toast.error('Offer reward must be a number');
+      }
+
       const updatedValues = {
         ...values.step1,
         validFrom: 0,
         validTo: 0,
-        offerReward: parseFloat(values.step1.offerReward),
-        offerRequirements: values.step2.offerRequirements || '',
-        offerDocuments: values.step2.offerDocuments || '',
-        needProof: values.step2.needProof || false,
-        assetsList: values.step3.assetsList,
+        offerReward: offerRewardValue,
+        offerRequirements: values.step2?.offerRequirements || '',
+        offerDocuments: values.step2?.offerDocuments || '',
+        needProof: values.step2?.needProof || false,
+        assetsList: values.step3?.assetsList || [],
       };
-      console.log('updatedValues', updatedValues);
+
       if (date?.from && date?.to) {
         updatedValues.validFrom = Math.floor(date.from.getTime() / 1000);
         updatedValues.validTo = Math.floor(date.to.getTime() / 1000);
@@ -132,13 +147,6 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
         toast.error('Please select the date range');
         return;
       }
-
-      const temp = parseFloat(values.step1.offerReward);
-      console.log(temp);
-      if (isNaN(temp)) {
-        toast.error('Offer reward must be a number');
-      }
-      updatedValues.offerReward = temp;
 
       if (isEditing && offer) {
         await updateOffer(offer.id, updatedValues);
@@ -148,20 +156,37 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
         toast.success('Offer created successfully');
       }
 
-      onClose(true);
+      onClose(-1);
     } catch (error) {
-      console.error('Failed to save offer:', error);
-      toast.error(
-        `Failed to ${isEditing ? 'update' : 'create'} offer. Please try again.`,
-      );
+      toastError(error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const fetchAssets = useCallback(async () => {
+    try {
+      const response = await getAssets({
+        offset: 0,
+        limit: 1000,
+        sort: {
+          field: 'createdAt',
+          direction: 'desc',
+        },
+      });
+      setAssets(response.response);
+    } catch (error) {
+      console.error('Failed to fetch offers:', error);
+    } finally {
+    }
+  }, []);
+  useEffect(() => {
+    fetchAssets();
+  }, [fetchAssets]);
+
   return (
-    <Dialog open={open} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[500px]">
+    <Dialog open={true} onOpenChange={(open) => !open && onClose(0)}>
+      <DialogContent className="top-[60px] translate-y-0 sm:max-w-[500px]">
         <DialogHeader>
           <div>
             <div className="inline-flex h-5 items-center justify-start gap-0.5 self-stretch py-2">
@@ -187,9 +212,12 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
           </div>
           <DialogTitle>
             {isEditing ? 'Edit Offer' : 'Create new offer'}
+            {stepNo === 2 ? '- Assign assets' : ''}
           </DialogTitle>
           <DialogDescription className="text-foreground-muted justify-start self-stretch text-sm leading-tight font-normal">
-            Please fill in the form in order to create your offer.
+            {stepNo === 2
+              ? 'Double check if the information suits you needs and select your recipients.'
+              : '' + 'Please fill in the form in order to create your offer.'}
           </DialogDescription>
         </DialogHeader>
 
@@ -199,7 +227,7 @@ export default function OfferForm({ open, offer, onClose }: OfferFormProps) {
             {stepNo === 1 && (
               <OfferFormStep2 form={form} date={date} setRange={setRange} />
             )}
-
+            {stepNo === 2 && <OfferFormStep3 assets={assets} form={form} />}
             <DialogFooter>
               <Button
                 type="button"

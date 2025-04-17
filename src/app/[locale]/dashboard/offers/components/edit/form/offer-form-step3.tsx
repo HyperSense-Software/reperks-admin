@@ -47,7 +47,7 @@ export default function OfferFormStep3({
   };
 
   return (
-    <div className={cn('grid grid-cols-1 gap-4')}>
+    <div className={cn('grid grid-cols-1 gap-4 px-6')}>
       <div>
         <div className="inline-flex w-full flex-col items-start justify-start gap-2 self-stretch">
           <div className="flex flex-col items-start justify-start gap-1 self-stretch">

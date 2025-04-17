@@ -75,7 +75,7 @@ export default function OfferFormStep1({ form }: { form: UseFormReturn<any> }) {
   }, []);
 
   return (
-    <div className={cn('grid grid-cols-1 gap-4')}>
+    <div className={cn('grid grid-cols-1 gap-4 px-6')}>
       <FormField
         control={form.control}
         name="step1.offerName"

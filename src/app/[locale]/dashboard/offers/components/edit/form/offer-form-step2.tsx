@@ -32,7 +32,7 @@ export default function OfferFormStep2({
   setRange: (range: DateRange | undefined) => void;
 }) {
   return (
-    <div className={cn('grid grid-cols-1 gap-4')}>
+    <div className={cn('grid grid-cols-1 gap-4 px-6')}>
       <div className={'grid gap-4'}>
         <FormField
           control={form.control}

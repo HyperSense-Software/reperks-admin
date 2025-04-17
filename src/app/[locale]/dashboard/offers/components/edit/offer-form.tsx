@@ -188,8 +188,8 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
 
   return (
     <Dialog open={true} onOpenChange={(open) => !open && onClose(0)}>
-      <DialogContent className="top-[60px] translate-y-0 sm:max-w-[500px]">
-        <DialogHeader>
+      <DialogContent className="top-[60px] translate-y-0 px-0 pb-0 sm:max-w-[500px]">
+        <DialogHeader className={'px-6'}>
           <div>
             <div className="inline-flex h-5 items-center justify-start gap-0.5 self-stretch py-2">
               <button
@@ -230,7 +230,7 @@ export default function OfferForm({ offer, onClose }: OfferFormProps) {
               <OfferFormStep2 form={form} date={date} setRange={setRange} />
             )}
             {stepNo === 2 && <OfferFormStep3 assets={assets} form={form} />}
-            <DialogFooter>
+            <DialogFooter className={'border-t border-slate-200 px-6 py-4'}>
               <Button
                 type="button"
                 variant="outline"
